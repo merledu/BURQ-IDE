@@ -23,6 +23,8 @@ First some prerequesties
 19. sudo apt-get -y install gcc-multilib libc6-i386       #This may or maynot work as the mirror seems missing
 20. sudo apt install Zlib             #This may or maynot work as the mirror seems missing
 21. sudo apt-get install tree
+22. sudo apt-get install sip
+23. sudo apt-get install QScintilla
 
 ## Cloning the GCC COMPILER
 
