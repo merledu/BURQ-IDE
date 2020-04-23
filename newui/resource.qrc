@@ -1,0 +1,23 @@
+<RCC>
+  <qresource prefix="Icons">
+    <file>C-icon.png</file>
+    <file>icons8-upload-100.png</file>
+    <file>icons8-undo-100.png</file>
+    <file>icons8-software-installer-100.png</file>
+    <file>icons8-search-property-100.png</file>
+    <file>icons8-save-as-100.png</file>
+    <file>icons8-save-100.png</file>
+    <file>icons8-redo-100.png</file>
+    <file>icons8-play-property-100.png</file>
+    <file>icons8-paste-100.png</file>
+    <file>icons8-new-property-100.png</file>
+    <file>icons8-nail-100.png</file>
+    <file>icons8-microchip-100.png</file>
+    <file>icons8-font-size-100.png</file>
+    <file>icons8-edit-100.png</file>
+    <file>icons8-cut-100.png</file>
+    <file>icons8-copy-100.png</file>
+    <file>icons8-bug-100.png</file>
+    <file>icons8-add-property-100.png</file>
+  </qresource>
+</RCC>
