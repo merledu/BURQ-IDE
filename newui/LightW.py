@@ -6,7 +6,7 @@ import sys
 import LineNumber
 import webbrowser
 import hightest
-
+import time
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
@@ -94,6 +94,7 @@ class Ui_MainWindow(object):
         #self.plainTextEdit = hightest.MainWindow12.setupEditor(self.tab)
         self.plainTextEdit=LineNumber.QCodeEditor(self.tab)
         self.highlighter=hightest.Highlighter(self.plainTextEdit.document())
+        #if error_line == "
         self.plainTextEdit.setStyleSheet("background-color: rgb(255, 255, 255,88%);")
         self.plainTextEdit.setObjectName("plainTextEdit")
         self.verticalLayout_7.addWidget(self.plainTextEdit)
@@ -121,6 +122,7 @@ class Ui_MainWindow(object):
         self.tab1.setObjectName("tab1")
         #self.start_process('xterm',['-into', str(int(self.tab1.winId())), "-e", "tmux"])
         self.start_process('urxvt',['-embed', str(int(self.tab1.winId())), "-e", "tmux"])
+	
         self.tab1.setFixedSize(1100, 200)
         self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.tab1)
         self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
@@ -885,6 +887,7 @@ class Ui_MainWindow(object):
         options.extend([command])
         options.extend(["Enter"])
         self.start_process(program, options)
+        
 
     def read_MachineCode(self):
         file = open("/home/monis/learning-journey/machinecode.txt", "r")
@@ -912,6 +915,29 @@ class Ui_MainWindow(object):
         self.plainTextEdit_3.setPlainText("")
         self.run_Command("cd /home/monis/learning-journey")
         self.run_Command("./script2.sh")
+        for i in range(1): #A Short delay because the line number grabbing from meralog was to short and it was grabing the old value so a small delay
+            print('Loading') #And yes range is not the best option here but it is much simple to explain
+            time.sleep(1)
+            print(i)
+        ##Error Check by GCC Line Number
+        import re
+        file = open("/home/monis/learning-journey/meralog.txt", "r")
+        assembly = file.read()
+        file.close()
+        x = re.findall("    [0-9] |   [1-9999][0-9999] ",assembly)
+        d=[]
+        for i in x:
+         if x!=[]:
+            if i!="|":
+                d.append(i)
+            print(d[-1])
+
+        error_line=int(d[-1])-1
+        if d==[]:
+            print("No errors")
+        else:
+            self.plainTextEdit.highlightErrorLine(error_line)
+
 
     def run_Burq(self):
         self.read_AssemblyCode()

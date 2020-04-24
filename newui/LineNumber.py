@@ -44,6 +44,16 @@ class QCodeEditor(QPlainTextEdit):
         space = 3 + self.fontMetrics().width('9') * digits
         return space
 
+    def lineNumberAreaWidth12(self,val):
+        digits = val
+        max_value = self.blockCount()
+        print(max_value,"=Block Counts !!!") #This is for checking the lines of the entire code uncomment to see
+        while max_value >= 10:
+            max_value /= 10
+            digits += val
+        space = 3 + self.fontMetrics().width('9') * digits
+        return space
+
     def updateLineNumberAreaWidth(self, _):
         self.setViewportMargins(self.lineNumberAreaWidth(), 0, 0, 0)
 
@@ -54,6 +64,7 @@ class QCodeEditor(QPlainTextEdit):
             self.lineNumberArea.update(0, rect.y(), self.lineNumberArea.width(), rect.height())
         if rect.contains(self.viewport().rect()):
             self.updateLineNumberAreaWidth(0)
+
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
@@ -70,6 +81,22 @@ class QCodeEditor(QPlainTextEdit):
             selection.format.setBackground(lineColor)
             selection.format.setProperty(QTextFormat.FullWidthSelection, True)
             selection.cursor = self.textCursor()
+            selection.cursor.clearSelection()
+            extraSelections.append(selection)
+        self.setExtraSelections(extraSelections)
+
+    def highlightErrorLine(self,error_value):
+        extraSelections = []
+        if not self.isReadOnly():
+            selection = QTextEdit.ExtraSelection()
+            lineColor = QColor(Qt.red).lighter(160)
+            selection.format.setBackground(lineColor)
+            selection.format.setProperty(QTextFormat.FullWidthSelection, True)
+            selection.cursor =self.textCursor()
+            d=selection.cursor.document().findBlockByLineNumber(error_value)
+            print("Error Length=",d)
+            #c=int(d)
+            selection.cursor.setPosition(d.position())
             selection.cursor.clearSelection()
             extraSelections.append(selection)
         self.setExtraSelections(extraSelections)
