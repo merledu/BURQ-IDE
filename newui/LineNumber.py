@@ -104,7 +104,7 @@ class QCodeEditor(QPlainTextEdit):
     def lineNumberAreaPaintEvent(self, event):
         painter = QPainter(self.lineNumberArea)
 
-        painter.fillRect(event.rect(), Qt.lightGray)
+        painter.fillRect(event.rect(), Qt.transparent)
 
         block = self.firstVisibleBlock()
         blockNumber = block.blockNumber()
@@ -116,7 +116,7 @@ class QCodeEditor(QPlainTextEdit):
         while block.isValid() and (top <= event.rect().bottom()):
             if block.isVisible() and (bottom >= event.rect().top()):
                 number = str(blockNumber + 1)
-                painter.setPen(Qt.black)
+                painter.setPen(Qt.lightGray)
                 painter.drawText(0, top, self.lineNumberArea.width(), height, Qt.AlignRight, number)
 
             block = block.next()
