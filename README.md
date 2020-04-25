@@ -24,7 +24,8 @@ First some prerequesties
 20. sudo apt install Zlib             #This may or maynot work as the mirror seems missing
 21. sudo apt-get install tree
 22. sudo apt-get install sip
-23. sudo apt-get install QScintilla
+23. sudo apt install rxvt-unicode
+24. sudo apt-get install tmux          #Optional as the rxvt terminal handles the process
 
 ## Cloning the GCC COMPILER
 
@@ -44,9 +45,9 @@ Now lets start for the burq_ide cloneing process
 
 # Burq_IDE Cloning 
     
-~~~1. To Start First Clone the library to your home directory
-   2. Then Take the learning-journey folder inside the directory and paste it in the home directory 
-   3. Then open the learning journey folder and do the following steps.
-   4. change the path names in script 1,2,3 from farooq to your username.
-   5. change the path name in the instructionmemory file in src/main/scala/datapath.
+~~~
+   1. To Start First Clone the library to your home directory
+   2. Then open the learning journey folder and do the following steps.
+   3. change the path names in script 1,2,3 from farooq to your username.
+   4. change the path name in the instructionmemory file in src/main/scala/datapath.
    
