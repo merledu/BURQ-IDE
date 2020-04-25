@@ -91,10 +91,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_7.setSpacing(0)
         self.verticalLayout_7.setObjectName("verticalLayout_7")
-        #self.plainTextEdit = hightest.MainWindow12.setupEditor(self.tab)
         self.plainTextEdit=LineNumber.QCodeEditor(self.tab)
         self.highlighter=hightest.Highlighter(self.plainTextEdit.document())
-        #if error_line == "
         self.plainTextEdit.setStyleSheet("background-color: rgb(255, 255, 255,88%);")
         self.plainTextEdit.setObjectName("plainTextEdit")
         self.verticalLayout_7.addWidget(self.plainTextEdit)
@@ -915,28 +913,20 @@ class Ui_MainWindow(object):
         self.plainTextEdit_3.setPlainText("")
         self.run_Command("cd /home/monis/learning-journey")
         self.run_Command("./script2.sh")
-        for i in range(1): #A Short delay because the line number grabbing from meralog was to short and it was grabing the old value so a small delay
-            print('Loading') #And yes range is not the best option here but it is much simple to explain
-            time.sleep(1)
-            print(i)
+        time.sleep(0.5) #A Small delay to overcome the loss of information from getting line numbers in meralog.txt files
+            
         ##Error Check by GCC Line Number
         import re
         file = open("/home/monis/learning-journey/meralog.txt", "r")
         assembly = file.read()
         file.close()
         x = re.findall("    [0-9] |   [1-9999][0-9999] ",assembly)
-        d=[]
-        for i in x:
-         if x!=[]:
-            if i!="|":
-                d.append(i)
-            print(d[-1])
-
-        error_line=int(d[-1])-1
-        if d==[]:
+        
+        if x==[]:
             print("No errors")
         else:
-            self.plainTextEdit.highlightErrorLine(error_line)
+            error_line=int(x[-1])
+            self.plainTextEdit.highlightErrorLine(error_line-1)
 
 
     def run_Burq(self):
