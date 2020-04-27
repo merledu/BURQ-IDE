@@ -344,11 +344,13 @@ class Ui_MainWindow(object):
         self.actionNew.setIcon(icon1)
         self.actionNew.setShortcutVisibleInContextMenu(True)
         self.actionNew.setObjectName("actionNew")
+        self.actionNew.triggered.connect(self.untitled)
         self.actionOpen = QtWidgets.QAction(MainWindow)
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(":/Icons/icons8-upload-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionOpen.setIcon(icon2)
         self.actionOpen.setObjectName("actionOpen")
+        self.actionOpen.triggered.connect(self.open_dialog_box)
         self.actionRename = QtWidgets.QAction(MainWindow)
         self.actionRename.setObjectName("actionRename")
         self.actionsave = QtWidgets.QAction(MainWindow)
@@ -398,6 +400,7 @@ class Ui_MainWindow(object):
         self.actionDark.setObjectName("actionDark")
         self.actionMERL = QtWidgets.QAction(MainWindow)
         self.actionMERL.setObjectName("actionMERL")
+        self.actionMERL.triggered.connect(self.open_site)
         self.actionhelp = QtWidgets.QAction(MainWindow)
         self.actionhelp.setObjectName("actionhelp")
         self.actionFont = QtWidgets.QAction(MainWindow)
@@ -410,6 +413,8 @@ class Ui_MainWindow(object):
         icon11.addPixmap(QtGui.QPixmap(":/Icons/icons8-play-property-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionRun.setIcon(icon11)
         self.actionRun.setObjectName("actionRun")
+        self.actionRun.triggered.connect(self.run_Burq)
+        self.actionRun.setEnabled(False)
         self.actionEdit_Configurations = QtWidgets.QAction(MainWindow)
         icon12 = QtGui.QIcon()
         icon12.addPixmap(QtGui.QPixmap(":/Icons/icons8-edit-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -441,6 +446,7 @@ class Ui_MainWindow(object):
         icon16.addPixmap(QtGui.QPixmap(":/Icons/icons8-new-property-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionCompile.setIcon(icon16)
         self.actionCompile.setObjectName("actionCompile")
+        self.actionCompile.triggered.connect(self.compile_Code)
         self.actionB_I = QtWidgets.QAction(MainWindow)
         self.actionB_I.setObjectName("actionB_I")
         self.actionB_I_C = QtWidgets.QAction(MainWindow)
@@ -671,51 +677,54 @@ class Ui_MainWindow(object):
         
 
     def read_MachineCode(self):
-        file = open("/home/monis/learning-journey/machinecode.txt", "r")
+        file = open("/home/waleeds1/learning-journey/machinecode.txt", "r")
         machineCode = file.read()
         file.close()
         self.plainTextEdit_3.setPlainText(machineCode)
         #self.plainTextEdit_3.insertPlainText(machineCode)
 
     def read_AssemblyCode(self):
-        file = open("/home/monis/learning-journey/machine.txt", "r")
+        file = open("/home/waleeds1/learning-journey/machine.txt", "r")
         assembly = file.read()
         file.close()
         self.plainTextEdit_2.setPlainText(assembly)
         #self.plainTextEdit_2.insertPlainText(assembly)
 
     def save_Code(self):
-        file = open("/home/monis/learning-journey/test.c", "w")
+        file = open("/home/waleeds1/learning-journey/test.c", "w")
         code = self.plainTextEdit.toPlainText()
         file.write(code)
         file.close()
 
     def compile_Code(self):
+        self.actionRun.setEnabled(False)
         self.save_Code()
         self.plainTextEdit_2.setPlainText("")
         self.plainTextEdit_3.setPlainText("")
-        self.run_Command("cd /home/monis/learning-journey")
+        self.run_Command("cd /home/waleeds1/learning-journey")
         self.run_Command("./script2.sh")
         time.sleep(0.5) #A Small delay to overcome the loss of information from getting line numbers in meralog.txt files
             
         ##Error Check by GCC Line Number
         import re
-        file = open("/home/monis/learning-journey/meralog.txt", "r")
+        file = open("/home/waleeds1/learning-journey/meralog.txt", "r")
         assembly = file.read()
         file.close()
         x = re.findall("    [0-9] |   [1-9999][0-9999] ",assembly)
         
         if x==[]:
             print("No errors")
+            self.actionRun.setEnabled(True)
         else:
             error_line=int(x[-1])
             self.plainTextEdit.highlightErrorLine(error_line-1)
+            self.actionRun.setEnabled(False)
 
 
     def run_Burq(self):
         self.read_AssemblyCode()
         self.read_MachineCode()
-        self.run_Command("cd /home/monis/learning-journey")
+        self.run_Command("cd /home/waleeds1/learning-journey")
         self.run_Command("./script3.sh")
 
     def open_site(self):
