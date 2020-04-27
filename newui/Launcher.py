@@ -30,7 +30,7 @@ class Ui_MainWindow(object):
         self.frame.setStyleSheet("background-color: rgb(None);\n"
 "selection-color: rgb(0, 0, 0);\n"
 "border-color: rgb(None);\n"
-"background-image: url(:/Logo/rsz_logo2.png);")
+"background-image: url(:/Logo/rsz_pb5.png);")
         self.frame.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setLineWidth(0)
@@ -74,10 +74,9 @@ class Ui_MainWindow(object):
         print('going to sleep')
         a=0
         for i in range(n):
-            print('sleeping...')
             self.progressBar.setProperty("value", a)
-            time.sleep(1)
-            a+=33
+            time.sleep(0.07)
+            a+=1
         print('done sleeping!')
         MainWindow.close()
         call(["python3", "LightW.py"])
@@ -89,5 +88,5 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-    ui.execute_function_threaded(func=lambda: ui.auto_close(4,MainWindow))
+    ui.execute_function_threaded(func=lambda: ui.auto_close(100,MainWindow))
     sys.exit(app.exec_())
