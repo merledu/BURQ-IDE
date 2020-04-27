@@ -8,6 +8,7 @@ import hightest
 import time
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
+import os
 
 
 class Ui_MainWindow(object):
@@ -677,6 +678,7 @@ class Ui_MainWindow(object):
         child = QtCore.QProcess()
         self._process.append(child)
         child.start(prog, options)
+        os.system("pkill -f tmux")
 
     def run_Command(self, command = "ls"):
         program = "tmux"
@@ -688,21 +690,21 @@ class Ui_MainWindow(object):
         
 
     def read_MachineCode(self):
-        file = open("/home/waleeds1/learning-journey/machinecode.txt", "r")
+        file = open("/home/monis/learning-journey/machinecode.txt", "r")
         machineCode = file.read()
         file.close()
         self.plainTextEdit_3.setPlainText(machineCode)
         #self.plainTextEdit_3.insertPlainText(machineCode)
 
     def read_AssemblyCode(self):
-        file = open("/home/waleeds1/learning-journey/machine.txt", "r")
+        file = open("/home/monis/learning-journey/machine.txt", "r")
         assembly = file.read()
         file.close()
         self.plainTextEdit_2.setPlainText(assembly)
         #self.plainTextEdit_2.insertPlainText(assembly)
 
     def save_Code(self):
-        file = open("/home/waleeds1/learning-journey/test.c", "w")
+        file = open("/home/monis/learning-journey/test.c", "w")
         code = self.plainTextEdit.toPlainText()
         file.write(code)
         file.close()
@@ -712,13 +714,13 @@ class Ui_MainWindow(object):
         self.save_Code()
         self.plainTextEdit_2.setPlainText("")
         self.plainTextEdit_3.setPlainText("")
-        self.run_Command("cd /home/waleeds1/learning-journey")
+        self.run_Command("cd /home/monis/learning-journey")
         self.run_Command("./script2.sh")
         time.sleep(0.5) #A Small delay to overcome the loss of information from getting line numbers in meralog.txt files
             
         ##Error Check by GCC Line Number
         import re
-        file = open("/home/waleeds1/learning-journey/meralog.txt", "r")
+        file = open("/home/monis/learning-journey/meralog.txt", "r")
         assembly = file.read()
         file.close()
         x = re.findall("    [0-9] |   [1-9999][0-9999] ",assembly)
@@ -735,12 +737,14 @@ class Ui_MainWindow(object):
     def run_Burq(self):
         self.read_AssemblyCode()
         self.read_MachineCode()
-        self.run_Command("cd /home/waleeds1/learning-journey")
+        self.run_Command("cd /home/monis/learning-journey")
         self.run_Command("./script3.sh")
 
     def open_site(self):
         webbrowser.open('https://www.merledupk.org/')
 
+    
+    
     
 
 import resource_rc
@@ -753,5 +757,6 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-    
     sys.exit(app.exec_())
+    
+    

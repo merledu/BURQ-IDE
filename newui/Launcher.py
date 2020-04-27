@@ -81,6 +81,7 @@ class Ui_MainWindow(object):
         MainWindow.close()
         call(["python3", "LightW.py"])
 
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
