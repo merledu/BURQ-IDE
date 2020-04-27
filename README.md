@@ -50,4 +50,5 @@ Now lets start for the burq_ide cloneing process
    2. Then open the learning journey folder and do the following steps.
    3. change the path names in script 1,2,3 from farooq to your username.
    4. change the path name in the instructionmemory file in src/main/scala/datapath.
+   5. change the path names in LightW.py file as well
    
