@@ -605,7 +605,7 @@ class Ui_MainWindow(object):
         self.tabWidget_2.tabCloseRequested.connect(self.removeTab)
         self.plainTextEdit = LineNumber.QCodeEditor(a)
         self.highlighter=hightest.Highlighter(self.plainTextEdit.document())
-        self.plainTextEdit.setGeometry(QtCore.QRect(0, 0, 841, 491))
+        #self.plainTextEdit.setGeometry(QtCore.QRect(0, 0, 841, 491))
         self.plainTextEdit.setStyleSheet("background-color: rgb(255, 255, 255,88%);\n"
 "")
         self.plainTextEdit.setObjectName("plainTextEdit")
@@ -635,7 +635,7 @@ class Ui_MainWindow(object):
         self.tabWidget_2.tabCloseRequested.connect(self.removeTab)
         self.plainTextEdit = LineNumber.QCodeEditor(a)
         self.highlighter=hightest.Highlighter(self.plainTextEdit.document())
-        self.plainTextEdit.setGeometry(QtCore.QRect(0, 0, 841, 491))
+        #self.plainTextEdit.setGeometry(QtCore.QRect(0, 0, 841, 491))
         self.plainTextEdit.setStyleSheet("background-color: rgb(255, 255, 255,88%);\n"
 "")
         self.plainTextEdit.setObjectName("plainTextEdit")
