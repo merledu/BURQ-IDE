@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QFileSystemModel, QTreeView, QWidget, QVBoxLayout
 from PyQt5.QtGui import QIcon
+from PyQt5.QtQuick import QQuickView
 import sys
 import LineNumber
 import webbrowser
@@ -9,6 +10,7 @@ import time
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 import os
+from QTermWidget import QTermWidget
 
 
 class Ui_MainWindow(object):
@@ -100,10 +102,11 @@ class Ui_MainWindow(object):
         self.tabWidget_2.addTab(self.tab, "")
         self.horizontalLayout.addWidget(self.tabWidget_2)
         self.frame_3 = QtWidgets.QFrame(self.splitter)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(2)
         sizePolicy.setHeightForWidth(self.frame_3.sizePolicy().hasHeightForWidth())
+
         self.frame_3.setSizePolicy(sizePolicy)
         self.frame_3.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.frame_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -114,29 +117,37 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.tabWidget = QtWidgets.QTabWidget(self.frame_3)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.tabWidget.sizePolicy().hasHeightForWidth())
+        self.tabWidget.setSizePolicy(sizePolicy)
         self.tabWidget.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.tabWidget.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.tabWidget.setObjectName("tabWidget")
-        self.tab1 = QtWidgets.QWidget()
-        self.tab1.setObjectName("tab1")
-        #self.start_process('xterm',['-into', str(int(self.tab1.winId())), "-e", "tmux"])
-        self.start_process('urxvt',['-embed', str(int(self.tab1.winId())), "-e", "tmux"])
-	
-        self.tab1.setFixedSize(1100, 200)
-        self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.tab1)
-        self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_5.setSpacing(0)
-        self.verticalLayout_5.setObjectName("verticalLayout_5")
-
         
-        #self.plainTextEdit99 = QtWidgets.QPlainTextEdit(self.tab1)
-        #self.plainTextEdit99.setStyleSheet("background-color: rgb(255, 255, 255,88%);")
-        #self.plainTextEdit99.setObjectName("plainTextEdit99")
-        #self.start_process('xterm',['-into', str(int(self.plainTextEdit99.winId())), "-e", "tmux"])
-        #self.start_process('urxvt',['-embed', str(int(self.plainTextEdit99.winId())), "-e", "tmux"])
-        #self.verticalLayout_5.addWidget(self.plainTextEdit99)
+        self.tab1 = QTermWidget()
+        self.tab1.setScrollBarPosition(self.tab1.ScrollBarRight)
+        #self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.tab1)
+        #self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
+        #self.verticalLayout_7.setSpacing(0)
+        #self.verticalLayout_7.setObjectName("verticalLayout_7")
+        
+        #self.plainTextEdit=QtWidgets.QPlainTextEdit()
+        
+        #self.plainTextEdit.setStyleSheet("background-color: rgb(255, 255, 255,88%);")
+        #self.plainTextEdit.setObjectName("plainTextEdit")
+        #self.verticalLayout_7.addWidget(self.tab1)
+        
+       
+        
 
-        self.tabWidget.addTab(self.tab1, "")
+       
+        
+        #self.tab1.setFixedSize(740, 180)
+        self.tab1.setColorScheme("BlackOnWhite")
+        self.tabWidget.addTab(self.tab1, "Terminal")
+        
         self.tab_3 = QtWidgets.QWidget()
         self.tab_3.setObjectName("tab_3")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.tab_3)
@@ -521,7 +532,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "BURQ IDE"))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab), _translate("MainWindow", "Untitled"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab1), _translate("MainWindow", "Terminal"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Output"))
@@ -674,19 +685,19 @@ class Ui_MainWindow(object):
         self.plainTextEdit.setPlainText(c_read)
 
 
-    def start_process(self, prog, options):
-        child = QtCore.QProcess()
-        self._process.append(child)
-        child.start(prog, options)
-        os.system("pkill -f tmux")
+    #def start_process(self, prog, options):  This is replaced by Qtermwidget
+        #process = QTermWidget()
 
     def run_Command(self, command = "ls"):
         program = "tmux"
         options = []
-        options.extend(["send-keys"])
+        #options.extend(["send-keys"])
         options.extend([command])
-        options.extend(["Enter"])
-        self.start_process(program, options)
+        options.extend(["\r"])
+        print(options)
+        for data in range(len(options)):
+            self.tab1.sendText(options[data])
+        self.error_check()
         
 
     def read_MachineCode(self):
@@ -716,23 +727,27 @@ class Ui_MainWindow(object):
         self.plainTextEdit_3.setPlainText("")
         self.run_Command("cd /home/monis/learning-journey")
         self.run_Command("./script2.sh")
-        time.sleep(0.5) #A Small delay to overcome the loss of information from getting line numbers in meralog.txt files
-            
-        ##Error Check by GCC Line Number
+        
+
+       
+    def error_check(self):   ##Error Check by GCC Line Number
         import re
         file = open("/home/monis/learning-journey/meralog.txt", "r")
-        assembly = file.read()
-        file.close()
-        x = re.findall("    [0-9] |   [1-9999][0-9999] ",assembly)
         
+        assembly = file.read()
+        
+        x = re.findall("    [0-9] |   [1-9999][0-9999] ",assembly)
+        file.close()
         if x==[]:
             print("No errors")
             self.actionRun.setEnabled(True)
+            
         else:
             error_line=int(x[-1])
             self.plainTextEdit.highlightErrorLine(error_line-1)
             self.actionRun.setEnabled(False)
-
+            print(error_line)
+            
 
     def run_Burq(self):
         self.read_AssemblyCode()
@@ -757,6 +772,7 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-    sys.exit(app.exec_())
+    app.exec_()
+    sys.exit()
     
     

@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import time
-
+from QTermWidget import QTermWidget
 import Linus
 from threading import Thread
 from PyQt5.QtWidgets import QMainWindow, QLabel
