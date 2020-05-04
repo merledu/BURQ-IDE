@@ -11,7 +11,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 import os
 from QTermWidget import QTermWidget
-
+import threading
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -697,7 +697,8 @@ class Ui_MainWindow(object):
         print(options)
         for data in range(len(options)):
             self.tab1.sendText(options[data])
-        self.error_check()
+        
+        
         
 
     def read_MachineCode(self):
@@ -727,27 +728,26 @@ class Ui_MainWindow(object):
         self.plainTextEdit_3.setPlainText("")
         self.run_Command("cd /home/monis/learning-journey")
         self.run_Command("./script2.sh")
-        
-
+        thread=threading.Thread(target=self.error_check)
+        thread.start()
        
     def error_check(self):   ##Error Check by GCC Line Number
         import re
+        time.sleep(0.5)
         file = open("/home/monis/learning-journey/meralog.txt", "r")
-        
         assembly = file.read()
-        
         x = re.findall("    [0-9] |   [1-9999][0-9999] ",assembly)
-        file.close()
+        
         if x==[]:
             print("No errors")
             self.actionRun.setEnabled(True)
-            
+            file.close()
         else:
             error_line=int(x[-1])
             self.plainTextEdit.highlightErrorLine(error_line-1)
             self.actionRun.setEnabled(False)
             print(error_line)
-            
+            file.close()
 
     def run_Burq(self):
         self.read_AssemblyCode()
