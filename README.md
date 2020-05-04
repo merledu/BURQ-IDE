@@ -1,5 +1,93 @@
 # BURQ-IDE
 This Repository Contains Source Code for the Burq-ide project 
+# UPDATE TO THE TERMINAL Widget
+The rxvt-unicode terminal has been removed from the project because of its rescaling issue and is replaced by QTermWidget
+But in order to use it some libraries and pre-compilation is required.
+1. sudo -H pip3 install -U pyqt5 pyqtwebengine
+2. sudo apt install python3-sip-dev python3-pyqt5
+3. Then Run this,
+~~~
+mkdir -p /tmp/EAF && cd /tmp/EAF
+git clone https://github.com/lxqt/qtermwidget  
+cd qtermwidget  
+mkdir build && cd build  
+cmake .. -DQTERMWIDGET_BUILD_PYTHON_BINDING=ON -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr
+~~~
+4. But if for some reason it gives you this error
+~~~
+ 87%] Built target qtermwidget5
+Byte-compiling /tmp/EAF/qtermwidget/build/pyqt//__init__.py to /tmp/EAF/qtermwidget/build/pyqt//__pycache__/__init__.cpython-36.pyc
+[ 87%] Built target __tmp_EAF_qtermwidget_build_pyqt____pycache_____init__.cpython-36.pyc
+[ 89%] Generating sip/sipQTermWidgetpart0.cpp, sip/sipQTermWidgetpart1.cpp, sip/sipQTermWidgetpart2.cpp, sip/sipQTermWidgetpart3.cpp, sip/sipQTermWidgetpart4.cpp, sip/sipQTermWidgetpart5.cpp, sip/sipQTermWidgetpart6.cpp, sip/sipQTermWidgetpart7.cpp
+
+sip: Unable to find file "QtGui/QtGuimod.sip"
+pyqt/CMakeFiles/python_module_QTermWidget.dir/build.make:62: recipe for target 'pyqt/sip/sipQTermWidgetpart0.cpp' failed
+make[2]: *** [pyqt/sip/sipQTermWidgetpart0.cpp] Error 1
+make[2]: *** Deleting file 'pyqt/sip/sipQTermWidgetpart0.cpp'
+CMakeFiles/Makefile2:179: recipe for target 'pyqt/CMakeFiles/python_module_QTermWidget.dir/all' failed
+make[1]: *** [pyqt/CMakeFiles/python_module_QTermWidget.dir/all] Error 2
+Makefile:129: recipe for target 'all' failed
+make: *** [all] Error 2
+~~~
+5. Then you would need to compile it in root
+# Root compilation
+1. start by typing sudo -i in the terminal
+2. Then execute these commands (This may take 30 to 90 minutes depending on your machine and internet connection)
+~~~
+sudo apt-get update && apt-get install \
+    -y --no-install-recommends \
+    build-essential \
+    git \
+    ca-certificates \
+    wget \
+    cmake \
+    pkg-config \
+    python3-dev \
+    libglib2.0-dev \
+    qt5-default \
+    qttools5-dev
+
+mkdir -p /tmp/EAF
+
+cd /tmp/EAF && \
+    git clone https://github.com/lxqt/lxqt-build-tools.git \
+    && cd lxqt-build-tools \
+    && mkdir build && cd build \
+    && cmake .. \
+    && make && sudo make install
+
+cd /tmp/EAF && \
+    wget https://www.riverbankcomputing.com/static/Downloads/sip/4.19.19/sip-4.19.19.tar.gz && \
+    tar xvzf sip-4.19.19.tar.gz && \
+    cd sip-4.19.19 && \
+    python3 configure.py --sip-module PyQt5.sip && \
+    make && \
+    sudo make install
+
+cd /tmp/EAF && \
+    wget https://www.riverbankcomputing.com/static/Downloads/PyQt5/5.13.2/PyQt5-5.13.2.tar.gz && \
+    tar xvzf PyQt5-5.13.2.tar.gz && \
+    cd PyQt5-5.13.2 && \
+    python3 configure.py --confirm-license && \
+    make && \
+    sudo make install
+
+cd /tmp/EAF && \
+    git clone https://github.com/lxqt/qtermwidget \
+    && cd qtermwidget \
+    && mkdir build && cd build \
+    && cmake .. -DQTERMWIDGET_BUILD_PYTHON_BINDING=ON -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/lib \
+    && make && sudo make install
+    
+~~~
+3. Then after that exit root by typing exit or ctrl-z then type these commands,
+~~~
+cd /tmp/EAF && cd qtermwidget      
+&& cd build     
+&& cmake .. -DQTERMWIDGET_BUILD_PYTHON_BINDING=ON -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/lib     
+&& make && sudo make install
+~~~
+4. Then you are good to go 
 
 First some prerequesties
 1. sudo apt-get install gtkwave
