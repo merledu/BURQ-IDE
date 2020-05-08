@@ -15,6 +15,7 @@ import threading
 import LightW
 import about_dark
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         self._process = []

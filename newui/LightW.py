@@ -13,7 +13,7 @@ import os
 from QTermWidget import QTermWidget
 import threading
 import DarkW
-import Extraction
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -130,23 +130,7 @@ class Ui_MainWindow(object):
         
         self.tab1 = QTermWidget()
         self.tab1.setScrollBarPosition(self.tab1.ScrollBarRight)
-        #self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.tab1)
-        #self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
-        #self.verticalLayout_7.setSpacing(0)
-        #self.verticalLayout_7.setObjectName("verticalLayout_7")
-        
-        #self.plainTextEdit=QtWidgets.QPlainTextEdit()
-        
-        #self.plainTextEdit.setStyleSheet("background-color: rgb(255, 255, 255,88%);")
-        #self.plainTextEdit.setObjectName("plainTextEdit")
-        #self.verticalLayout_7.addWidget(self.tab1)
-        
        
-        
-
-       
-        
-        #self.tab1.setFixedSize(740, 180)
         self.tab1.setColorScheme("BlackOnWhite")
         self.tabWidget.addTab(self.tab1, "Terminal")
         
@@ -232,15 +216,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1279, 22))
-        self.menubar.setStyleSheet("#menubar {\n"
-"color: rgb(0, 0, 0);\n"
-"background-color: rgb(255, 255, 255);\n"
-"border-bottom: 1px solid black;\n"
-" }\n"
-" #menubar:selected {\n"
-"    background-color: rgb(52, 101, 164);\n"
-"    color: rgb(255, 255, 255);\n"
-" }")
+        self.menubar.setStyleSheet("background-color: #EFF0F1;color: #31363B;")
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setStyleSheet("#menuFile {\n"
@@ -784,6 +760,10 @@ import resource_rc
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
+    file = QFile(":/light.qss")
+    file.open(QFile.ReadOnly | QFile.Text)
+    stream = QTextStream(file)
+    app.setStyleSheet(stream.readAll())
     MainWindow = QtWidgets.QMainWindow()
     
     ui = Ui_MainWindow()
