@@ -12,6 +12,7 @@ from PyQt5.QtCore import *
 import os
 from QTermWidget import QTermWidget
 import threading
+import DarkW
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -409,11 +410,13 @@ class Ui_MainWindow(object):
         self.actionFind.setObjectName("actionFind")
         self.actionDark = QtWidgets.QAction(MainWindow)
         self.actionDark.setObjectName("actionDark")
+        self.actionDark.triggered.connect(self.dark_theme)
         self.actionMERL = QtWidgets.QAction(MainWindow)
         self.actionMERL.setObjectName("actionMERL")
         self.actionMERL.triggered.connect(self.open_site)
         self.actionhelp = QtWidgets.QAction(MainWindow)
         self.actionhelp.setObjectName("actionhelp")
+        self.actionhelp.triggered.connect(self.about)
         self.actionFont = QtWidgets.QAction(MainWindow)
         icon10 = QtGui.QIcon()
         icon10.addPixmap(QtGui.QPixmap(":/Icons/icons8-font-size-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -758,6 +761,14 @@ class Ui_MainWindow(object):
     def open_site(self):
         webbrowser.open('https://www.merledupk.org/')
 
+    def dark_theme(self):
+        MainWindow.close()
+        from subprocess import call
+        call(["python3", "DarkW.py"])
+    def about(self):
+        from subprocess import call
+        call(["python3", "about_screen.py"])
+
     
     
     
@@ -769,6 +780,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
+    
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
