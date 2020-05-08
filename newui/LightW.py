@@ -13,6 +13,7 @@ import os
 from QTermWidget import QTermWidget
 import threading
 import DarkW
+import Extraction
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -588,16 +589,20 @@ class Ui_MainWindow(object):
         self.actionB_I_M.setText(_translate("MainWindow", "B I M"))
 
     def myfun(self):
+        from subprocess import call
         if self.count_myfun % 2 == 0:
-            file = open("c_extension_dump.txt", "r")
+            #os.system('python Extraction.py')
+            call(["python3", "Extraction.py"])
+            file = open("c_converted_machine.txt", "r")
             assembly = file.read()
             file.close()
-            self.plainTextEdit_2.setPlainText(assembly)
+            self.plainTextEdit_3.setPlainText(assembly)
             self.count_myfun += 1
             
         else:
-            self.read_AssemblyCode()
+            self.read_MachineCode()
             self.count_myfun += 1
+            
     def on_clicked(self, index):
         self.num+=1
         self.tabWidget_2.setCurrentIndex(self.num)
