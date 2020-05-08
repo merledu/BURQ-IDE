@@ -110,7 +110,7 @@ class Highlighter(QSyntaxHighlighter):
         self.multiLineCommentFormat.setForeground(Qt.red)
 
         quotationFormat = QTextCharFormat()
-        quotationFormat.setForeground(Qt.darkGreen)
+        quotationFormat.setForeground(Qt.cyan)
         self.highlightingRules.append((QRegExp("\".*\""), quotationFormat))
 
         functionFormat = QTextCharFormat()
