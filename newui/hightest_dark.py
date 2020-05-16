@@ -102,7 +102,7 @@ class Highlighter(QSyntaxHighlighter):
                 classFormat))
 
         singleLineCommentFormat = QTextCharFormat()
-        singleLineCommentFormat.setForeground(Qt.red)
+        singleLineCommentFormat.setForeground(Qt.darkGreen)
         self.highlightingRules.append((QRegExp("//[^\n]*"),
                 singleLineCommentFormat))
 

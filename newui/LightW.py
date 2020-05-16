@@ -19,7 +19,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         self._process = []
         self.num=21
-        
+        self.out12=""
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1279, 724)
         MainWindow.setAcceptDrops(False)
@@ -505,6 +505,7 @@ class Ui_MainWindow(object):
         self.count_myfun = 2
         self.plainTextEdit_2.isReadOnly()
         self.plainTextEdit_3.isReadOnly()
+        self.plainTextEdit23.isReadOnly()
  		
 
 
@@ -710,18 +711,25 @@ class Ui_MainWindow(object):
         self.plainTextEdit_2.setPlainText("")
         self.plainTextEdit_3.setPlainText("")
         self.run_Command("cd /home/monis/learning-journey")
-        self.run_Command("./script2_cont.sh")
         self.run_Command("./script2.sh")
+        
         thread=threading.Thread(target=self.error_check)
         thread.start()
-       
+        
+        
+        
+    def output(self):
+        import re
+        time.sleep(0.5)
+        file=open("/home/monis/learning-journey/output.txt", "r")
+        self.out12=file.read()
+        file.close()
+        self.plainTextEdit23.setPlainText(self.out12)
+        
+        
     def error_check(self):   ##Error Check by GCC Line Number
         import re
         time.sleep(0.5)
-        out=open("/home/monis/learning-journey/output.txt")
-        output=out.read()
-        print(output)
-        self.plainTextEdit23.setPlainText(str(output))
         file = open("/home/monis/learning-journey/meralog.txt", "r")
         assembly = file.read()
         x = re.findall("    [0-9] |   [1-9999][0-9999] ",assembly)
@@ -730,6 +738,9 @@ class Ui_MainWindow(object):
             print("No errors")
             self.actionRun.setEnabled(True)
             file.close()
+            #thread=threading.Thread(target=self.plainTextEdit23.setPlainText(self.out12))
+            
+        
         else:
             error_line=int(x[-1])
             self.plainTextEdit.highlightErrorLine(error_line-1)
@@ -742,6 +753,7 @@ class Ui_MainWindow(object):
         self.read_MachineCode()
         self.run_Command("cd /home/monis/learning-journey")
         self.run_Command("./script3.sh")
+        self.output()
 
     def open_site(self):
         webbrowser.open('https://www.merledupk.org/')
@@ -750,10 +762,11 @@ class Ui_MainWindow(object):
         MainWindow.close()
         from subprocess import call
         call(["python3", "DarkW.py"])
+        
     def about(self):
         from subprocess import call
         call(["python3", "about_screen.py"])
-
+    
     
     
     

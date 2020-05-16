@@ -20,7 +20,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         self._process = []
         self.num=21
-        
+        self.out12=""
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1279, 724)
         MainWindow.setAcceptDrops(False)
@@ -665,18 +665,21 @@ class Ui_MainWindow(object):
         self.plainTextEdit_2.setPlainText("")
         self.plainTextEdit_3.setPlainText("")
         self.run_Command("cd /home/monis/learning-journey")
-        self.run_Command("./script2_cont.sh")
         self.run_Command("./script2.sh")
         thread=threading.Thread(target=self.error_check)
         thread.start()
-       
+
+    def output(self):
+        import re
+        time.sleep(0.5)
+        file=open("/home/monis/learning-journey/output.txt", "r")
+        self.out12=file.read()
+        file.close()
+        self.plainTextEdit23.setPlainText(self.out12)
+        
     def error_check(self):   ##Error Check by GCC Line Number
         import re
         time.sleep(0.5)
-        out=open("/home/monis/learning-journey/output.txt")
-        output=out.read()
-        print(output)
-        self.plainTextEdit23.setPlainText(str(output))
         file = open("/home/monis/learning-journey/meralog.txt", "r")
         assembly = file.read()
         x = re.findall("    [0-9] |   [1-9999][0-9999] ",assembly)
@@ -697,7 +700,8 @@ class Ui_MainWindow(object):
         self.read_MachineCode()
         self.run_Command("cd /home/monis/learning-journey")
         self.run_Command("./script3.sh")
-
+        self.output()
+        
     def open_site(self):
         webbrowser.open('https://www.merledupk.org/')
 

@@ -1,0 +1,6 @@
+test:run-main riscv.Launcher ControlDecode
+test:run-main riscv.Launcher Alu
+test:run-main riscv.Launcher immGen
+test:run-main riscv.Launcher Alu
+test:run-main riscv.Launcher registerFile
+test:run-main riscv.Launcher registerFile --backend-name vertilator
