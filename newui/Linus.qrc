@@ -1,5 +1,5 @@
 <RCC>
   <qresource prefix="Logo">
-    <file>rsz_pb5.png</file>
+    <file>splash_logo.png</file>
   </qresource>
 </RCC>

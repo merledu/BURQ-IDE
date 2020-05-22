@@ -30,7 +30,7 @@ class Ui_MainWindow(object):
         self.frame.setStyleSheet("background-color: rgb(None);\n"
 "selection-color: rgb(0, 0, 0);\n"
 "border-color: rgb(None);\n"
-"background-image: url(:/Logo/rsz_pb5.png);")
+"background-image: url(:/Logo/splash_logo.png);")
         self.frame.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setLineWidth(0)

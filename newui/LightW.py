@@ -429,6 +429,7 @@ class Ui_MainWindow(object):
         icon15.addPixmap(QtGui.QPixmap(":/Icons/icons8-bug-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionDebug.setIcon(icon15)
         self.actionDebug.setObjectName("actionDebug")
+        self.actionDebug.triggered.connect(self.termclose)
         self.actionEdit_Configurations_2 = QtWidgets.QAction(MainWindow)
         self.actionEdit_Configurations_2.setObjectName("actionEdit_Configurations_2")
         self.actionCompile = QtWidgets.QAction(MainWindow)
@@ -715,7 +716,9 @@ class Ui_MainWindow(object):
         
         thread=threading.Thread(target=self.error_check)
         thread.start()
-        
+
+    def termclose(self):
+        self.run_Command("^C")
         
         
     def output(self):
