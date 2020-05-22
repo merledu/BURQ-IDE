@@ -12,6 +12,7 @@ git clone https://github.com/lxqt/qtermwidget
 cd qtermwidget  
 mkdir build && cd build  
 cmake .. -DQTERMWIDGET_BUILD_PYTHON_BINDING=ON -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr
+make && sudo make install
 ~~~
 4. But if for some reason it gives you this error
 ~~~
