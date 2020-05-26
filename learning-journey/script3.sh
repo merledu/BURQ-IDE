@@ -5,14 +5,13 @@ clear
 clear
 echo "Starting Run-Test"
 echo "Code Output Saved to Output Tab"
-sleep 0.5
 cd ~ 
+trap "exit" INT
 cd learning-journey/5-stage-Pipelined-CPU/RV32i
-sbt "test:runMain datapath.Launcher Top" !
-sbt "test:runMain datapath.Launcher Top --backend-name verilator" !   
+sbt "test:runMain datapath.Launcher Top --backend-name verilator" ! -e 
 cd ~
 cd learning-journey/5-stage-Pipelined-CPU/RV32i/test_run_dir/examples/Top   
-gtkwave Top.vcd
+gtkwave Top.vcd -e
 
 echo "Run Test Complete Check GTK-Wave for Wave-Forms"
 exit

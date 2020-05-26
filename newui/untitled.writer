@@ -1,0 +1,13 @@
+#include <stdio.h>
+int main() {   
+    int number=25;
+
+   // reads and stores input
+    printf("Enter an integer 23 : ");  
+ 
+    // displays output
+    printf("You entered: %d", number);
+    
+    return 0;
+}
+

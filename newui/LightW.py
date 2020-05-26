@@ -1,7 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QFileSystemModel, QTreeView, QWidget, QVBoxLayout
 from PyQt5.QtGui import QIcon
-from PyQt5.QtQuick import QQuickView
 import sys
 import LineNumber
 import webbrowser
@@ -13,10 +12,15 @@ import os
 from QTermWidget import QTermWidget
 import threading
 import DarkW
-
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import (
+    QApplication, QWidget, QToolTip, QPushButton, QMessageBox)
+from PyQt5.QtCore import QCoreApplication, Qt
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        self.filename = "untitled"
+        self.changesSaved = True
         self._process = []
         self.num=21
         self.out12=""
@@ -100,6 +104,7 @@ class Ui_MainWindow(object):
         self.highlighter=hightest.Highlighter(self.plainTextEdit.document())
         self.plainTextEdit.setStyleSheet("background-color: rgb(255, 255, 255,88%);")
         self.plainTextEdit.setObjectName("plainTextEdit")
+        self.plainTextEdit.textChanged.connect(self.changed)
         self.verticalLayout_7.addWidget(self.plainTextEdit)
         self.tabWidget_2.addTab(self.tab, "")
         self.horizontalLayout.addWidget(self.tabWidget_2)
@@ -338,6 +343,7 @@ class Ui_MainWindow(object):
         icon2.addPixmap(QtGui.QPixmap(":/Icons/icons8-upload-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionOpen.setIcon(icon2)
         self.actionOpen.setObjectName("actionOpen")
+        self.actionOpen.setShortcut("Ctrl+o")
         self.actionOpen.triggered.connect(self.open_dialog_box)
         self.actionRename = QtWidgets.QAction(MainWindow)
         self.actionRename.setObjectName("actionRename")
@@ -347,6 +353,7 @@ class Ui_MainWindow(object):
         self.actionsave.setIcon(icon3)
         self.actionsave.setShortcutVisibleInContextMenu(True)
         self.actionsave.setObjectName("actionsave")
+        self.actionsave.triggered.connect(self.saveAs)
         self.actionundo = QtWidgets.QAction(MainWindow)
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(":/Icons/icons8-undo-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -384,6 +391,7 @@ class Ui_MainWindow(object):
         self.actionFind.setIcon(icon9)
         self.actionFind.setShortcutVisibleInContextMenu(True)
         self.actionFind.setObjectName("actionFind")
+        self.actionFind.setShortcut("Ctrl+F")
         self.actionDark = QtWidgets.QAction(MainWindow)
         self.actionDark.setObjectName("actionDark")
         self.actionDark.triggered.connect(self.dark_theme)
@@ -415,6 +423,8 @@ class Ui_MainWindow(object):
         icon13.addPixmap(QtGui.QPixmap(":/Icons/icons8-save-as-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionSave_As.setIcon(icon13)
         self.actionSave_As.setObjectName("actionSave_As")
+        self.actionSave_As.triggered.connect(self.saveAs)
+        self.actionSave_As.setShortcut("Ctrl+Shift+s")
         self.actionHigh_Contrast = QtWidgets.QAction(MainWindow)
         self.actionHigh_Contrast.setObjectName("actionHigh_Contrast")
         self.actionChisel_Core = QtWidgets.QAction(MainWindow)
@@ -555,6 +565,7 @@ class Ui_MainWindow(object):
         self.actionRun.setText(_translate("MainWindow", "Run"))
         self.actionEdit_Configurations.setText(_translate("MainWindow", "Edit Configurations"))
         self.actionSave_As.setText(_translate("MainWindow", "Save As"))
+        self.actionSave_As.setShortcut(_translate("MainWindow","Ctrl+Shift+S"))
         self.actionHigh_Contrast.setText(_translate("MainWindow", "High Contrast"))
         self.actionChisel_Core.setText(_translate("MainWindow", "Chisel"))
         self.actionVerilog.setText(_translate("MainWindow", "Verilog"))
@@ -670,13 +681,11 @@ class Ui_MainWindow(object):
         self.plainTextEdit.setPlainText(c_read)
 
 
-    #def start_process(self, prog, options):  This is replaced by Qtermwidget
-        #process = QTermWidget()
+    
 
     def run_Command(self, command = "ls"):
         program = "tmux"
         options = []
-        #options.extend(["send-keys"])
         options.extend([command])
         options.extend(["\r"])
         print(options)
@@ -691,14 +700,14 @@ class Ui_MainWindow(object):
         machineCode = file.read()
         file.close()
         self.plainTextEdit_3.setPlainText(machineCode)
-        #self.plainTextEdit_3.insertPlainText(machineCode)
+        
 
     def read_AssemblyCode(self):
         file = open("/home/monis/learning-journey/machine.txt", "r")
         assembly = file.read()
         file.close()
         self.plainTextEdit_2.setPlainText(assembly)
-        #self.plainTextEdit_2.insertPlainText(assembly)
+        
 
     def save_Code(self):
         file = open("/home/monis/learning-journey/test.c", "w")
@@ -718,7 +727,7 @@ class Ui_MainWindow(object):
         thread.start()
 
     def termclose(self):
-        self.run_Command("^C")
+        self.tab1.sendKeyEvent()
         
         
     def output(self):
@@ -741,7 +750,7 @@ class Ui_MainWindow(object):
             print("No errors")
             self.actionRun.setEnabled(True)
             file.close()
-            #thread=threading.Thread(target=self.plainTextEdit23.setPlainText(self.out12))
+            
             
         
         else:
@@ -769,6 +778,54 @@ class Ui_MainWindow(object):
     def about(self):
         from subprocess import call
         call(["python3", "about_screen.py"])
+
+    def changed(self):
+        self.changesSaved = False
+        
+
+    def closeEvent(self,event): #Not working
+        
+        if self.changesSaved:
+
+            event.accept()
+
+        else:
+        
+            popup = QtWidgets.QMessageBox(self)
+
+            popup.setIcon(QtWidgets.QMessageBox.Warning)
+            
+            popup.setText("The document has been modified")
+            
+            popup.setInformativeText("Do you want to save your changes?")
+            
+            popup.setStandardButtons(QtWidgets.QMessageBox.Save   |
+                                      QtWidgets.QMessageBox.Cancel |
+                                      QtWidgets.QMessageBox.Discard)
+            
+            popup.setDefaultButton(QtWidgets.QMessageBox.Save)
+
+            answer = popup.exec_()
+
+            if answer == QtWidgets.QMessageBox.Save:
+                self.save()
+
+            elif answer == QtWidgets.QMessageBox.Discard:
+                event.accept()
+
+            else:
+                event.ignore()
+    def saveAs(self):  #Please do not use the Ctrl+Shift+S command neither the save_as its still on work
+        if self.filename !="untitled":
+          self.filename = QtWidgets.QFileDialog.getSaveFileName(self, 'Save File')[0]
+
+        if self.filename =="untitled":
+            if not self.filename.endswith(".writer"):
+              self.filename += ".writer"
+            with open(self.filename,"wt") as file:
+                file.write(self.plainTextEdit.toPlainText())
+
+            self.changesSaved = True
     
     
     
@@ -784,12 +841,12 @@ if __name__ == "__main__":
     file.open(QFile.ReadOnly | QFile.Text)
     stream = QTextStream(file)
     app.setStyleSheet(stream.readAll())
+    
     MainWindow = QtWidgets.QMainWindow()
     
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-    app.exec_()
-    sys.exit()
+    sys.exit(app.exec_())
     
     
