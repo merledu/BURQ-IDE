@@ -14,10 +14,14 @@ from QTermWidget import QTermWidget
 import threading
 import LightW
 import about_dark
-
+from PyQt5.QtWidgets import QFileDialog, QDialog
+from PyQt5 import QtCore
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        self.filename = "untitled"
+        self.temptab="NewTest.C"
+        self.changesSaved = True
         self._process = []
         self.num=21
         self.out12=""
@@ -100,6 +104,7 @@ class Ui_MainWindow(object):
         self.highlighter=hightest_dark.Highlighter(self.plainTextEdit.document())
         self.plainTextEdit.setStyleSheet("background-color: #232629;;color: #eff0f1;border-radius: 0.2ex;border: 0.1ex solid #76797c;")
         self.plainTextEdit.setObjectName("plainTextEdit")
+        self.plainTextEdit.textChanged.connect(self.changed)
         self.verticalLayout_7.addWidget(self.plainTextEdit)
         self.tabWidget_2.addTab(self.tab, "")
         self.horizontalLayout.addWidget(self.tabWidget_2)
@@ -130,23 +135,7 @@ class Ui_MainWindow(object):
         
         self.tab1 = QTermWidget()
         self.tab1.setScrollBarPosition(self.tab1.ScrollBarRight)
-        #self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.tab1)
-        #self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
-        #self.verticalLayout_7.setSpacing(0)
-        #self.verticalLayout_7.setObjectName("verticalLayout_7")
         
-        #self.plainTextEdit=QtWidgets.QPlainTextEdit()
-        
-        #self.plainTextEdit.setStyleSheet("background-color: rgb(255, 255, 255,88%);")
-        #self.plainTextEdit.setObjectName("plainTextEdit")
-        #self.verticalLayout_7.addWidget(self.tab1)
-        
-       
-        
-
-       
-        
-        #self.tab1.setFixedSize(740, 180)
         self.tab1.setColorScheme("WhiteOnBlack")
         self.tabWidget.addTab(self.tab1, "Terminal")
         
@@ -305,6 +294,8 @@ class Ui_MainWindow(object):
         self.actionsave.setIcon(icon3)
         self.actionsave.setShortcutVisibleInContextMenu(True)
         self.actionsave.setObjectName("actionsave")
+        self.actionsave.triggered.connect(self.save_temp)
+        self.actionsave.setShortcut("Ctrl+s")
         self.actionundo = QtWidgets.QAction(MainWindow)
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(":/Icons/icons8-undo-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -372,6 +363,8 @@ class Ui_MainWindow(object):
         icon13.addPixmap(QtGui.QPixmap(":/Icons/icons8-save-as-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionSave_As.setIcon(icon13)
         self.actionSave_As.setObjectName("actionSave_As")
+        self.actionsave.triggered.connect(self.saveAs)
+        self.actionsave.setShortcut("Ctrl+Shift+s")
         self.actionHigh_Contrast = QtWidgets.QAction(MainWindow)
         self.actionHigh_Contrast.setObjectName("actionHigh_Contrast")
         self.actionHigh_Contrast.triggered.connect(self.light_theme)
@@ -489,6 +482,7 @@ class Ui_MainWindow(object):
         self.actionNew.setText(_translate("MainWindow", "New"))
         self.actionNew.setShortcut(_translate("MainWindow", "Ctrl+N"))
         self.actionOpen.setText(_translate("MainWindow", "Import"))
+        self.actionOpen.setShortcut(_translate("MainWindow","Ctrl+O"))
         self.actionRename.setText(_translate("MainWindow", "Rename"))
         self.actionsave.setText(_translate("MainWindow", "Save"))
         self.actionsave.setShortcut(_translate("MainWindow", "Ctrl+S"))
@@ -511,6 +505,7 @@ class Ui_MainWindow(object):
         self.actionRun.setText(_translate("MainWindow", "Run"))
         self.actionEdit_Configurations.setText(_translate("MainWindow", "Edit Configurations"))
         self.actionSave_As.setText(_translate("MainWindow", "Save As"))
+        self.actionSave_As.setShortcut(_translate("MainWindow","Crtl+Shift+S"))
         self.actionHigh_Contrast.setText(_translate("MainWindow", "High Contrast"))
         self.actionChisel_Core.setText(_translate("MainWindow", "Chisel"))
         self.actionVerilog.setText(_translate("MainWindow", "Verilog"))
@@ -560,6 +555,7 @@ class Ui_MainWindow(object):
         self.highlighter=hightest_dark.Highlighter(self.plainTextEdit.document())
         self.plainTextEdit.setStyleSheet("background-color: #232629;;color: #eff0f1;border-radius: 0.2ex;border: 0.1ex solid #76797c;")
         self.plainTextEdit.setObjectName("plainTextEdit")
+        self.plainTextEdit.textChanged.connect(self.changed)
         self.verticalLayout_7.addWidget(self.plainTextEdit)
         self.tabWidget_2.addTab(a, path)
         self.plainTextEdit.setPlainText(c_read)
@@ -588,8 +584,10 @@ class Ui_MainWindow(object):
         self.highlighter=hightest_dark.Highlighter(self.plainTextEdit.document())
         self.plainTextEdit.setStyleSheet("background-color: #232629;;color: #eff0f1;border-radius: 0.2ex;border: 0.1ex solid #76797c;")
         self.plainTextEdit.setObjectName("plainTextEdit")
+        self.plainTextEdit.textChanged.connect(self.changed)
         self.verticalLayout_7.addWidget(self.plainTextEdit)
-        self.tabWidget_2.addTab(a, "NewTest.C")
+        self.tabWidget_2.addTab(a, self.temptab)
+        self.filename=self.temptab
         self.plainTextEdit.setPlainText("")
 
     def open_dialog_box(self):
@@ -618,6 +616,7 @@ class Ui_MainWindow(object):
         self.highlighter=hightest_dark.Highlighter(self.plainTextEdit.document())
         self.plainTextEdit.setStyleSheet("background-color: #232629;;color: #eff0f1;border-radius: 0.2ex;border: 0.1ex solid #76797c;")
         self.plainTextEdit.setObjectName("plainTextEdit")
+        self.plainTextEdit.textChanged.connect(self.changed)
         self.verticalLayout_7.addWidget(self.plainTextEdit)
         self.tabWidget_2.addTab(a, path)
         self.plainTextEdit.setPlainText(c_read)
@@ -644,14 +643,14 @@ class Ui_MainWindow(object):
         machineCode = file.read()
         file.close()
         self.plainTextEdit_3.setPlainText(machineCode)
-        #self.plainTextEdit_3.insertPlainText(machineCode)
+        
 
     def read_AssemblyCode(self):
         file = open("/home/monis/learning-journey/machine.txt", "r")
         assembly = file.read()
         file.close()
         self.plainTextEdit_2.setPlainText(assembly)
-        #self.plainTextEdit_2.insertPlainText(assembly)
+        
 
     def save_Code(self):
         file = open("/home/monis/learning-journey/test.c", "w")
@@ -712,6 +711,42 @@ class Ui_MainWindow(object):
     def about_dark(self):
         from subprocess import call
         call(["python3", "about_dark.py"])
+
+    def changed(self):
+        self.changesSaved = False
+        
+
+    
+    def save_temp(self):
+        print(self.changesSaved)
+        print(self.filename)
+        if self.changesSaved ==True:
+            pass
+        elif self.changesSaved ==False:
+            self.saveAs()
+        
+            
+            
+    def saveAs(self):  #use the Ctrl+Shift+S command it will also work with ctrl+s if the file is untitled or newtest.c
+        if self.filename =="untitled" or self.filename =="NewTest.C":
+            self.filename = QtWidgets.QFileDialog.getSaveFileName()[0]
+            self.changesSaved = True
+            f=open(self.filename,'w')
+            f.write(self.plainTextEdit.toPlainText())
+            
+            #The tab text won't change i still have to work on the changes but it will create a file if its untitled or newtest.c
+            #Also be productive don't blame contribute to the work
+             
+        elif self.filename =="":
+            self.filename = QtWidgets.QFileDialog.getSaveFileName()[0]
+            self.changesSaved = True
+            f=open(self.filename,'w')
+            f.write(self.plainTextEdit.toPlainText())
+            
+            
+        elif self.filename !="" and self.filename !="untitled" and self.filename !="NewTest.C":
+            f=open(self.filename,'w')
+            f.write(self.plainTextEdit.toPlainText())
 
     
     

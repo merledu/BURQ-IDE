@@ -12,14 +12,13 @@ import os
 from QTermWidget import QTermWidget
 import threading
 import DarkW
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (
-    QApplication, QWidget, QToolTip, QPushButton, QMessageBox)
-from PyQt5.QtCore import QCoreApplication, Qt
+from PyQt5.QtWidgets import QFileDialog, QDialog
+from PyQt5 import QtCore
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         self.filename = "untitled"
+        self.temptab="NewTest.C"
         self.changesSaved = True
         self._process = []
         self.num=21
@@ -353,7 +352,8 @@ class Ui_MainWindow(object):
         self.actionsave.setIcon(icon3)
         self.actionsave.setShortcutVisibleInContextMenu(True)
         self.actionsave.setObjectName("actionsave")
-        self.actionsave.triggered.connect(self.saveAs)
+        self.actionsave.triggered.connect(self.save_temp)
+        self.actionsave.setShortcut("Ctrl+s")
         self.actionundo = QtWidgets.QAction(MainWindow)
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(":/Icons/icons8-undo-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -543,6 +543,7 @@ class Ui_MainWindow(object):
         self.actionNew.setText(_translate("MainWindow", "New"))
         self.actionNew.setShortcut(_translate("MainWindow", "Ctrl+N"))
         self.actionOpen.setText(_translate("MainWindow", "Import"))
+        self.actionOpen.setShortcut(_translate("MainWindow","Ctrl+O"))
         self.actionRename.setText(_translate("MainWindow", "Rename"))
         self.actionsave.setText(_translate("MainWindow", "Save"))
         self.actionsave.setShortcut(_translate("MainWindow", "Ctrl+S"))
@@ -616,6 +617,7 @@ class Ui_MainWindow(object):
         self.plainTextEdit.setStyleSheet("background-color: rgb(255, 255, 255,88%);\n"
 "")
         self.plainTextEdit.setObjectName("plainTextEdit")
+        self.plainTextEdit.textChanged.connect(self.changed)
         self.verticalLayout_7.addWidget(self.plainTextEdit)
         self.tabWidget_2.addTab(a, path)
         self.plainTextEdit.setPlainText(c_read)
@@ -645,13 +647,17 @@ class Ui_MainWindow(object):
         self.plainTextEdit.setStyleSheet("background-color: rgb(255, 255, 255,88%);\n"
 "")
         self.plainTextEdit.setObjectName("plainTextEdit")
+        self.plainTextEdit.textChanged.connect(self.changed)
         self.verticalLayout_7.addWidget(self.plainTextEdit)
-        self.tabWidget_2.addTab(a, "NewTest.C")
+        
+        self.tabWidget_2.addTab(a,self.temptab)
+        self.filename=self.temptab
         self.plainTextEdit.setPlainText("")
 
     def open_dialog_box(self):
         filename = QFileDialog.getOpenFileName()
         path = filename[0]
+        self.filename=path
         print(path)
         with open(path, "r") as f:
             print(f.readline())
@@ -676,6 +682,7 @@ class Ui_MainWindow(object):
         self.plainTextEdit.setStyleSheet("background-color: rgb(255, 255, 255,88%);\n"
 "")
         self.plainTextEdit.setObjectName("plainTextEdit")
+        self.plainTextEdit.textChanged.connect(self.changed)
         self.verticalLayout_7.addWidget(self.plainTextEdit)
         self.tabWidget_2.addTab(a, path)
         self.plainTextEdit.setPlainText(c_read)
@@ -783,50 +790,37 @@ class Ui_MainWindow(object):
         self.changesSaved = False
         
 
-    def closeEvent(self,event): #Not working
-        
-        if self.changesSaved:
-
-            event.accept()
-
-        else:
-        
-            popup = QtWidgets.QMessageBox(self)
-
-            popup.setIcon(QtWidgets.QMessageBox.Warning)
-            
-            popup.setText("The document has been modified")
-            
-            popup.setInformativeText("Do you want to save your changes?")
-            
-            popup.setStandardButtons(QtWidgets.QMessageBox.Save   |
-                                      QtWidgets.QMessageBox.Cancel |
-                                      QtWidgets.QMessageBox.Discard)
-            
-            popup.setDefaultButton(QtWidgets.QMessageBox.Save)
-
-            answer = popup.exec_()
-
-            if answer == QtWidgets.QMessageBox.Save:
-                self.save()
-
-            elif answer == QtWidgets.QMessageBox.Discard:
-                event.accept()
-
-            else:
-                event.ignore()
-    def saveAs(self):  #Please do not use the Ctrl+Shift+S command neither the save_as its still on work
-        if self.filename !="untitled":
-          self.filename = QtWidgets.QFileDialog.getSaveFileName(self, 'Save File')[0]
-
-        if self.filename =="untitled":
-            if not self.filename.endswith(".writer"):
-              self.filename += ".writer"
-            with open(self.filename,"wt") as file:
-                file.write(self.plainTextEdit.toPlainText())
-
-            self.changesSaved = True
     
+    def save_temp(self):
+        print(self.changesSaved)
+        print(self.filename)
+        if self.changesSaved ==True:
+            pass
+        elif self.changesSaved ==False:
+            self.saveAs()
+        
+            
+            
+    def saveAs(self):  #use the Ctrl+Shift+S command it will also work with ctrl+s if the file is untitled or newtest.c
+        if self.filename =="untitled" or self.filename =="NewTest.C":
+            self.filename = QtWidgets.QFileDialog.getSaveFileName()[0]
+            self.changesSaved = True
+            f=open(self.filename,'w')
+            f.write(self.plainTextEdit.toPlainText())
+            
+            #The tab text won't change i still have to work on the changes but it will create a file if its untitled or newtest.c
+            #Also be productive don't blame contribute to the work
+             
+        elif self.filename =="":
+            self.filename = QtWidgets.QFileDialog.getSaveFileName()[0]
+            self.changesSaved = True
+            f=open(self.filename,'w')
+            f.write(self.plainTextEdit.toPlainText())
+            
+            
+        elif self.filename !="" and self.filename !="untitled" and self.filename !="NewTest.C":
+            f=open(self.filename,'w')
+            f.write(self.plainTextEdit.toPlainText())
     
     
     
