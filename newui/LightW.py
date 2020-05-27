@@ -318,6 +318,37 @@ class Ui_MainWindow(object):
         self.statusBar.setStyleSheet("background-color: rgb(0,128,0,75%);")
         self.statusBar.setObjectName("statusBar")
         MainWindow.setStatusBar(self.statusBar)
+
+        self.spacer=QtWidgets.QWidget()
+        self.spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        self.uit = QtWidgets.QAction(MainWindow)
+        icon22 = QtGui.QIcon()
+        icon22.addPixmap(QtGui.QPixmap("uit.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.uit.setIcon(icon22)
+        self.uit.setShortcutVisibleInContextMenu(True)
+        self.uit.setObjectName("actionNew")
+        self.uit.triggered.connect(self.open_uit)
+        
+        self.merl = QtWidgets.QAction(MainWindow)
+        icon23 = QtGui.QIcon()
+        icon23.addPixmap(QtGui.QPixmap("merl.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.merl.setIcon(icon23)
+        self.merl.setShortcutVisibleInContextMenu(True)
+        self.merl.setObjectName("actionNew")
+        self.merl.triggered.connect(self.open_site)
+
+        
+        self.About = QtWidgets.QAction(MainWindow)
+        icon21 = QtGui.QIcon()
+        icon21.addPixmap(QtGui.QPixmap("About_logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.About.setIcon(icon21)
+        self.About.setShortcutVisibleInContextMenu(True)
+        self.About.setObjectName("actionNew")
+        self.About.triggered.connect(self.about)
+        self.actionNew = QtWidgets.QAction(MainWindow)
+
+        
         self.actionNew = QtWidgets.QAction(MainWindow)
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(":/Icons/icons8-add-property-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -494,6 +525,12 @@ class Ui_MainWindow(object):
         self.toolButton.addAction(self.actionB_I)
         self.toolButton.addAction(self.actionB_I_C)
         self.toolButton.addAction(self.actionB_I_M)
+        self.toolBar.addWidget(self.spacer)
+        self.toolBar.addAction(self.About)
+        self.toolBar.addAction(self.uit)
+        self.toolBar.addAction(self.merl)
+        self.toolBar.addSeparator()
+        self.toolBar.addSeparator()
 
         self.actionB_I_C.triggered.connect(self.myfun)
 
@@ -512,6 +549,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "BURQ IDE"))
+        MainWindow.setWindowIcon(QIcon("About_logo.png"))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab), _translate("MainWindow", "Untitled"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab1), _translate("MainWindow", "Terminal"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Output"))
@@ -551,6 +589,7 @@ class Ui_MainWindow(object):
         self.actionhelp.setText(_translate("MainWindow", "help"))
         self.actionFont.setText(_translate("MainWindow", "Font"))
         self.actionRun.setText(_translate("MainWindow", "Run"))
+        self.About.setText(_translate("MainWindow","About IDE"))
         self.actionEdit_Configurations.setText(_translate("MainWindow", "Edit Configurations"))
         self.actionSave_As.setText(_translate("MainWindow", "Save As"))
         self.actionSave_As.setShortcut(_translate("MainWindow","Ctrl+Shift+S"))
@@ -563,6 +602,8 @@ class Ui_MainWindow(object):
         self.actionB_I.setText(_translate("MainWindow", "I-Extension"))
         self.actionB_I_C.setText(_translate("MainWindow", "C-Extension"))
         self.actionB_I_M.setText(_translate("MainWindow", "M-Extension"))
+        self.uit.setText(_translate("MainWindow", "UIT Website"))
+        self.merl.setText(_translate("MainWindow", "MERL Website"))
 
     def myfun(self):
         from subprocess import call
@@ -763,6 +804,11 @@ class Ui_MainWindow(object):
 
     def open_site(self):
         webbrowser.open('https://www.merledupk.org/')
+
+    def open_uit(self):
+        webbrowser.open('https://www.uit.edu')
+
+    
 
     def dark_theme(self):
         MainWindow.close()

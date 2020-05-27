@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="Logo">
     <file>splash_logo.png</file>
+    <file>uit.png</file>
+    <file>merl.png</file>
   </qresource>
 </RCC>
