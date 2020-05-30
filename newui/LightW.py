@@ -449,7 +449,7 @@ class Ui_MainWindow(object):
         icon229.addPixmap(QtGui.QPixmap("About_logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionhelp.setIcon(icon229)
         self.actionhelp.triggered.connect(self.about)
-        self.actionFont = QtWidgets.QAction(MainWindow)
+        
         
         self.actionRun = QtWidgets.QAction(MainWindow)
         icon11 = QtGui.QIcon()
@@ -625,7 +625,7 @@ class Ui_MainWindow(object):
         self.actionDark.setText(_translate("MainWindow", "Dracula"))
         self.actionMERL.setText(_translate("MainWindow", "MERL"))
         self.actionhelp.setText(_translate("MainWindow", "help"))
-        self.actionFont.setText(_translate("MainWindow", "Font"))
+       
         self.actionRun.setText(_translate("MainWindow", "Run"))
         self.About.setText(_translate("MainWindow","About IDE"))
         
@@ -638,8 +638,8 @@ class Ui_MainWindow(object):
         
         self.actionCompile.setText(_translate("MainWindow", "Compile"))
         self.actionB_I.setText(_translate("MainWindow", "I-Extension"))
-        self.actionB_I_C.setText(_translate("MainWindow", "C-Extension"))
-        self.actionB_I_M.setText(_translate("MainWindow", "M-Extension"))
+        self.actionB_I_C.setText(_translate("MainWindow", "IC-Extension"))
+        self.actionB_I_M.setText(_translate("MainWindow", "IM-Extension"))
         self.uit.setText(_translate("MainWindow", "UIT Website"))
         self.merl.setText(_translate("MainWindow", "MERL Website"))
 
@@ -880,15 +880,14 @@ class Ui_MainWindow(object):
         
             
             
-    def saveAs(self):  #use the Ctrl+Shift+S command it will also work with ctrl+s if the file is untitled or newtest.c
+    def saveAs(self):  
         if self.filename =="untitled" or self.filename =="NewTest.C":
             self.filename = QtWidgets.QFileDialog.getSaveFileName()[0]
             self.changesSaved = True
             f=open(self.filename,'w')
             f.write(self.plainTextEdit.toPlainText())
             
-            #The tab text won't change i still have to work on the changes but it will create a file if its untitled or newtest.c
-            #Also be productive don't blame contribute to the work
+            
              
         elif self.filename =="":
             self.filename = QtWidgets.QFileDialog.getSaveFileName()[0]

@@ -17,6 +17,7 @@ import about_dark
 from PyQt5.QtWidgets import QFileDialog, QDialog
 from PyQt5 import QtCore
 from PyQt5.QtGui import QKeySequence
+import find
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -232,6 +233,9 @@ class Ui_MainWindow(object):
         self.menuRun.setStyleSheet("background-color: #31363b; color: #eff0f1;")
         self.menuRun.setObjectName("menuRun")
         self.menuSelect_Core = QtWidgets.QMenu(self.menuRun)
+        icon231=QtGui.QIcon()
+        icon231.addPixmap(QtGui.QPixmap(":/Icons/icons8-microchip-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.menuSelect_Core.setIcon(icon231)
         self.menuSelect_Core.setStyleSheet("background-color: #31363b; color: #eff0f1;")
         self.menuSelect_Core.setObjectName("menuSelect_Core")
         self.menuExtensions = QtWidgets.QMenu(self.menubar)
@@ -326,6 +330,8 @@ class Ui_MainWindow(object):
         icon4.addPixmap(QtGui.QPixmap(":/Icons/icons8-undo-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionundo.setIcon(icon4)
         self.actionundo.setVisible(True)
+        self.actionundo.setShortcut("Ctrl+Z")
+        self.actionundo.triggered.connect(self.plainTextEdit.undo)
         self.actionundo.setShortcutVisibleInContextMenu(True)
         self.actionundo.setObjectName("actionundo")
         self.actionRedo = QtWidgets.QAction(MainWindow)
@@ -334,11 +340,15 @@ class Ui_MainWindow(object):
         self.actionRedo.setIcon(icon5)
         self.actionRedo.setShortcutVisibleInContextMenu(True)
         self.actionRedo.setObjectName("actionRedo")
+        self.actionRedo.setShortcut("Ctrl+Shift+Z")
+        self.actionRedo.triggered.connect(self.plainTextEdit.redo)
         self.actioncut = QtWidgets.QAction(MainWindow)
         icon6 = QtGui.QIcon()
         icon6.addPixmap(QtGui.QPixmap(":/Icons/icons8-cut-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actioncut.setIcon(icon6)
         self.actioncut.setShortcutVisibleInContextMenu(True)
+        self.actioncut.setShortcut("Ctrl+X")
+        self.actioncut.triggered.connect(self.plainTextEdit.cut)
         self.actioncut.setObjectName("actioncut")
         self.actioncopy = QtWidgets.QAction(MainWindow)
         icon7 = QtGui.QIcon()
@@ -346,25 +356,38 @@ class Ui_MainWindow(object):
         self.actioncopy.setIcon(icon7)
         self.actioncopy.setShortcutVisibleInContextMenu(True)
         self.actioncopy.setObjectName("actioncopy")
+        self.actioncopy.setShortcut("Ctrl+C")
+        self.actioncopy.triggered.connect(self.plainTextEdit.copy)
         self.actionpaste = QtWidgets.QAction(MainWindow)
         icon8 = QtGui.QIcon()
         icon8.addPixmap(QtGui.QPixmap(":/Icons/icons8-paste-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionpaste.setIcon(icon8)
         self.actionpaste.setShortcutVisibleInContextMenu(True)
         self.actionpaste.setObjectName("actionpaste")
+        self.actionpaste.setShortcut("Ctrl+V")
+        self.actionpaste.triggered.connect(self.plainTextEdit.paste)
         self.actionFind = QtWidgets.QAction(MainWindow)
         icon9 = QtGui.QIcon()
         icon9.addPixmap(QtGui.QPixmap(":/Icons/icons8-search-property-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionFind.setIcon(icon9)
         self.actionFind.setShortcutVisibleInContextMenu(True)
         self.actionFind.setObjectName("actionFind")
+        self.actionFind.setShortcut("Ctrl+F")
+        self.actionFind.triggered.connect(find.Find(self.plainTextEdit).show)
         self.actionDark = QtWidgets.QAction(MainWindow)
         self.actionDark.setObjectName("actionDark")
         self.actionMERL = QtWidgets.QAction(MainWindow)
+        icon228 = QtGui.QIcon()
+        icon228.addPixmap(QtGui.QPixmap("merl.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionMERL.setIcon(icon228)
         self.actionMERL.setObjectName("actionMERL")
         self.actionMERL.triggered.connect(self.open_site)
         self.actionhelp = QtWidgets.QAction(MainWindow)
         self.actionhelp.setObjectName("actionhelp")
+        icon229 = QtGui.QIcon()
+        icon229.addPixmap(QtGui.QPixmap("About_logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionhelp.setIcon(icon229)
+        
         self.actionhelp.triggered.connect(self.about_dark)
         self.actionRun = QtWidgets.QAction(MainWindow)
         icon11 = QtGui.QIcon()
@@ -391,11 +414,15 @@ class Ui_MainWindow(object):
         self.actionChisel_Core.setObjectName("actionChisel_Core")
         self.actionVerilog = QtWidgets.QAction(MainWindow)
         self.actionVerilog.setObjectName("actionVerilog")
+        icon230 = QtGui.QIcon()
+        icon230.addPixmap(QtGui.QPixmap("Verilator_logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionVerilog.setIcon(icon230)
         self.actionDebug = QtWidgets.QAction(MainWindow)
         icon15 = QtGui.QIcon()
         icon15.addPixmap(QtGui.QPixmap(":/Icons/icons8-bug-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionDebug.setIcon(icon15)
         self.actionDebug.setObjectName("actionDebug")
+        self.actionDebug.triggered.connect(self.termclose)
         
         self.actionCompile = QtWidgets.QAction(MainWindow)
         icon16 = QtGui.QIcon()
@@ -405,10 +432,21 @@ class Ui_MainWindow(object):
         self.actionCompile.triggered.connect(self.compile_Code)
         self.actionB_I = QtWidgets.QAction(MainWindow)
         self.actionB_I.setObjectName("actionB_I")
+        icon232=QtGui.QIcon()
+        icon232.addPixmap(QtGui.QPixmap("micro.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionB_I.setIcon(icon232)
+        
         self.actionB_I_C = QtWidgets.QAction(MainWindow)
         self.actionB_I_C.setObjectName("actionB_I_C")
+        icon233=QtGui.QIcon()
+        icon233.addPixmap(QtGui.QPixmap("micro1.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionB_I_C.setIcon(icon233)
+        
         self.actionB_I_M = QtWidgets.QAction(MainWindow)
         self.actionB_I_M.setObjectName("actionB_I_M")
+        icon234=QtGui.QIcon()
+        icon234.addPixmap(QtGui.QPixmap("micro2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionB_I_M.setIcon(icon234)
         self.menuFile.addAction(self.actionNew)
         self.menuFile.addAction(self.actionOpen)
         
@@ -535,8 +573,8 @@ class Ui_MainWindow(object):
         
         self.actionCompile.setText(_translate("MainWindow", "Compile"))
         self.actionB_I.setText(_translate("MainWindow", "I-Extension"))
-        self.actionB_I_C.setText(_translate("MainWindow", "C-Extension"))
-        self.actionB_I_M.setText(_translate("MainWindow", "M-Extension"))
+        self.actionB_I_C.setText(_translate("MainWindow", "IC-Extension"))
+        self.actionB_I_M.setText(_translate("MainWindow", "IM-Extension"))
         self.uit.setText(_translate("MainWindow", "UIT Website"))
         self.merl.setText(_translate("MainWindow", "MERL Website"))
 
@@ -583,7 +621,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.addWidget(self.plainTextEdit)
         self.tabWidget_2.addTab(a, path)
         self.plainTextEdit.setPlainText(c_read)
-
+        self.actionFind.triggered.connect(find.Find(self.plainTextEdit).show)
 
     def removeTab(self, index):
         print(index)
@@ -613,7 +651,8 @@ class Ui_MainWindow(object):
         self.tabWidget_2.addTab(a, self.temptab)
         self.filename=self.temptab
         self.plainTextEdit.setPlainText("")
-
+        self.actionFind.triggered.connect(find.Find(self.plainTextEdit).show)
+        
     def open_dialog_box(self):
         filename = QFileDialog.getOpenFileName()
         path = filename[0]
@@ -644,7 +683,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.addWidget(self.plainTextEdit)
         self.tabWidget_2.addTab(a, path)
         self.plainTextEdit.setPlainText(c_read)
-
+        self.actionFind.triggered.connect(find.Find(self.plainTextEdit).show)
 
     
 
@@ -659,7 +698,7 @@ class Ui_MainWindow(object):
             self.tab1.sendText(options[data])
         
         
-        
+       
 
     def read_MachineCode(self):
         file = open("/home/monis/learning-journey/machinecode.txt", "r")
@@ -690,6 +729,9 @@ class Ui_MainWindow(object):
         self.run_Command("./script2.sh")
         thread=threading.Thread(target=self.error_check)
         thread.start()
+
+    def termclose(self):
+        self.getcode() 
 
     def output(self):
         import re
@@ -723,6 +765,11 @@ class Ui_MainWindow(object):
         self.run_Command("cd /home/monis/learning-journey")
         self.run_Command("./script3.sh")
         self.output()
+
+    def getcode(self):
+        self.run_Command("cd /home/monis/learning-journey")
+        self.run_Command("./script4.sh")
+        self.output()
         
     def open_site(self):
         webbrowser.open('https://www.merledupk.org/')
@@ -753,15 +800,14 @@ class Ui_MainWindow(object):
         
             
             
-    def saveAs(self):  #use the Ctrl+Shift+S command it will also work with ctrl+s if the file is untitled or newtest.c
+    def saveAs(self): 
         if self.filename =="untitled" or self.filename =="NewTest.C":
             self.filename = QtWidgets.QFileDialog.getSaveFileName()[0]
             self.changesSaved = True
             f=open(self.filename,'w')
             f.write(self.plainTextEdit.toPlainText())
             
-            #The tab text won't change i still have to work on the changes but it will create a file if its untitled or newtest.c
-            #Also be productive don't blame contribute to the work
+            
              
         elif self.filename =="":
             self.filename = QtWidgets.QFileDialog.getSaveFileName()[0]
