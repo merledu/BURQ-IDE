@@ -14,6 +14,8 @@ import threading
 import DarkW
 from PyQt5.QtWidgets import QFileDialog, QDialog
 from PyQt5 import QtCore
+from PyQt5.QtGui import QKeySequence
+import find
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -30,6 +32,7 @@ class Ui_MainWindow(object):
         MainWindow.setStyleSheet("background-color: rgb(255, 255, 255,60%);\n"
 "")
         MainWindow.showMaximized()
+        MainWindow.closeEvent = self.closeEvent
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -241,6 +244,9 @@ class Ui_MainWindow(object):
 " }")
         self.menuSettings.setObjectName("menuSettings")
         self.menuTheme_select = QtWidgets.QMenu(self.menuSettings)
+        icon227 = QtGui.QIcon()
+        icon227.addPixmap(QtGui.QPixmap("Choose_theme-512.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.menuTheme_select.setIcon(icon227)
         self.menuTheme_select.setStyleSheet("#menuTheme_select{\n"
 "color: rgb(0, 0, 0);\n"
 "background-color: rgb(255, 255, 255);\n"
@@ -271,6 +277,9 @@ class Ui_MainWindow(object):
 " }")
         self.menuRun.setObjectName("menuRun")
         self.menuSelect_Core = QtWidgets.QMenu(self.menuRun)
+        icon231=QtGui.QIcon()
+        icon231.addPixmap(QtGui.QPixmap(":/Icons/icons8-microchip-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.menuSelect_Core.setIcon(icon231)
         self.menuSelect_Core.setStyleSheet("#menuSelect_Core {\n"
 "color: rgb(0, 0, 0);\n"
 "background-color: rgb(255, 255, 255);\n"
@@ -363,8 +372,7 @@ class Ui_MainWindow(object):
         self.actionOpen.setObjectName("actionOpen")
         self.actionOpen.setShortcut("Ctrl+o")
         self.actionOpen.triggered.connect(self.open_dialog_box)
-        self.actionRename = QtWidgets.QAction(MainWindow)
-        self.actionRename.setObjectName("actionRename")
+        
         self.actionsave = QtWidgets.QAction(MainWindow)
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap(":/Icons/icons8-save-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -379,8 +387,12 @@ class Ui_MainWindow(object):
         self.actionundo.setIcon(icon4)
         self.actionundo.setVisible(True)
         self.actionundo.setShortcutVisibleInContextMenu(True)
+        self.actionundo.setShortcut("Ctrl+Z")
+        self.actionundo.triggered.connect(self.plainTextEdit.undo)
         self.actionundo.setObjectName("actionundo")
         self.actionRedo = QtWidgets.QAction(MainWindow)
+        self.actionRedo.setShortcut("Ctrl+Shift+Z")
+        self.actionRedo.triggered.connect(self.plainTextEdit.redo)
         icon5 = QtGui.QIcon()
         icon5.addPixmap(QtGui.QPixmap(":/Icons/icons8-redo-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionRedo.setIcon(icon5)
@@ -391,17 +403,23 @@ class Ui_MainWindow(object):
         icon6.addPixmap(QtGui.QPixmap(":/Icons/icons8-cut-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actioncut.setIcon(icon6)
         self.actioncut.setShortcutVisibleInContextMenu(True)
+        self.actioncut.setShortcut("Ctrl+X")
+        self.actioncut.triggered.connect(self.plainTextEdit.cut)
         self.actioncut.setObjectName("actioncut")
         self.actioncopy = QtWidgets.QAction(MainWindow)
         icon7 = QtGui.QIcon()
         icon7.addPixmap(QtGui.QPixmap(":/Icons/icons8-copy-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actioncopy.setIcon(icon7)
+        self.actioncopy.setShortcut("Ctrl+C")
+        self.actioncopy.triggered.connect(self.plainTextEdit.copy)
         self.actioncopy.setShortcutVisibleInContextMenu(True)
         self.actioncopy.setObjectName("actioncopy")
         self.actionpaste = QtWidgets.QAction(MainWindow)
         icon8 = QtGui.QIcon()
         icon8.addPixmap(QtGui.QPixmap(":/Icons/icons8-paste-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionpaste.setIcon(icon8)
+        self.actionpaste.setShortcut("Ctrl+V")
+        self.actionpaste.triggered.connect(self.plainTextEdit.paste)
         self.actionpaste.setShortcutVisibleInContextMenu(True)
         self.actionpaste.setObjectName("actionpaste")
         self.actionFind = QtWidgets.QAction(MainWindow)
@@ -411,20 +429,28 @@ class Ui_MainWindow(object):
         self.actionFind.setShortcutVisibleInContextMenu(True)
         self.actionFind.setObjectName("actionFind")
         self.actionFind.setShortcut("Ctrl+F")
+        self.actionFind.triggered.connect(find.Find(self.plainTextEdit).show)
+
+        icon226=QtGui.QIcon()
+        icon226.addPixmap(QtGui.QPixmap("Dark_Theme-512.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionDark = QtWidgets.QAction(MainWindow)
         self.actionDark.setObjectName("actionDark")
+        self.actionDark.setIcon(icon226)
         self.actionDark.triggered.connect(self.dark_theme)
         self.actionMERL = QtWidgets.QAction(MainWindow)
+        icon228 = QtGui.QIcon()
+        icon228.addPixmap(QtGui.QPixmap("merl.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionMERL.setIcon(icon228)
         self.actionMERL.setObjectName("actionMERL")
         self.actionMERL.triggered.connect(self.open_site)
         self.actionhelp = QtWidgets.QAction(MainWindow)
         self.actionhelp.setObjectName("actionhelp")
+        icon229 = QtGui.QIcon()
+        icon229.addPixmap(QtGui.QPixmap("About_logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionhelp.setIcon(icon229)
         self.actionhelp.triggered.connect(self.about)
         self.actionFont = QtWidgets.QAction(MainWindow)
-        icon10 = QtGui.QIcon()
-        icon10.addPixmap(QtGui.QPixmap(":/Icons/icons8-font-size-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.actionFont.setIcon(icon10)
-        self.actionFont.setObjectName("actionFont")
+        
         self.actionRun = QtWidgets.QAction(MainWindow)
         icon11 = QtGui.QIcon()
         icon11.addPixmap(QtGui.QPixmap(":/Icons/icons8-play-property-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -432,11 +458,7 @@ class Ui_MainWindow(object):
         self.actionRun.setObjectName("actionRun")
         self.actionRun.triggered.connect(self.run_Burq)
         self.actionRun.setEnabled(False)
-        self.actionEdit_Configurations = QtWidgets.QAction(MainWindow)
-        icon12 = QtGui.QIcon()
-        icon12.addPixmap(QtGui.QPixmap(":/Icons/icons8-edit-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.actionEdit_Configurations.setIcon(icon12)
-        self.actionEdit_Configurations.setObjectName("actionEdit_Configurations")
+        
         self.actionSave_As = QtWidgets.QAction(MainWindow)
         icon13 = QtGui.QIcon()
         icon13.addPixmap(QtGui.QPixmap(":/Icons/icons8-save-as-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -444,14 +466,21 @@ class Ui_MainWindow(object):
         self.actionSave_As.setObjectName("actionSave_As")
         self.actionSave_As.triggered.connect(self.saveAs)
         self.actionSave_As.setShortcut("Ctrl+Shift+s")
+        icon225=QtGui.QIcon()
+        icon225.addPixmap(QtGui.QPixmap("Light_Theme-512.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionHigh_Contrast = QtWidgets.QAction(MainWindow)
         self.actionHigh_Contrast.setObjectName("actionHigh_Contrast")
+        self.actionHigh_Contrast.setIcon(icon225)
         self.actionChisel_Core = QtWidgets.QAction(MainWindow)
         icon14 = QtGui.QIcon()
         icon14.addPixmap(QtGui.QPixmap(":/Icons/icons8-nail-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionChisel_Core.setIcon(icon14)
         self.actionChisel_Core.setObjectName("actionChisel_Core")
         self.actionVerilog = QtWidgets.QAction(MainWindow)
+        icon230 = QtGui.QIcon()
+        icon230.addPixmap(QtGui.QPixmap("Verilator_logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionVerilog.setIcon(icon230)
+
         self.actionVerilog.setObjectName("actionVerilog")
         self.actionDebug = QtWidgets.QAction(MainWindow)
         icon15 = QtGui.QIcon()
@@ -459,8 +488,7 @@ class Ui_MainWindow(object):
         self.actionDebug.setIcon(icon15)
         self.actionDebug.setObjectName("actionDebug")
         self.actionDebug.triggered.connect(self.termclose)
-        self.actionEdit_Configurations_2 = QtWidgets.QAction(MainWindow)
-        self.actionEdit_Configurations_2.setObjectName("actionEdit_Configurations_2")
+        
         self.actionCompile = QtWidgets.QAction(MainWindow)
         icon16 = QtGui.QIcon()
         icon16.addPixmap(QtGui.QPixmap(":/Icons/icons8-new-property-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -469,13 +497,24 @@ class Ui_MainWindow(object):
         self.actionCompile.triggered.connect(self.compile_Code)
         self.actionB_I = QtWidgets.QAction(MainWindow)
         self.actionB_I.setObjectName("actionB_I")
+        icon232=QtGui.QIcon()
+        icon232.addPixmap(QtGui.QPixmap("micro.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionB_I.setIcon(icon232)
+        
         self.actionB_I_C = QtWidgets.QAction(MainWindow)
         self.actionB_I_C.setObjectName("actionB_I_C")
+        icon233=QtGui.QIcon()
+        icon233.addPixmap(QtGui.QPixmap("micro1.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionB_I_C.setIcon(icon233)
+        
         self.actionB_I_M = QtWidgets.QAction(MainWindow)
         self.actionB_I_M.setObjectName("actionB_I_M")
+        icon234=QtGui.QIcon()
+        icon234.addPixmap(QtGui.QPixmap("micro2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionB_I_M.setIcon(icon234)
         self.menuFile.addAction(self.actionNew)
         self.menuFile.addAction(self.actionOpen)
-        self.menuFile.addAction(self.actionRename)
+        
         self.menuFile.addAction(self.actionsave)
         self.menuFile.addAction(self.actionSave_As)
         self.menuEdit.addAction(self.actionundo)
@@ -488,7 +527,6 @@ class Ui_MainWindow(object):
         self.menuTheme_select.addAction(self.actionHigh_Contrast)
         self.menuSettings.addAction(self.menuTheme_select.menuAction())
         self.menuSettings.addSeparator()
-        self.menuSettings.addAction(self.actionFont)
         self.menuAbout.addAction(self.actionMERL)
         self.menuAbout.addAction(self.actionhelp)
         self.menuSelect_Core.addSeparator()
@@ -499,7 +537,7 @@ class Ui_MainWindow(object):
         self.menuRun.addAction(self.actionCompile)
         self.menuRun.addAction(self.menuSelect_Core.menuAction())
         self.menuRun.addAction(self.actionDebug)
-        self.menuRun.addAction(self.actionEdit_Configurations_2)
+        
         self.menuExtensions.addAction(self.actionB_I)
         self.menuExtensions.addAction(self.actionB_I_C)
         self.menuExtensions.addAction(self.actionB_I_M)
@@ -569,7 +607,7 @@ class Ui_MainWindow(object):
         self.actionNew.setShortcut(_translate("MainWindow", "Ctrl+N"))
         self.actionOpen.setText(_translate("MainWindow", "Import"))
         self.actionOpen.setShortcut(_translate("MainWindow","Ctrl+O"))
-        self.actionRename.setText(_translate("MainWindow", "Rename"))
+        
         self.actionsave.setText(_translate("MainWindow", "Save"))
         self.actionsave.setShortcut(_translate("MainWindow", "Ctrl+S"))
         self.actionundo.setText(_translate("MainWindow", "undo"))
@@ -590,14 +628,14 @@ class Ui_MainWindow(object):
         self.actionFont.setText(_translate("MainWindow", "Font"))
         self.actionRun.setText(_translate("MainWindow", "Run"))
         self.About.setText(_translate("MainWindow","About IDE"))
-        self.actionEdit_Configurations.setText(_translate("MainWindow", "Edit Configurations"))
+        
         self.actionSave_As.setText(_translate("MainWindow", "Save As"))
         self.actionSave_As.setShortcut(_translate("MainWindow","Ctrl+Shift+S"))
         self.actionHigh_Contrast.setText(_translate("MainWindow", "High Contrast"))
         self.actionChisel_Core.setText(_translate("MainWindow", "Chisel"))
         self.actionVerilog.setText(_translate("MainWindow", "Verilog"))
-        self.actionDebug.setText(_translate("MainWindow", "Cancel Process"))
-        self.actionEdit_Configurations_2.setText(_translate("MainWindow", "Edit Configurations"))
+        self.actionDebug.setText(_translate("MainWindow", "Get Code Output"))
+        
         self.actionCompile.setText(_translate("MainWindow", "Compile"))
         self.actionB_I.setText(_translate("MainWindow", "I-Extension"))
         self.actionB_I_C.setText(_translate("MainWindow", "C-Extension"))
@@ -649,6 +687,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.addWidget(self.plainTextEdit)
         self.tabWidget_2.addTab(a, path)
         self.plainTextEdit.setPlainText(c_read)
+        self.actionFind.triggered.connect(find.Find(self.plainTextEdit).show)
 
 
     def removeTab(self, index):
@@ -681,6 +720,7 @@ class Ui_MainWindow(object):
         self.tabWidget_2.addTab(a,self.temptab)
         self.filename=self.temptab
         self.plainTextEdit.setPlainText("")
+        self.actionFind.triggered.connect(find.Find(self.plainTextEdit).show)
 
     def open_dialog_box(self):
         filename = QFileDialog.getOpenFileName()
@@ -714,6 +754,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.addWidget(self.plainTextEdit)
         self.tabWidget_2.addTab(a, path)
         self.plainTextEdit.setPlainText(c_read)
+        self.actionFind.triggered.connect(find.Find(self.plainTextEdit).show)
 
 
     
@@ -762,7 +803,7 @@ class Ui_MainWindow(object):
         thread.start()
 
     def termclose(self):
-        self.tab1.sendKeyEvent()
+        self.getcode()
         
         
     def output(self):
@@ -802,6 +843,11 @@ class Ui_MainWindow(object):
         self.run_Command("./script3.sh")
         self.output()
 
+    def getcode(self):
+        self.run_Command("cd /home/monis/learning-journey")
+        self.run_Command("./script4.sh")
+        self.output()
+        
     def open_site(self):
         webbrowser.open('https://www.merledupk.org/')
 
@@ -854,6 +900,39 @@ class Ui_MainWindow(object):
         elif self.filename !="" and self.filename !="untitled" and self.filename !="NewTest.C":
             f=open(self.filename,'w')
             f.write(self.plainTextEdit.toPlainText())
+
+    def closeEvent(self, event):
+
+        if self.changesSaved:
+
+            event.accept()
+
+        else:
+        
+            popup = QtWidgets.QMessageBox(MainWindow)
+
+            popup.setIcon(QtWidgets.QMessageBox.Warning)
+            
+            popup.setText("The document has been modified")
+            
+            popup.setInformativeText("Do you want to save your changes?")
+            
+            popup.setStandardButtons(QtWidgets.QMessageBox.Save   |
+                                      QtWidgets.QMessageBox.Cancel |
+                                      QtWidgets.QMessageBox.Discard)
+            
+            popup.setDefaultButton(QtWidgets.QMessageBox.Save)
+
+            answer = popup.exec_()
+
+            if answer == QtWidgets.QMessageBox.Save:
+                self.save_temp()
+
+            elif answer == QtWidgets.QMessageBox.Discard:
+                event.accept()
+
+            else:
+                event.ignore()
     
     
     

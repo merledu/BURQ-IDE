@@ -3,5 +3,12 @@
     <file>splash_logo.png</file>
     <file>uit.png</file>
     <file>merl.png</file>
+    <file>Light_Theme-512.png</file>
+    <file>Dark_Theme-512.png</file>
+    <file>Choose_theme-512.png</file>
+    <file>Verilator_logo.png</file>
+    <file>micro.png</file>
+    <file>micro1.png</file>
+    <file>micro2.png</file>
   </qresource>
 </RCC>
