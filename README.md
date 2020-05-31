@@ -113,8 +113,7 @@ First some prerequesties
 20. sudo apt install Zlib             #This may or maynot work as the mirror seems missing
 21. sudo apt-get install tree
 22. sudo apt-get install sip
-23. sudo apt install rxvt-unicode
-24. sudo apt-get install tmux          #Optional as the rxvt terminal handles the process
+
 
 ## Cloning the GCC COMPILER
 
@@ -137,7 +136,7 @@ Now lets start for the burq_ide cloneing process
 ~~~
    1. To Start First Clone the library to your home directory
    2. Then open the learning journey folder and do the following steps.
-   3. change the path names in script 1,2,3 from farooq to your username.
+   3. change the path names in script 1,2,3,4 from monis to your username.
    4. change the path name in the instructionmemory file in src/main/scala/datapath.
-   5. change the path names in LightW.py file as well
+   5. change the path names in LightW.py/DarkW.py file as well
    
