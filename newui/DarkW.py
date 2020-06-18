@@ -569,7 +569,7 @@ class Ui_MainWindow(object):
         self.actionHigh_Contrast.setText(_translate("MainWindow", "High Contrast"))
         self.actionChisel_Core.setText(_translate("MainWindow", "Chisel"))
         self.actionVerilog.setText(_translate("MainWindow", "Verilog"))
-        self.actionDebug.setText(_translate("MainWindow", "Cancel Process"))
+        self.actionDebug.setText(_translate("MainWindow", "Get Code Output"))
         
         self.actionCompile.setText(_translate("MainWindow", "Compile"))
         self.actionB_I.setText(_translate("MainWindow", "I-Extension"))
