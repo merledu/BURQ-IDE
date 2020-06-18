@@ -136,7 +136,6 @@ Now lets start for the burq_ide cloneing process
 ~~~
    1. To Start First Clone the library to your home directory
    2. Then open the learning journey folder and do the following steps.
-   3. change the path names in script 1,2,3,4 from monis to your username.
-   4. change the path name in the instructionmemory file in src/main/scala/datapath.
-   5. change the path names in LightW.py/DarkW.py file as well
+   3. change the path name in the instructionmemory file in src/main/scala/datapath.
+   4. change the path names in LightW.py/DarkW.py file as well in the newui folder
    
