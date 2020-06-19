@@ -1,5 +1,9 @@
 # BURQ-IDE
 This Repository Contains Source Code for the Burq-ide project 
+
+First the libs
+pip3 install -r requirements.txt in the newui folder
+
 # UPDATE TO THE TERMINAL Widget
 The rxvt-unicode terminal has been removed from the project because of its rescaling issue and is replaced by QTermWidget
 But in order to use it some libraries and pre-compilation is required.
