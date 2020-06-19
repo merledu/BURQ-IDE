@@ -1,0 +1,63 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: MERL
+// Engineer: 
+// 
+// Create Date: 12/21/2019 06:44:56 PM
+// Design Name: BSV32I_SSC
+// Module Name: WriteBack
+// Project Name: BURAQ
+// Target Devices: Arty A7 35T
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module WriteBack#(
+parameter DataWidth=32,
+parameter RegAddrWidth=10
+)
+(
+    input [RegAddrWidth-1:0]writeback_reg,
+    input memtoreg,
+    input [DataWidth-1:0]Data_from_ALU,
+    input [DataWidth-1:0]Data_from_Mem,
+    output logic [DataWidth-1:0]WriteBackData,
+    output logic [RegAddrWidth-1:0]writeBack_reg
+);
+
+always_ff @ (posedge clock)begin
+    if (reset)begin
+        ALU_result_OUT  <= 32'd0;
+        Mem_Data_OUT    <= 32'd0;
+        WB_REG_OUT      <= 5'd0;
+        Mem_to_Reg_OUT  <= 1'b0;
+        RegEn_OUT       <= 1'b0;      
+    end
+    else begin
+        ALU_result_OUT  <= ALU_result_IN;
+        Mem_Data_OUT    <= Mem_Data_IN;
+        WB_REG_OUT      <= WB_REG_IN;
+        Mem_to_Reg_OUT  <= Mem_to_Reg_IN;
+        RegEn_OUT       <= RegEn_IN;
+    end
+end
+
+
+always_comb begin
+    if(memtoreg)
+        WriteBackData = Data_from_Mem;
+    else
+        WriteBackData = Data_from_ALU;
+end
+
+assign writeBack_reg = writeback_reg;
+
+endmodule:WriteBack
