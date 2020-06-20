@@ -34,7 +34,7 @@ cd qtermwidget
 mkdir build && cd build  
 cmake .. -DQTERMWIDGET_BUILD_PYTHON_BINDING=ON -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr
 make && sudo make install
-~~~
+
 4. But if for some reason it gives you this error
 ~~~
  87%] Built target qtermwidget5
@@ -133,7 +133,7 @@ First some prerequesties
 19. sudo apt-get -y install gcc-multilib libc6-i386       #This may or maynot work as the mirror seems missing
 20. sudo apt install Zlib             #This may or maynot work as the mirror seems missing
 21. sudo apt-get install tree
-22. sudo apt-get install sip
+22. pip3 install sip
 
 
 ## Cloning the GCC COMPILER
@@ -150,6 +150,6 @@ First some prerequesties
 10. Now finally write this command on your command line tree -L 3 -d
 
 # Congratulations! you are done with your cloning process.
-Now lets start for the burq_ide cloneing process
+
 
    
