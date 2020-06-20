@@ -80,6 +80,7 @@ class Ui_MainWindow(object):
         print('done sleeping!')
         MainWindow.close()
         call(["python3", "LightW.py"])
+    
 
 
 if __name__ == "__main__":

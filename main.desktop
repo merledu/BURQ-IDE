@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=2.0
+Type=Application
+Exec=python3 /home/monis/Desktop/Burq/newui/Launcher.py
+Icon=/home/monis/Desktop/Burq/newui/About_logo.png
+Path=/home/monis/Desktop/Burq/newui
+Name[en_US]=BURQ_IDE

@@ -1,7 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QFileSystemModel, QTreeView, QWidget, QVBoxLayout
 from PyQt5.QtGui import QIcon
-from PyQt5.QtQuick import QQuickView
 import sys
 import LineNumber_dark
 import webbrowser
