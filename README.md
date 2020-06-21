@@ -1,8 +1,25 @@
 # BURQ-IDE
 This Repository Contains Source Code for the Burq-ide project 
 
-First the libs
-pip3 install -r requirements.txt in the newui folder
+
+# Burq_IDE Cloning 
+    
+~~~
+   1. To Start First Clone the library to your home directory
+   2. Then open the learning journey folder and do the following steps.
+   3. change the path name in the instructionmemory file in src/main/scala/datapath.
+   4. change the path names in LightW.py/DarkW.py file as well in the newui folder
+
+To get all the libraries and dependencies installed for the project run these commands where Libs-setup.sh and Gnu-toolchain-setup.sh exsists
+./Libs-setup.sh
+./Gnu-toolchain-setup.sh
+It can take for both commands any where from 30min to 3hr depending on your machine and internet connection.
+
+How ever if the above does not work due to some reason then try the below wiki otherwise skip 
+~~~
+
+# Second Method
+
 
 # UPDATE TO THE TERMINAL Widget
 The rxvt-unicode terminal has been removed from the project because of its rescaling issue and is replaced by QTermWidget
@@ -10,14 +27,14 @@ But in order to use it some libraries and pre-compilation is required.
 1. sudo -H pip3 install -U pyqt5 pyqtwebengine
 2. sudo apt install python3-sip-dev python3-pyqt5
 3. Then Run this,
-~~~
+
 mkdir -p /tmp/EAF && cd /tmp/EAF
 git clone https://github.com/lxqt/qtermwidget  
 cd qtermwidget  
 mkdir build && cd build  
 cmake .. -DQTERMWIDGET_BUILD_PYTHON_BINDING=ON -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr
 make && sudo make install
-~~~
+
 4. But if for some reason it gives you this error
 ~~~
  87%] Built target qtermwidget5
@@ -116,7 +133,7 @@ First some prerequesties
 19. sudo apt-get -y install gcc-multilib libc6-i386       #This may or maynot work as the mirror seems missing
 20. sudo apt install Zlib             #This may or maynot work as the mirror seems missing
 21. sudo apt-get install tree
-22. sudo apt-get install sip
+22. pip3 install sip
 
 
 ## Cloning the GCC COMPILER
@@ -133,13 +150,6 @@ First some prerequesties
 10. Now finally write this command on your command line tree -L 3 -d
 
 # Congratulations! you are done with your cloning process.
-Now lets start for the burq_ide cloneing process
 
-# Burq_IDE Cloning 
-    
-~~~
-   1. To Start First Clone the library to your home directory
-   2. Then open the learning journey folder and do the following steps.
-   3. change the path name in the instructionmemory file in src/main/scala/datapath.
-   4. change the path names in LightW.py/DarkW.py file as well in the newui folder
+
    
