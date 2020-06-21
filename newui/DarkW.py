@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QFileSystemModel, QTreeView, QWidget, QVBoxLayout
 from PyQt5.QtGui import QIcon
+from PyQt5.QtQuick import QQuickView
 import sys
 import LineNumber_dark
 import webbrowser
@@ -568,7 +569,7 @@ class Ui_MainWindow(object):
         self.actionHigh_Contrast.setText(_translate("MainWindow", "High Contrast"))
         self.actionChisel_Core.setText(_translate("MainWindow", "Chisel"))
         self.actionVerilog.setText(_translate("MainWindow", "Verilog"))
-        self.actionDebug.setText(_translate("MainWindow", "Get Code Output"))
+        self.actionDebug.setText(_translate("MainWindow", "Cancel Process"))
         
         self.actionCompile.setText(_translate("MainWindow", "Compile"))
         self.actionB_I.setText(_translate("MainWindow", "I-Extension"))
@@ -700,21 +701,21 @@ class Ui_MainWindow(object):
        
 
     def read_MachineCode(self):
-        file = open("/home/monis/learning-journey/machinecode.txt", "r")
+        file = open("/home/monis/learning-journey3/machinecode.txt", "r")
         machineCode = file.read()
         file.close()
         self.plainTextEdit_3.setPlainText(machineCode)
         
 
     def read_AssemblyCode(self):
-        file = open("/home/monis/learning-journey/machine.txt", "r")
+        file = open("/home/monis/learning-journey3/machine.txt", "r")
         assembly = file.read()
         file.close()
         self.plainTextEdit_2.setPlainText(assembly)
         
 
     def save_Code(self):
-        file = open("/home/monis/learning-journey/test.c", "w")
+        file = open("/home/monis/learning-journey3/test.c", "w")
         code = self.plainTextEdit.toPlainText()
         file.write(code)
         file.close()
@@ -724,7 +725,7 @@ class Ui_MainWindow(object):
         self.save_Code()
         self.plainTextEdit_2.setPlainText("")
         self.plainTextEdit_3.setPlainText("")
-        self.run_Command("cd /home/monis/learning-journey")
+        self.run_Command("cd /home/monis/learning-journey3")
         self.run_Command("./script2.sh")
         thread=threading.Thread(target=self.error_check)
         thread.start()
@@ -735,7 +736,7 @@ class Ui_MainWindow(object):
     def output(self):
         import re
         time.sleep(0.5)
-        file=open("/home/monis/learning-journey/output.txt", "r")
+        file=open("/home/monis/learning-journey3/output.txt", "r")
         self.out12=file.read()
         file.close()
         self.plainTextEdit23.setPlainText(self.out12)
@@ -743,7 +744,7 @@ class Ui_MainWindow(object):
     def error_check(self):   ##Error Check by GCC Line Number
         import re
         time.sleep(0.5)
-        file = open("/home/monis/learning-journey/meralog.txt", "r")
+        file = open("/home/monis/learning-journey3/meralog.txt", "r")
         assembly = file.read()
         x = re.findall("    [0-9] |   [1-9999][0-9999] ",assembly)
         
@@ -761,12 +762,12 @@ class Ui_MainWindow(object):
     def run_Burq(self):
         self.read_AssemblyCode()
         self.read_MachineCode()
-        self.run_Command("cd /home/monis/learning-journey")
+        self.run_Command("cd /home/monis/learning-journey3")
         self.run_Command("./script3.sh")
         self.output()
 
     def getcode(self):
-        self.run_Command("cd /home/monis/learning-journey")
+        self.run_Command("cd /home/monis/learning-journey3")
         self.run_Command("./script4.sh")
         self.output()
         

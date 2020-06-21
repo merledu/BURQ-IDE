@@ -83,7 +83,9 @@
     <file>dark/radio_checked_disabled.svg</file>
     <file>dark/radio_unchecked.svg</file>
     <file>dark/radio_unchecked_disabled.svg</file>
-    <file>light.qss</file>
+  </qresource>
+  <qresource prefix="stylesheets">
     <file>dark.qss</file>
+    <file>light.qss</file>
   </qresource>
 </RCC>

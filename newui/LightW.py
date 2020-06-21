@@ -11,7 +11,6 @@ from PyQt5.QtCore import *
 import os
 from QTermWidget import QTermWidget
 import threading
-import DarkW
 from PyQt5.QtWidgets import QFileDialog, QDialog
 from PyQt5 import QtCore
 from PyQt5.QtGui import QKeySequence
@@ -19,6 +18,7 @@ import find
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        self.core=1
         self.filename = "untitled"
         self.temptab="NewTest.C"
         self.changesSaved = True
@@ -29,8 +29,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(1279, 724)
         MainWindow.setAcceptDrops(False)
         MainWindow.setAutoFillBackground(False)
-        MainWindow.setStyleSheet("background-color: rgb(255, 255, 255,60%);\n"
-"")
+
         MainWindow.showMaximized()
         MainWindow.closeEvent = self.closeEvent
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -42,7 +41,7 @@ class Ui_MainWindow(object):
         self.splitter_2.setOrientation(QtCore.Qt.Horizontal)
         self.splitter_2.setHandleWidth(10)
         self.splitter_2.setObjectName("splitter_2")
-        self.splitter_2.setStyleSheet("background-color: rgb(240, 238, 235);")
+
         #Tree View
         self.treeView = QtWidgets.QTreeView(self.splitter_2)
         path = QDir.rootPath()
@@ -57,7 +56,7 @@ class Ui_MainWindow(object):
         self.treeView.setRootIndex(self.dirModel.index(path))
         self.treeView.clicked.connect(self.on_clicked)
         self.treeView.setGeometry(QtCore.QRect(0, 0, 270, 921))
-        self.treeView.setStyleSheet("background-color: rgb(255, 255, 255);")
+
         self.treeView.setObjectName("treeView")
         self.treeView.hideColumn(1)
         self.treeView.hideColumn(2)
@@ -79,7 +78,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(2)
         sizePolicy.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
         self.frame.setSizePolicy(sizePolicy)
-        self.frame.setStyleSheet("background-color: rgb(255, 255, 255,88%);")
+
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
@@ -93,8 +92,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.tabWidget_2.sizePolicy().hasHeightForWidth())
         self.tabWidget_2.setSizePolicy(sizePolicy)
-        self.tabWidget_2.setStyleSheet("background-color: rgb(255, 255, 255,88%);\n"
-"")
+
         self.tabWidget_2.setObjectName("tabWidget_2")
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
@@ -104,7 +102,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.setObjectName("verticalLayout_7")
         self.plainTextEdit=LineNumber.QCodeEditor(self.tab)
         self.highlighter=hightest.Highlighter(self.plainTextEdit.document())
-        self.plainTextEdit.setStyleSheet("background-color: rgb(255, 255, 255,88%);")
+
         self.plainTextEdit.setObjectName("plainTextEdit")
         self.plainTextEdit.textChanged.connect(self.changed)
         self.verticalLayout_7.addWidget(self.plainTextEdit)
@@ -117,7 +115,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.frame_3.sizePolicy().hasHeightForWidth())
 
         self.frame_3.setSizePolicy(sizePolicy)
-        self.frame_3.setStyleSheet("background-color: rgb(255, 255, 255);")
+
         self.frame_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_3.setObjectName("frame_3")
@@ -131,7 +129,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.tabWidget.sizePolicy().hasHeightForWidth())
         self.tabWidget.setSizePolicy(sizePolicy)
-        self.tabWidget.setStyleSheet("background-color: rgb(255, 255, 255);")
+
         self.tabWidget.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.tabWidget.setObjectName("tabWidget")
         
@@ -148,7 +146,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.setSpacing(0)
         self.verticalLayout_7.setObjectName("verticalLayout_7")
         self.plainTextEdit23=QtWidgets.QPlainTextEdit(self.tab_3)
-        self.plainTextEdit23.setStyleSheet("background-color: rgb(255, 255, 255,88%);")
+
         self.plainTextEdit23.setObjectName("plainTextEdit23")
         self.verticalLayout_7.addWidget(self.plainTextEdit23)
         self.tabWidget.addTab(self.tab_3, "Output")
@@ -161,22 +159,22 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(14)
         self.label_3.setFont(font)
         self.label_3.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_3.setStyleSheet("background-color:  #008000;\n"
-"color: rgb(255, 255, 255);\n"
-"border-top-left-radius: 18px;\n"
-"border-top-right-radius: 18px;\n"
-"text-align: center;")
+
         self.label_3.setTextFormat(QtCore.Qt.AutoText)
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setWordWrap(False)
         self.label_3.setObjectName("label_3")
+        self.label_3.setStyleSheet("background-color:  #008000;\n"
+        "color: rgb(255, 255, 255);\n"
+        "border-top-left-radius: 10px;\n"
+        "border-top-right-radius: 10px;\n"
+        "text-align: center;")
         self.verticalLayout.addWidget(self.label_3)
         self.plainTextEdit_2 = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.plainTextEdit_2.setStyleSheet("background-color: #414141;\n"
-"background-color: rgb(255, 255, 255,88%);")
+
         self.plainTextEdit_2.setObjectName("plainTextEdit_2")
         self.verticalLayout.addWidget(self.plainTextEdit_2)
         self.verticalLayout.setStretch(0, 1)
@@ -189,17 +187,17 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.label_2.setFont(font)
-        self.label_2.setStyleSheet("background-color:  #008000;\n"
-"color: rgb(255, 255, 255);\n"
-"border-top-left-radius: 18px;\n"
-"border-top-right-radius: 18px;\n"
-"text-align: center;")
+
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName("label_2")
+        self.label_2.setStyleSheet("background-color:  #008000;\n"
+        "color: rgb(255, 255, 255);\n"
+        "border-top-left-radius: 10px;\n"
+        "border-top-right-radius: 10px;\n"
+        "text-align: center;")
         self.verticalLayout_2.addWidget(self.label_2)
         self.plainTextEdit_3 = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.plainTextEdit_3.setStyleSheet("background-color:#414141;\n"
-"background-color: rgb(255, 255, 255,88%);")
+
         self.plainTextEdit_3.setObjectName("plainTextEdit_3")
         self.verticalLayout_2.addWidget(self.plainTextEdit_3)
         self.verticalLayout_2.setStretch(0, 1)
@@ -210,94 +208,37 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1279, 22))
-        self.menubar.setStyleSheet("background-color: #EFF0F1;color: #31363B;")
+
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
-        self.menuFile.setStyleSheet("#menuFile {\n"
-"color: rgb(0, 0, 0);\n"
-"background-color: rgb(255, 255, 255);\n"
-"border-bottom: 1px solid black;\n"
-" }\n"
-" #menuFile:selected {\n"
-"    background-color: rgb(52, 101, 164);\n"
-"    color: rgb(255, 255, 255);\n"
-" }")
+
         self.menuFile.setObjectName("menuFile")
         self.menuEdit = QtWidgets.QMenu(self.menubar)
-        self.menuEdit.setStyleSheet("#menuEdit {\n"
-"color: rgb(0, 0, 0);\n"
-"background-color: rgb(255, 255, 255);\n"
-" }\n"
-" #menuEdit:selected {\n"
-"    background-color: rgb(52, 101, 164);\n"
-"    color: rgb(255, 255, 255);\n"
-" }")
+
         self.menuEdit.setObjectName("menuEdit")
         self.menuSettings = QtWidgets.QMenu(self.menubar)
-        self.menuSettings.setStyleSheet("#menuSettings{\n"
-"color: rgb(0, 0, 0);\n"
-"background-color: rgb(255, 255, 255);\n"
-" }\n"
-" #menuSettings:selected {\n"
-"    background-color: rgb(52, 101, 164);\n"
-"    color: rgb(255, 255, 255);\n"
-" }")
+
         self.menuSettings.setObjectName("menuSettings")
         self.menuTheme_select = QtWidgets.QMenu(self.menuSettings)
         icon227 = QtGui.QIcon()
         icon227.addPixmap(QtGui.QPixmap("Choose_theme-512.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.menuTheme_select.setIcon(icon227)
-        self.menuTheme_select.setStyleSheet("#menuTheme_select{\n"
-"color: rgb(0, 0, 0);\n"
-"background-color: rgb(255, 255, 255);\n"
-" }\n"
-" #menuTheme_select:selected {\n"
-"    background-color: rgb(52, 101, 164);\n"
-"    color: rgb(255, 255, 255);\n"
-" }")
+
         self.menuTheme_select.setObjectName("menuTheme_select")
         self.menuAbout = QtWidgets.QMenu(self.menubar)
-        self.menuAbout.setStyleSheet("#menuAbout {\n"
-"color: rgb(0, 0, 0);\n"
-"background-color: rgb(255, 255, 255);\n"
-" }\n"
-" #menuAbout:selected {\n"
-"    background-color: rgb(52, 101, 164);\n"
-"    color: rgb(255, 255, 255);\n"
-" }")
+
         self.menuAbout.setObjectName("menuAbout")
         self.menuRun = QtWidgets.QMenu(self.menubar)
-        self.menuRun.setStyleSheet("#menuRun{\n"
-"color: rgb(0, 0, 0);\n"
-"background-color: rgb(255, 255, 255);\n"
-" }\n"
-" #menuRun:selected {\n"
-"    background-color: rgb(52, 101, 164);\n"
-"    color: rgb(255, 255, 255);\n"
-" }")
+
         self.menuRun.setObjectName("menuRun")
         self.menuSelect_Core = QtWidgets.QMenu(self.menuRun)
         icon231=QtGui.QIcon()
         icon231.addPixmap(QtGui.QPixmap(":/Icons/icons8-microchip-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.menuSelect_Core.setIcon(icon231)
-        self.menuSelect_Core.setStyleSheet("#menuSelect_Core {\n"
-"color: rgb(0, 0, 0);\n"
-"background-color: rgb(255, 255, 255);\n"
-" }\n"
-" #menuSelect_Core:selected {\n"
-"    background-color: rgb(52, 101, 164);\n"
-"    color: rgb(255, 255, 255);\n"
-" }")
+
         self.menuSelect_Core.setObjectName("menuSelect_Core")
         self.menuExtensions = QtWidgets.QMenu(self.menubar)
-        self.menuExtensions.setStyleSheet("#menuExtensions{\n"
-"color: rgb(0, 0, 0);\n"
-"background-color: rgb(255, 255, 255);\n"
-" }\n"
-" #menuExtensions:selected {\n"
-"    background-color: rgb(52, 101, 164);\n"
-"    color: rgb(255, 255, 255);\n"
-" }")
+
         self.menuExtensions.setObjectName("menuExtensions")
         MainWindow.setMenuBar(self.menubar)
         self.toolButton = QtWidgets.QToolButton()
@@ -308,11 +249,12 @@ class Ui_MainWindow(object):
         self.toolButton.setIconSize(QtCore.QSize(45, 24))
         self.toolButton.setPopupMode(QtWidgets.QToolButton.InstantPopup)
         self.toolButton.setObjectName("toolButton")
+        self.toolButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.toolBar = QtWidgets.QToolBar(MainWindow)
         self.toolBar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.toolBar.setAcceptDrops(False)
         self.toolBar.setLayoutDirection(QtCore.Qt.RightToLeft)
-        self.toolBar.setStyleSheet("background-color: #d8d8d8;")
+
         self.toolBar.setMovable(False)
         self.toolBar.setAllowedAreas(QtCore.Qt.NoToolBarArea)
         self.toolBar.setIconSize(QtCore.QSize(45, 24))
@@ -324,12 +266,13 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.statusBar.sizePolicy().hasHeightForWidth())
         self.statusBar.setSizePolicy(sizePolicy)
-        self.statusBar.setStyleSheet("background-color: rgb(0,128,0,75%);")
+
         self.statusBar.setObjectName("statusBar")
         MainWindow.setStatusBar(self.statusBar)
 
         self.spacer=QtWidgets.QWidget()
         self.spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.spacer.setStyleSheet("background-color: rgb(0,0,0,0%);")
 
         self.uit = QtWidgets.QAction(MainWindow)
         icon22 = QtGui.QIcon()
@@ -436,7 +379,7 @@ class Ui_MainWindow(object):
         self.actionDark = QtWidgets.QAction(MainWindow)
         self.actionDark.setObjectName("actionDark")
         self.actionDark.setIcon(icon226)
-        self.actionDark.triggered.connect(self.dark_theme)
+        self.actionDark.triggered.connect(self.darkTheme)
         self.actionMERL = QtWidgets.QAction(MainWindow)
         icon228 = QtGui.QIcon()
         icon228.addPixmap(QtGui.QPixmap("merl.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -471,20 +414,27 @@ class Ui_MainWindow(object):
         self.actionHigh_Contrast = QtWidgets.QAction(MainWindow)
         self.actionHigh_Contrast.setObjectName("actionHigh_Contrast")
         self.actionHigh_Contrast.setIcon(icon225)
+        self.actionHigh_Contrast.triggered.connect(self.lightTheme)
         self.actionChisel_Core = QtWidgets.QAction(MainWindow)
         icon14 = QtGui.QIcon()
         icon14.addPixmap(QtGui.QPixmap(":/Icons/icons8-nail-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionChisel_Core.setIcon(icon14)
         self.actionChisel_Core.setObjectName("actionChisel_Core")
+        self.actionChisel_Core.setCheckable(True)
+        self.actionChisel_Core.setChecked(False)
+        self.actionChisel_Core.triggered.connect(self.chisel)
         self.actionVerilog = QtWidgets.QAction(MainWindow)
         icon230 = QtGui.QIcon()
         icon230.addPixmap(QtGui.QPixmap("Verilator_logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionVerilog.setIcon(icon230)
 
         self.actionVerilog.setObjectName("actionVerilog")
+        self.actionVerilog.setCheckable(True)
+        self.actionChisel_Core.setChecked(False)
+        self.actionVerilog.triggered.connect(self.verilog)
         self.actionDebug = QtWidgets.QAction(MainWindow)
         icon15 = QtGui.QIcon()
-        icon15.addPixmap(QtGui.QPixmap(":/Icons/icons8-bug-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon15.addPixmap(QtGui.QPixmap(":/Icons/output.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionDebug.setIcon(icon15)
         self.actionDebug.setObjectName("actionDebug")
         self.actionDebug.triggered.connect(self.termclose)
@@ -498,20 +448,27 @@ class Ui_MainWindow(object):
         self.actionB_I = QtWidgets.QAction(MainWindow)
         self.actionB_I.setObjectName("actionB_I")
         icon232=QtGui.QIcon()
-        icon232.addPixmap(QtGui.QPixmap("micro.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon232.addPixmap(QtGui.QPixmap(":/Icons/i.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionB_I.setIcon(icon232)
         
         self.actionB_I_C = QtWidgets.QAction(MainWindow)
         self.actionB_I_C.setObjectName("actionB_I_C")
         icon233=QtGui.QIcon()
-        icon233.addPixmap(QtGui.QPixmap("micro1.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon233.addPixmap(QtGui.QPixmap(":/Icons/ic.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionB_I_C.setIcon(icon233)
         
         self.actionB_I_M = QtWidgets.QAction(MainWindow)
         self.actionB_I_M.setObjectName("actionB_I_M")
         icon234=QtGui.QIcon()
-        icon234.addPixmap(QtGui.QPixmap("micro2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon234.addPixmap(QtGui.QPixmap(":/Icons/im.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionB_I_M.setIcon(icon234)
+        
+        self.actionB_I_M_C = QtWidgets.QAction(MainWindow)
+        self.actionB_I_M_C.setObjectName("actionB_I_M_C")
+        icon235=QtGui.QIcon()
+        icon235.addPixmap(QtGui.QPixmap(":/Icons/imc.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionB_I_M_C.setIcon(icon235)
+        
         self.menuFile.addAction(self.actionNew)
         self.menuFile.addAction(self.actionOpen)
         
@@ -563,6 +520,7 @@ class Ui_MainWindow(object):
         self.toolButton.addAction(self.actionB_I)
         self.toolButton.addAction(self.actionB_I_C)
         self.toolButton.addAction(self.actionB_I_M)
+        self.toolButton.addAction(self.actionB_I_M_C)
         self.toolBar.addWidget(self.spacer)
         self.toolBar.addAction(self.About)
         self.toolBar.addAction(self.uit)
@@ -640,8 +598,27 @@ class Ui_MainWindow(object):
         self.actionB_I.setText(_translate("MainWindow", "I-Extension"))
         self.actionB_I_C.setText(_translate("MainWindow", "IC-Extension"))
         self.actionB_I_M.setText(_translate("MainWindow", "IM-Extension"))
+        self.actionB_I_M_C.setText(_translate("MainWindow", "IMC-Extension"))
         self.uit.setText(_translate("MainWindow", "UIT Website"))
         self.merl.setText(_translate("MainWindow", "MERL Website"))
+
+    def lightTheme(self):
+        toggle_stylesheet(":/Icons/light.qss")
+        self.tab1.setColorScheme("BlackOnWhite")
+
+    def darkTheme(self):
+        toggle_stylesheet(":/Icons/dark.qss")
+        self.tab1.setColorScheme("WhiteOnBlack")
+
+    def chisel(self):
+        self.actionVerilog.setChecked(False)
+        self.core=1
+        
+    
+    def verilog(self):
+        self.actionChisel_Core.setChecked(False)
+        self.core=2
+        
 
     def myfun(self):
         from subprocess import call
@@ -680,8 +657,7 @@ class Ui_MainWindow(object):
         self.tabWidget_2.tabCloseRequested.connect(self.removeTab)
         self.plainTextEdit = LineNumber.QCodeEditor(a)
         self.highlighter=hightest.Highlighter(self.plainTextEdit.document())
-        self.plainTextEdit.setStyleSheet("background-color: rgb(255, 255, 255,88%);\n"
-"")
+
         self.plainTextEdit.setObjectName("plainTextEdit")
         self.plainTextEdit.textChanged.connect(self.changed)
         self.verticalLayout_7.addWidget(self.plainTextEdit)
@@ -711,8 +687,7 @@ class Ui_MainWindow(object):
         self.tabWidget_2.tabCloseRequested.connect(self.removeTab)
         self.plainTextEdit = LineNumber.QCodeEditor(a)
         self.highlighter=hightest.Highlighter(self.plainTextEdit.document())
-        self.plainTextEdit.setStyleSheet("background-color: rgb(255, 255, 255,88%);\n"
-"")
+
         self.plainTextEdit.setObjectName("plainTextEdit")
         self.plainTextEdit.textChanged.connect(self.changed)
         self.verticalLayout_7.addWidget(self.plainTextEdit)
@@ -747,8 +722,7 @@ class Ui_MainWindow(object):
         self.tabWidget_2.tabCloseRequested.connect(self.removeTab)
         self.plainTextEdit = LineNumber.QCodeEditor(a)
         self.highlighter=hightest.Highlighter(self.plainTextEdit.document())
-        self.plainTextEdit.setStyleSheet("background-color: rgb(255, 255, 255,88%);\n"
-"")
+
         self.plainTextEdit.setObjectName("plainTextEdit")
         self.plainTextEdit.textChanged.connect(self.changed)
         self.verticalLayout_7.addWidget(self.plainTextEdit)
@@ -790,6 +764,10 @@ class Ui_MainWindow(object):
         code = self.plainTextEdit.toPlainText()
         file.write(code)
         file.close()
+        file1 = open("/home/monis/learning-journey/Buraq_Core_SV32I_5SP/test.c", "w")
+        code1 = self.plainTextEdit.toPlainText()
+        file1.write(code1)
+        file1.close()
 
     def compile_Code(self):
         self.actionRun.setEnabled(False)
@@ -837,11 +815,18 @@ class Ui_MainWindow(object):
             file.close()
 
     def run_Burq(self):
-        self.read_AssemblyCode()
-        self.read_MachineCode()
-        self.run_Command("cd /home/monis/learning-journey")
-        self.run_Command("./script3.sh")
-        self.output()
+        if self.core==1:
+            self.read_AssemblyCode()
+            self.read_MachineCode()
+            self.run_Command("cd /home/monis/learning-journey")
+            self.run_Command("./script3.sh")
+            self.output()
+        elif self.core==2:
+            self.read_AssemblyCode()
+            self.read_MachineCode()
+            self.run_Command("cd /home/monis/learning-journey")
+            self.run_Command("./Verilog-run.sh")
+            self.output()
 
     def getcode(self):
         self.run_Command("cd /home/monis/learning-journey")
@@ -942,7 +927,13 @@ import resource_rc
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    file = QFile(":/light.qss")
+    def toggle_stylesheet(path):
+        # get the QApplication instance,  or crash if not set
+        file = QFile(path)
+        file.open(QFile.ReadOnly | QFile.Text)
+        stream = QTextStream(file)
+        app.setStyleSheet(stream.readAll())
+    file = QFile(":/Icons/light.qss")
     file.open(QFile.ReadOnly | QFile.Text)
     stream = QTextStream(file)
     app.setStyleSheet(stream.readAll())
