@@ -28,7 +28,7 @@ organization := "edu.berkeley.cs"
 
 version := "3.1.0"
 
-name := "RV32i"
+name := "Ghaznavi"
 
 scalaVersion := "2.11.12"
 

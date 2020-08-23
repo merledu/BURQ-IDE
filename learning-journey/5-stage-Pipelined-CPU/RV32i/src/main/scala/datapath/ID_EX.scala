@@ -1,109 +1,115 @@
 package datapath
 import chisel3._
-
-class ID_EX extends Module {
-    val io = IO(new Bundle {
-        val IF_ID_pc = Input(SInt(32.W))
-        val IF_ID_pc4 = Input(SInt(32.W))
-        val rs1_sel_in = Input(UInt(5.W))
-        val rs2_sel_in = Input(UInt(5.W))
-        val rs1_in = Input(SInt(32.W))
-        val rs2_in = Input(SInt(32.W))
-        val imm = Input(SInt(32.W))
-        val rd_sel_in = Input(UInt(5.W))
-        val func3_in = Input(UInt(3.W))
-        val func7_in = Input(UInt(1.W))
-        val ctrl_MemWr_in = Input(UInt(1.W))
-        val ctrl_MemRd_in = Input(UInt(1.W))
-        val ctrl_Branch_in = Input(UInt(1.W))
-        val ctrl_RegWr_in = Input(UInt(1.W))
-        val ctrl_MemToReg_in = Input(UInt(1.W))
-        val ctrl_AluOp_in = Input(UInt(3.W))
-        val ctrl_OpA_sel_in = Input(UInt(2.W))
-        val ctrl_OpB_sel_in = Input(UInt(1.W))
-        val ctrl_nextPc_sel_in = Input(UInt(2.W))
-
-        val pc_out = Output(SInt(32.W))
-        val pc4_out = Output(SInt(32.W))
-        val rs1_out = Output(SInt(32.W))
-        val rs2_out = Output(SInt(32.W))
-        val imm_out = Output(SInt(32.W))
-        val func3_out = Output(UInt(3.W))
-        val func7_out = Output(UInt(1.W))
-        val rd_sel_out = Output(UInt(5.W))
-        val rs1_sel_out = Output(UInt(5.W))
-        val rs2_sel_out = Output(UInt(5.W))
-        val ctrl_MemWr_out = Output(UInt(1.W))
-        val ctrl_MemRd_out = Output(UInt(1.W))
-        val ctrl_Branch_out = Output(UInt(1.W))
-        val ctrl_RegWr_out = Output(UInt(1.W))
-        val ctrl_MemToReg_out = Output(UInt(1.W))
-        val ctrl_AluOp_out = Output(UInt(3.W))
-        val ctrl_OpA_sel_out = Output(UInt(2.W))
-        val ctrl_OpB_sel_out = Output(UInt(1.W))
-        val ctrl_nextPc_sel_out = Output(UInt(2.W))
-    })
-    val pc_reg = RegInit(0.S(32.W))
-    val pc4_reg = RegInit(0.S(32.W))
-    val rs1_reg = RegInit(0.S(32.W))
-    val rs2_reg = RegInit(0.S(32.W))
-    val imm_reg = RegInit(0.S(32.W))
-    val rd_sel_reg = RegInit(0.U(5.W))
-    val rs1_sel_reg = RegInit(0.U(5.W))
-    val rs2_sel_reg = RegInit(0.U(5.W))
-    val func3_reg = RegInit(0.U(3.W))
-    val func7_reg = RegInit(0.U(1.W))
-
-    val ctrl_MemWr_reg = RegInit(0.U(1.W))
-    val ctrl_MemRd_reg = RegInit(0.U(1.W))
-    val ctrl_Branch_reg = RegInit(0.U(1.W))
-    val ctrl_RegWr_reg = RegInit(0.U(1.W))
-    val ctrl_MemToReg_reg = RegInit(0.U(1.W))
-    val ctrl_AluOp_reg = RegInit(0.U(3.W))
-    val ctrl_OpA_sel_reg = RegInit(0.U(2.W))
-    val ctrl_OpB_sel_reg = RegInit(0.U(1.W))
-    val ctrl_nextPc_sel_reg = RegInit(0.U(1.W))
+import chisel3.util.Cat
+import chisel3.util.Fill
+class ID_EX extends Module{
+	val io=IO(new Bundle{
+		val PC = Input(UInt(32.W))
+		val PC4 = Input(UInt(32.W))
+		val Immediate=Input(SInt(32.W))
+		val rs1_in = Input(SInt(32.W))
+		val rs2_in = Input(SInt(32.W))
+		val rd_sel_in = Input(UInt(5.W))
+		val func3_in = Input(UInt(3.W))
+		val func7_in = Input(UInt(7.W))
+		val ctMemWr_in = Input(UInt(1.W))
+        	val ctMemRd_in = Input(UInt(1.W))
+        	val ctBranch_in = Input(UInt(1.W))
+        	val ctRegWr_in = Input(UInt(1.W))
+        	val ctMemToReg_in = Input(UInt(1.W))
+        	val ctAluOp_in = Input(UInt(3.W))
+        	val ctOpA_sel_in = Input(UInt(2.W))
+        	val ctOpB_sel_in = Input(UInt(1.W))
+        	val ctnextPc_sel_in = Input(UInt(2.W))
+		val rs1_sel_in=Input(UInt(5.W))
+		val rs2_sel_in=Input(UInt(5.W))
+		
+		val pc_out = Output(UInt(32.W))
+        	val pc4_out =Output(UInt(32.W))			
+		val rs1=Output(SInt(32.W))
+		val rs2=Output(SInt(32.W))
+		val Immediate_out=Output(SInt(32.W))
+		val func3_out = Output(UInt(3.W))
+        	val func7_out = Output(UInt(7.W))
+        	val rd_sel_out = Output(UInt(5.W))
+		val MemWrite=Output(UInt(1.W))
+		val Branch2=Output(UInt(1.W))
+		val MemRead=Output(UInt(1.W))
+		val RegWrite=Output(UInt(1.W))
+		val MemtoReg=Output(UInt(1.W))
+		val ALUoperation=Output(UInt(3.W))
+		val operand_A_sel=Output(UInt(2.W))
+		val operand_B_sel=Output(UInt(1.W))
+		val next_PC_sel=Output(UInt(2.W))
+		val rs1_sel_out=Output(UInt(5.W))
+		val rs2_sel_out=Output(UInt(5.W))
+})
 
 
-    pc_reg := io.IF_ID_pc
-    pc4_reg := io.IF_ID_pc4
-    rs1_reg := io.rs1_in
-    rs2_reg := io.rs2_in
-    imm_reg := io.imm
-    rd_sel_reg := io.rd_sel_in
-    rs1_sel_reg := io.rs1_sel_in
-    rs2_sel_reg := io.rs2_sel_in
-    func3_reg := io.func3_in
-    func7_reg := io.func7_in
-    // Storing Control state in the registers
-    ctrl_MemWr_reg := io.ctrl_MemWr_in
-    ctrl_MemRd_reg := io.ctrl_MemRd_in
-    ctrl_Branch_reg := io.ctrl_Branch_in
-    ctrl_RegWr_reg := io.ctrl_RegWr_in
-    ctrl_MemToReg_reg := io.ctrl_MemToReg_in
-    ctrl_AluOp_reg := io.ctrl_AluOp_in
-    ctrl_OpA_sel_reg := io.ctrl_OpA_sel_in
-    ctrl_OpB_sel_reg := io.ctrl_OpB_sel_in
-    ctrl_nextPc_sel_reg := io.ctrl_nextPc_sel_in
+	/*REGISTER MODULES*/
+	val pcr = RegInit(0.U(32.W))
+    	val pc4r = RegInit(0.U(32.W))
+    	val rs1r = RegInit(0.S(32.W))
+    	val rs2r = RegInit(0.S(32.W))
+    	val immr = RegInit(0.S(32.W))
+    	val rd_sel_r = RegInit(0.U(5.W))
+	val rs1_sel_r = RegInit(0.U(5.W))
+	val rs2_sel_r = RegInit(0.U(5.W))
 
-    io.pc_out := pc_reg
-    io.pc4_out := pc4_reg
-    io.rs1_out := rs1_reg
-    io.rs2_out := rs2_reg
-    io.imm_out := imm_reg
-    io.rd_sel_out := rd_sel_reg
-    io.rs1_sel_out := rs1_sel_reg
-    io.rs2_sel_out := rs2_sel_reg
-    io.func3_out := func3_reg
-    io.func7_out := func7_reg
+    	val func3_r = RegInit(0.U(3.W))
+    	val func7_r = RegInit(0.U(7.W))
+	val MemWr_r = RegInit(0.U(1.W))
+    	val MemRd_r = RegInit(0.U(1.W))
+    	val Branch_r = RegInit(0.U(1.W))
+    	val RegWr_r = RegInit(0.U(1.W))
+    	val MemToReg_r = RegInit(0.U(1.W))
+    	val AluOp_r = RegInit(0.U(3.W))
+    	val OpA_sel_r = RegInit(0.U(2.W))
+    	val OpB_sel_r = RegInit(0.U(2.W))
+    	val nextPc_sel_r = RegInit(0.U(1.W))
+	
+	/*Links*/
+	
+    pcr := io.PC
+    pc4r := io.PC4
+    rs1r := io.rs1_in
+    rs2r := io.rs2_in
+    immr := io.Immediate
+    rd_sel_r := io.rd_sel_in
+    func3_r := io.func3_in
+    func7_r := io.func7_in
+    rs1_sel_r :=io.rs1_sel_in
+    rs2_sel_r :=io.rs2_sel_in
+ 
+    MemWr_r := io.ctMemWr_in
+    MemRd_r := io.ctMemRd_in
+    Branch_r := io.ctBranch_in
+    RegWr_r := io.ctRegWr_in
+    MemToReg_r := io.ctMemToReg_in
+    AluOp_r := io.ctAluOp_in
+    OpA_sel_r := io.ctOpA_sel_in
+    OpB_sel_r := io.ctOpB_sel_in
+    nextPc_sel_r := io.ctnextPc_sel_in
 
-    io.ctrl_MemWr_out := ctrl_MemWr_reg
-    io.ctrl_MemRd_out := ctrl_MemRd_reg
-    io.ctrl_Branch_out := ctrl_Branch_reg
-    io.ctrl_RegWr_out := ctrl_RegWr_reg
-    io.ctrl_MemToReg_out := ctrl_MemToReg_reg
-    io.ctrl_AluOp_out := ctrl_AluOp_reg
-    io.ctrl_OpA_sel_out := ctrl_OpA_sel_reg
-    io.ctrl_OpB_sel_out := ctrl_OpB_sel_reg
-    io.ctrl_nextPc_sel_out := ctrl_nextPc_sel_reg
-}
+    io.pc_out := pcr
+    io.pc4_out := pc4r
+    io.rs1 := rs1r
+    io.rs2 := rs2r
+    io.Immediate_out := immr
+    io.rd_sel_out := rd_sel_r
+    io.func3_out := func3_r
+    io.func7_out := func7_r
+    io.rs1_sel_out :=rs1_sel_r
+    io.rs2_sel_out :=rs2_sel_r
+
+    io.MemWrite := MemWr_r
+    io.MemRead := MemRd_r
+    io.Branch2 := Branch_r
+    io.RegWrite := RegWr_r
+    io.MemtoReg := MemToReg_r
+    io.ALUoperation := AluOp_r
+    io.operand_A_sel:= OpA_sel_r
+    io.operand_B_sel := OpB_sel_r
+    io.next_PC_sel := nextPc_sel_r
+
+}	

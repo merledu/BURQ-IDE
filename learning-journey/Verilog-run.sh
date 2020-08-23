@@ -1,25 +1,16 @@
 #!/bin/bash
 #define password 
-export pass = "junior9398"
 
-spawn ssh root@remotehost 
-
-# detect password prompt
-expect "*?assword:*"
-
-# send $password
-send -- "$pass\r"
-
-#return 
-send -- "\r"
-expect eof
 
 clear
 clear
 echo "Running Code in System Verilog Mode"
 sleep 0.5
 cd ~
-cd home/monis/learning-journey/
+cd learning-journey/Buraq_Core_SV32I_5SP
+make
+gtkwave RISCV_SSC.vcd
+exit
 
 $SHELL
 

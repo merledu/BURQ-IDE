@@ -55,7 +55,7 @@ VERILATOR_FLAGS += -Wno-UNUSED
 #VERILATOR_FLAGS += --gdbbt
 
 # Input files for Verilator
-VERILATOR_INPUT = -f input.vc RISCV32I_SV.sv sim_main.cpp
+VERILATOR_INPUT = -f input.vc RISCV32I_SV.sv test.c
 
 ######################################################################
 default: run
