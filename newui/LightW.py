@@ -775,6 +775,7 @@ class Ui_MainWindow(object):
         self.plainTextEdit_2.setPlainText("")
         self.plainTextEdit_3.setPlainText("")
         self.run_Command("cd /home/monis/learning-journey")
+        self.run_Command("./script5.sh")
         self.run_Command("./script2.sh")
         
         thread=threading.Thread(target=self.error_check)
@@ -820,6 +821,7 @@ class Ui_MainWindow(object):
             self.read_MachineCode()
             self.run_Command("cd /home/monis/learning-journey")
             self.run_Command("./script3.sh")
+            self.run_Command("./script6.sh")
             self.output()
         elif self.core==2:
             self.read_AssemblyCode()

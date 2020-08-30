@@ -10,5 +10,7 @@
     <file>micro.png</file>
     <file>micro1.png</file>
     <file>micro2.png</file>
+    <file>Pass.jpeg</file>
+    <file>Error.jpeg</file>
   </qresource>
 </RCC>
