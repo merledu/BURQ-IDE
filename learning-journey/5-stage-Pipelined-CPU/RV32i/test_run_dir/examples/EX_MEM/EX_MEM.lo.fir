@@ -1,0 +1,47 @@
+circuit EX_MEM : @[:@2.0]
+  module EX_MEM : @[:@3.2]
+    input clock : Clock @[:@4.4]
+    input reset : UInt<1> @[:@5.4]
+    input io_Memwr : UInt<1> @[:@6.4]
+    input io_Memrd : UInt<1> @[:@6.4]
+    input io_Regwr : UInt<1> @[:@6.4]
+    input io_MemtoReg : UInt<1> @[:@6.4]
+    input io_Rs2 : SInt<32> @[:@6.4]
+    input io_Rd_sel : UInt<5> @[:@6.4]
+    input io_Alu_out : SInt<32> @[:@6.4]
+    output io_Memwr_out : UInt<1> @[:@6.4]
+    output io_Memrd_out : UInt<1> @[:@6.4]
+    output io_Regwr_out : UInt<1> @[:@6.4]
+    output io_MemtoReg_out : UInt<1> @[:@6.4]
+    output io_Rs2_out : SInt<32> @[:@6.4]
+    output io_Rd_sel_out : UInt<5> @[:@6.4]
+    output io_Alu_out2 : SInt<32> @[:@6.4]
+  
+    reg Memwr_Reg : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), Memwr_Reg) @[EX_MEM.scala 24:32:@8.4]
+    reg Memrd_Reg : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), Memrd_Reg) @[EX_MEM.scala 28:32:@11.4]
+    reg Regwr_Reg : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), Regwr_Reg) @[EX_MEM.scala 32:32:@14.4]
+    reg MemtoReg_Reg : UInt<1>, clock with :
+      reset => (UInt<1>("h0"), MemtoReg_Reg) @[EX_MEM.scala 36:35:@17.4]
+    reg Rs2_Reg : SInt<32>, clock with :
+      reset => (UInt<1>("h0"), Rs2_Reg) @[EX_MEM.scala 40:30:@20.4]
+    reg Rd_sel_Reg : UInt<5>, clock with :
+      reset => (UInt<1>("h0"), Rd_sel_Reg) @[EX_MEM.scala 44:33:@23.4]
+    reg Alu_out_Reg : SInt<32>, clock with :
+      reset => (UInt<1>("h0"), Alu_out_Reg) @[EX_MEM.scala 50:34:@26.4]
+    io_Memwr_out <= Memwr_Reg @[EX_MEM.scala 26:22:@10.4]
+    io_Memrd_out <= Memrd_Reg @[EX_MEM.scala 30:22:@13.4]
+    io_Regwr_out <= Regwr_Reg @[EX_MEM.scala 34:22:@16.4]
+    io_MemtoReg_out <= MemtoReg_Reg @[EX_MEM.scala 38:25:@19.4]
+    io_Rs2_out <= Rs2_Reg @[EX_MEM.scala 42:20:@22.4]
+    io_Rd_sel_out <= Rd_sel_Reg @[EX_MEM.scala 46:22:@25.4]
+    io_Alu_out2 <= Alu_out_Reg @[EX_MEM.scala 52:21:@28.4]
+    Memwr_Reg <= mux(reset, UInt<1>("h0"), io_Memwr) @[EX_MEM.scala 25:19:@9.4]
+    Memrd_Reg <= mux(reset, UInt<1>("h0"), io_Memrd) @[EX_MEM.scala 29:19:@12.4]
+    Regwr_Reg <= mux(reset, UInt<1>("h0"), io_Regwr) @[EX_MEM.scala 33:19:@15.4]
+    MemtoReg_Reg <= mux(reset, UInt<1>("h0"), io_MemtoReg) @[EX_MEM.scala 37:22:@18.4]
+    Rs2_Reg <= mux(reset, asSInt(UInt<32>("h0")), io_Rs2) @[EX_MEM.scala 41:17:@21.4]
+    Rd_sel_Reg <= mux(reset, UInt<5>("h0"), io_Rd_sel) @[EX_MEM.scala 45:20:@24.4]
+    Alu_out_Reg <= mux(reset, asSInt(UInt<32>("h0")), io_Alu_out) @[EX_MEM.scala 51:21:@27.4]

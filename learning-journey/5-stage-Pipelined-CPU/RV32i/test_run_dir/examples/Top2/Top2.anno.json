@@ -1,0 +1,10 @@
+[
+  {
+    "class":"firrtl.annotations.LoadMemoryAnnotation",
+    "target":"Top2.InstructionMemory.mem",
+    "fileName":"/home/monis/learning-journey/machinecode.txt",
+    "hexOrBinary":{
+      "name":"h"
+    }
+  }
+]

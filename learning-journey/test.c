@@ -1,10 +1,14 @@
+// Print numbers from 1 to 10
 #include <stdio.h>
-int main()
-{
-   int i;
-   for (i=1; i<=10; i++)
-   {
-       
-   }
-   return 0;
+
+int main() {
+  int i;
+int c;
+
+  for (i = 1; i < 11; ++i)
+  {
+     c=i+11;
+    
+  }
+  return 0;
 }

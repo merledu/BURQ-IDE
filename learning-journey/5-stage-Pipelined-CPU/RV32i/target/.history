@@ -1,0 +1,176 @@
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher control_decode
+test:run-Main datapath.Launcher control_decode
+test:runMain datapath.Launcher control_decode
+test:runMain datapath.Launcher ImmediateGeneration
+test:runMain datapath.Launcher control
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Jalr
+test:runMain datapath.Launcher PC
+test:runMain datapath.Launcher PC --backend-name PC
+test:runMain datapath.Launcher PC --backend-name verilator
+test:runMain datapath.Launcher InstructionMemory
+test:runMain datapath.Launcher InstructionMemory --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher PC
+test:runMain datapath.Launcher PC --backend-name verilator
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher InstructionMemory --backend-name verilator
+test:runMain datapath.Launcher PC
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher reg_32
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher ALU_control
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher ImmediateGeneration
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher ImmediateGeneration
+test:runMain datapath.Launcher Top 
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher ImmediateGeneration
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top 
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top 
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top 
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher LoadMemory
+test:runMain datapath.Launcher LoadMemory --backend-name verilator
+test:runMain datapath.Launcher LoadMemory
+test:runMain datapath.Launcher LoadMemory --backend-name verilator
+test:runMain datapath.Launcher Top 
+test:runMain datapath.Launcher LoadMemory --backend-name verilator
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher LoadMemory
+test:runMain datapath.Launcher LoadMemory --backend-name verilator
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top 
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher LoadMemory
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher LoadMemory --backend-name verilator
+test:runMain datapath.Launcher Top 
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher LoadMemory
+test:runMain datapath.Launcher Top --backend-name verilator
+sbt
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top 
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top 
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top 
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher LoadMemory --backend-name verilator
+test:runMain datapath.Launcher DataMemory
+test:runMain datapath.Launcher LoadMemory --backend-name verilator
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top 
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher IF_DEC
+test:runMain datapath.Launcher ID_EX
+test:runMain datapath.Launcher EX_MEM
+MEM_WB
+test:runMain datapath.Launcher MEM_WB
+test:runMain datapath.Launcher Top 
+test:runMain datapath.Launcher Top2 
+test:runMain datapath.Launcher Top2 --backend-name verilator
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top2 --backend-name verilator
+test:runMain datapath.Launcher Top --backend-name verilator
+test:runMain datapath.Launcher Top2 --backend-name verilator
+exit
+test:runMain datapath.Launcher Top2 --backend-name verilator
+test:runMain datapath.Launcher InstructionMemory --backend-name verilator
+test:runMain datapath.Launcher Top2 --backend-name verilator
+make clean
+make clean:
+test:runMain datapath.Launcher Top2 --backend-name verilator
+test:runMain datapath.Launcher Top2 
+test:runMain datapath.Launcher Top2 --backend-name verilator
+test:runMain datapath.Launcher Top2 
+test:runMain datapath.Launcher Top2 --backend-name verilator
+test:runMain datapath.Launcher ID_EX 
+test:runMain datapath.Launcher Top2
+test:runMain datapath.Launcher Top2 --backend-name verilator
+test:runMain datapath.Launcher Top2
+test:runMain datapath.Launcher Top2 --backend-name verilator
+test:runMain datapath.Launcher Forwarding
+test:runMain datapath.Launcher Top2 --backend-name verilator
+test:runMain datapath.Launcher Forwarding
+test:runMain datapath.Launcher Top2 --backend-name verilator
+test:runMain datapath.Launcher HazardDetect
+test:runMain datapath.Launcher Top2 --backend-name verilator
+test:runMain datapath.Launcher structuredetector
+test:runMain datapath.Launcher structdetect
+test:runMain datapath.Launcher branchlogic
+test:runMain datapath.Launcher branchforward
+test:runMain datapath.Launcher Top2 --backend-name verilator
+test:runMain datapath.Launcher branchforward
+test:runMain datapath.Launcher Top2 --backend-name verilator
+test:runMain datapath.Launcher ID_EX 
+test:runMain datapath.Launcher Top2 --backend-name verilator
+test:runMain datapath.Launcher forwarding
+test:runMain datapath.Launcher Top2 --backend-name verilator
+test:runMain datapath.Launcher forwarding
+test:runMain datapath.Launcher Top2 --backend-name verilator
+sudo apt-get update
+test:runMain datapath.Launcher Top2 --backend-name verilator

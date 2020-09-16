@@ -10,7 +10,9 @@ cd ~
 cd learning-journey/Buraq_Core_SV32I_5SP
 make
 gtkwave RISCV_SSC.vcd
+
 exit
+
 
 $SHELL
 
