@@ -9,11 +9,17 @@ This Repository Contains Source Code for the Burq-ide project
    2. Then open the learning journey folder and do the following steps.
    3. change the path name in the instructionmemory file in src/main/scala/datapath.
    4. change the path names in LightW.py/DarkW.py file as well in the newui folder
+   5. change the path names in script 2,3,4,5,6,7,8,9 i will come up with a solution to automate this sorry :(
 
-To get all the libraries and dependencies installed for the project run these commands where Libs-setup.sh and Gnu-toolchain-setup.sh exsists
-./Libs-setup.sh
-./Gnu-toolchain-setup.sh
+To get all the libraries and dependencies installed for the project run this command
+~~~
+~~~
+To install all dependencies
+./dependencies.sh
+~~~
+~~~
 It can take for both commands any where from 30min to 3hr depending on your machine and internet connection.
+For pictorial view click on the thread wiki
 
 How ever if the above does not work due to some reason then try the below wiki otherwise skip 
 ~~~
