@@ -6,10 +6,8 @@ This Repository Contains Source Code for the Burq-ide project
     
 ~~~
    1. To Start First Clone the library to your home directory
-   2. Then open the learning journey folder and do the following steps.
-   3. change the path name in the instructionmemory file in src/main/scala/datapath.
-   4. change the path names in LightW.py/DarkW.py file as well in the newui folder
-   5. change the path names in script 2,3,4,5,6,7,8,9 i will come up with a solution to automate this sorry :(
+   2. Run the username.py to change all the paths to your local machine directory.
+   3. For the Gnu-toolchain since its required to have an up-to-date version of this run Gnu-toolchain-setup.sh via terminal as ./Gnu-toolchain-setup.sh
 
 To get all the libraries and dependencies installed for the project run this command
 ~~~
