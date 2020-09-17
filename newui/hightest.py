@@ -90,7 +90,7 @@ class Highlighter(QSyntaxHighlighter):
                 "\\bslots\\b", "\\bstatic\\b", "\\bstruct\\b",
                 "\\btemplate\\b", "\\btypedef\\b", "\\btypename\\b",
                 "\\bunion\\b", "\\bunsigned\\b", "\\bvirtual\\b", "\\bvoid\\b",
-                "\\bvolatile\\b"]
+                "\\bvolatile\\b", "\\bwhile\\b"]
 
         self.highlightingRules = [(QRegExp(pattern), keywordFormat)
                 for pattern in keywordPatterns]
@@ -112,6 +112,10 @@ class Highlighter(QSyntaxHighlighter):
         quotationFormat = QTextCharFormat()
         quotationFormat.setForeground(Qt.darkGreen)
         self.highlightingRules.append((QRegExp("\".*\""), quotationFormat))
+
+        if_else_statement = QTextCharFormat()
+        if_else_statement.setForeground(Qt.darkGreen)
+        self.highlightingRules.append((QRegExp("^.*if|else"), if_else_statement))
 
         functionFormat = QTextCharFormat()
         functionFormat.setFontItalic(True)
