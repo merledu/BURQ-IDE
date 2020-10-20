@@ -83,17 +83,17 @@ cd /tmp/EAF && \
     && make && sudo make install
 
 cd /tmp/EAF && \
-    wget https://www.riverbankcomputing.com/static/Downloads/sip/4.19.19/sip-4.19.19.tar.gz && \
-    tar xvzf sip-4.19.19.tar.gz && \
-    cd sip-4.19.19 && \
+    wget https://www.riverbankcomputing.com/static/Downloads/sip/sip-5.5.0.dev2010041444.tar.gz&& \
+    tar xvzf sip-5.5.0.dev2010041444.tar.gz&& \
+    cd sip-5.5.0.dev2010041444 && \
     python3 configure.py --sip-module PyQt5.sip && \
     make && \
     sudo make install
 
 cd /tmp/EAF && \
-    wget https://www.riverbankcomputing.com/static/Downloads/PyQt5/5.13.2/PyQt5-5.13.2.tar.gz && \
-    tar xvzf PyQt5-5.13.2.tar.gz && \
-    cd PyQt5-5.13.2 && \
+    wget https://www.riverbankcomputing.com/static/Downloads/PyQt5/PyQt5-5.15.2.dev2010041344.tar.gz && \
+    tar xvzf PyQt5-5.15.2.dev2010041344.tar.gz && \
+    cd PyQt5-5.15.2.dev2010041344 && \
     python3 configure.py --confirm-license && \
     make && \
     sudo make install
