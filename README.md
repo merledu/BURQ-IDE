@@ -83,9 +83,9 @@ cd /tmp/EAF && \
     && make && sudo make install
 
 cd /tmp/EAF && \
-    wget https://www.riverbankcomputing.com/static/Downloads/sip/sip-5.5.0.dev2010041444.tar.gz&& \
-    tar xvzf sip-5.5.0.dev2010041444.tar.gz&& \
-    cd sip-5.5.0.dev2010041444 && \
+    wget https://www.riverbankcomputing.com/static/Downloads/sip/4.19.24/sip-4.19.24.tar.gz&& \
+    tar xvzf sip-4.19.24.tar.gz&& \
+    cd ssip-4.19.24&& \
     python3 configure.py --sip-module PyQt5.sip && \
     make && \
     sudo make install
