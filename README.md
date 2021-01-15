@@ -93,7 +93,7 @@ cd /tmp/EAF && \
 cd /tmp/EAF && \
     wget https://www.riverbankcomputing.com/static/Downloads/PyQt5/PyQt5-5.15.3.dev2101031745.tar.gz && \
     tar xvzf PyQt5-5.15.3.dev2101031745.tar.gz && \
-    cd PyQt5-5.15.3.dev2101031745.tar.gz && \
+    cd PyQt5-5.15.3.dev2101031745 && \
     python3 configure.py --confirm-license && \
     make && \
     sudo make install
