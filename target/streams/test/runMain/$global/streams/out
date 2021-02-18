@@ -1,0 +1,82 @@
+[0m[[0minfo[0m] [0mRunning datapath.Launcher Top2 --backend-name verilator[0m
+[0m[[0mdebug[0m] [0mWaiting for threads to exit or System.exit to be called.[0m
+[0m[[0mdebug[0m] [0m  Classpath:[0m
+[0m[[0mdebug[0m] [0m	/home/monis/Desktop/Burq/target/scala-2.11/test-classes[0m
+[0m[[0mdebug[0m] [0m	/home/monis/Desktop/Burq/target/scala-2.11/classes[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.11.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/edu.berkeley.cs/chisel3_2.11/jars/chisel3_2.11-3.0.2.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.11.11.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/edu.berkeley.cs/firrtl_2.11/jars/firrtl_2.11-1.0.2.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/com.typesafe.scala-logging/scala-logging_2.11/bundles/scala-logging_2.11-3.7.2.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/org.slf4j/slf4j-api/jars/slf4j-api-1.7.25.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/ch.qos.logback/logback-classic/jars/logback-classic-1.2.3.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/ch.qos.logback/logback-core/jars/logback-core-1.2.3.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/com.github.scopt/scopt_2.11/jars/scopt_2.11-3.6.0.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/net.jcazevedo/moultingyaml_2.11/jars/moultingyaml_2.11-0.4.0.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/com.github.nscala-time/nscala-time_2.11/jars/nscala-time_2.11-2.14.0.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/joda-time/joda-time/jars/joda-time-2.9.4.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/org.joda/joda-convert/jars/joda-convert-1.2.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/org.yaml/snakeyaml/bundles/snakeyaml-1.17.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/org.antlr/antlr4/jars/antlr4-4.7.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/org.antlr/antlr4-runtime/jars/antlr4-runtime-4.7.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/org.antlr/antlr-runtime/jars/antlr-runtime-3.5.2.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/org.antlr/ST4/jars/ST4-4.0.8.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/org.abego.treelayout/org.abego.treelayout.core/bundles/org.abego.treelayout.core-1.0.3.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/org.glassfish/javax.json/bundles/javax.json-1.0.4.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/com.ibm.icu/icu4j/jars/icu4j-58.2.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/edu.berkeley.cs/chisel-iotesters_2.11/jars/chisel-iotesters_2.11-1.1.2.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/edu.berkeley.cs/firrtl-interpreter_2.11/jars/firrtl-interpreter_2.11-1.0.2.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/org.scalatest/scalatest_2.11/bundles/scalatest_2.11-3.0.1.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/org.scalactic/scalactic_2.11/bundles/scalactic_2.11-3.0.1.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/bundles/scala-xml_2.11-1.0.5.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.11/bundles/scala-parser-combinators_2.11-1.0.4.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/org.scalacheck/scalacheck_2.11/jars/scalacheck_2.11-1.13.4.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/org.scala-sbt/test-interface/jars/test-interface-1.0.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/org.scala-lang.modules/scala-jline/bundles/scala-jline-2.12.1.jar[0m
+[0m[[0mdebug[0m] [0m	/home/monis/.ivy2/cache/org.fusesource.jansi/jansi/jars/jansi-1.11.jar[0m
+[0m[[0mdebug[0m] [0mWaiting for thread run-main-0 to terminate.[0m
+[0m[[31merror[0m] [0m(run-main-0) java.lang.ClassNotFoundException: datapath.Launcher[0m
+java.lang.ClassNotFoundException: datapath.Launcher
+	at java.base/java.lang.ClassLoader.findClass(ClassLoader.java:719)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:589)
+	at sbt.classpath.ClasspathFilter.loadClass(ClassLoaders.scala:59)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:522)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:398)
+	at sbt.Run.getMainMethod(Run.scala:72)
+	at sbt.Run.run0(Run.scala:60)
+	at sbt.Run.sbt$Run$$execute$1(Run.scala:51)
+	at sbt.Run$$anonfun$run$1.apply$mcV$sp(Run.scala:55)
+	at sbt.Run$$anonfun$run$1.apply(Run.scala:55)
+	at sbt.Run$$anonfun$run$1.apply(Run.scala:55)
+	at sbt.Logger$$anon$4.apply(Logger.scala:84)
+	at sbt.TrapExit$App.run(TrapExit.scala:248)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+[0m[[0mdebug[0m] [0m	Thread run-main-0 exited.[0m
+[0m[[0mdebug[0m] [0mInterrupting remaining threads (should be all daemons).[0m
+[0m[[0mdebug[0m] [0mSandboxed run complete..[0m
+java.lang.RuntimeException: Nonzero exit code: 1
+	at scala.sys.package$.error(package.scala:27)
+	at sbt.Defaults$$anonfun$runMainTask$1$$anonfun$apply$43$$anonfun$apply$44$$anonfun$apply$45.apply(Defaults.scala:807)
+	at sbt.Defaults$$anonfun$runMainTask$1$$anonfun$apply$43$$anonfun$apply$44$$anonfun$apply$45.apply(Defaults.scala:807)
+	at scala.Option.foreach(Option.scala:236)
+	at sbt.Defaults$$anonfun$runMainTask$1$$anonfun$apply$43$$anonfun$apply$44.apply(Defaults.scala:807)
+	at sbt.Defaults$$anonfun$runMainTask$1$$anonfun$apply$43$$anonfun$apply$44.apply(Defaults.scala:805)
+	at scala.Function1$$anonfun$compose$1.apply(Function1.scala:47)
+	at sbt.$tilde$greater$$anonfun$$u2219$1.apply(TypeFunctions.scala:40)
+	at sbt.std.Transform$$anon$4.work(System.scala:63)
+	at sbt.Execute$$anonfun$submit$1$$anonfun$apply$1.apply(Execute.scala:228)
+	at sbt.Execute$$anonfun$submit$1$$anonfun$apply$1.apply(Execute.scala:228)
+	at sbt.ErrorHandling$.wideConvert(ErrorHandling.scala:17)
+	at sbt.Execute.work(Execute.scala:237)
+	at sbt.Execute$$anonfun$submit$1.apply(Execute.scala:228)
+	at sbt.Execute$$anonfun$submit$1.apply(Execute.scala:228)
+	at sbt.ConcurrentRestrictions$$anon$4$$anonfun$1.apply(ConcurrentRestrictions.scala:159)
+	at sbt.CompletionService$$anon$2.call(CompletionService.scala:28)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+[0m[[31merror[0m] [0m(test:[31mrunMain[0m) Nonzero exit code: 1[0m

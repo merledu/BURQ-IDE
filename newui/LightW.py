@@ -9,12 +9,15 @@ import time
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 import os
-from QTermWidget import QTermWidget
 import threading
 from PyQt5.QtWidgets import QFileDialog, QDialog
 from PyQt5 import QtCore
 from PyQt5.QtGui import QKeySequence
 import find
+import Linus
+import getpass
+import Add_core
+import QTerminal2
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -132,11 +135,9 @@ class Ui_MainWindow(object):
 
         self.tabWidget.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.tabWidget.setObjectName("tabWidget")
-        
-        self.tab1 = QTermWidget()
-        self.tab1.setScrollBarPosition(self.tab1.ScrollBarRight)
-       
-        self.tab1.setColorScheme("BlackOnWhite")
+
+        #Terminal
+        self.tab1 = QTerminal2.MainWindow12()
         self.tabWidget.addTab(self.tab1, "Terminal")
         
         self.tab_3 = QtWidgets.QWidget()
@@ -254,6 +255,16 @@ class Ui_MainWindow(object):
         self.toolBar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.toolBar.setAcceptDrops(False)
         self.toolBar.setLayoutDirection(QtCore.Qt.RightToLeft)
+
+        self.addcore = QtWidgets.QToolButton()
+        self.addcore.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        icon78 = QtGui.QIcon()
+        icon78.addPixmap(QtGui.QPixmap(":/Logo/addcore.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.addcore.setIcon(icon78)
+        self.addcore.setIconSize(QtCore.QSize(45, 24))
+        self.addcore.setPopupMode(QtWidgets.QToolButton.InstantPopup)
+        self.addcore.setObjectName("toolButton")
+        self.addcore.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
 
         self.toolBar.setMovable(False)
         self.toolBar.setAllowedAreas(QtCore.Qt.NoToolBarArea)
@@ -450,6 +461,19 @@ class Ui_MainWindow(object):
         icon232=QtGui.QIcon()
         icon232.addPixmap(QtGui.QPixmap(":/Icons/i.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionB_I.setIcon(icon232)
+
+        self.chisel = QtWidgets.QAction(MainWindow)
+        self.chisel.setObjectName("actionchisel")
+        icon233=QtGui.QIcon()
+        icon233.addPixmap(QtGui.QPixmap(":/Icons/icons8-nail-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.chisel.setIcon(icon233)
+
+        self.verilog = QtWidgets.QAction(MainWindow)
+        self.verilog.setObjectName("actionverilog")
+        icon233=QtGui.QIcon()
+        icon233.addPixmap(QtGui.QPixmap("Verilator_logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.verilog.setIcon(icon233)
+        
         
         self.actionB_I_C = QtWidgets.QAction(MainWindow)
         self.actionB_I_C.setObjectName("actionB_I_C")
@@ -469,6 +493,41 @@ class Ui_MainWindow(object):
         icon235.addPixmap(QtGui.QPixmap(":/Icons/imc.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionB_I_M_C.setIcon(icon235)
         
+        self.comboBox = QtWidgets.QComboBox()
+        self.comboBox.setObjectName("comboBox")
+        self.comboBox.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.comboBox.addItem("Select Core")
+        file = open("Core.txt", "r")
+        data = file.read().splitlines()
+        for i in data:
+            s=i.split(',')
+            if i == "":
+                pass
+            elif s[1] == "Verilog":
+                self.comboBox.addItem(QIcon("Verilator_logo.png"),s[0])
+            elif s[1] == "Chisel":
+                self.comboBox.addItem(QIcon("icons8-nail-100.png"),s[0])
+        file.close()
+        self.coretotal=len(data)
+        self.comboBox.insertSeparator(self.coretotal+1)
+        self.comboBox.addItem("Add Core")
+        self.comboBox.addItem("Remove Core")
+        self.comboBox.currentTextChanged.connect(self.cores)
+        self.comboBox.setEditable(True) 
+        line_edit = self.comboBox.lineEdit() 
+        line_edit.setAlignment(Qt.AlignCenter) 
+        line_edit.setReadOnly(True) 
+        line_edit.setEnabled(False)
+        self.comboBox.setEditable(False) 
+
+
+        self.retranslateUi(MainWindow)
+        self.comboBox.setCurrentIndex(0)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.dg = Dialog()
+        self.dg.accepted.connect(self.coreAdded)
+        self.dg.rejected.connect(self.cancel)
+
         self.menuFile.addAction(self.actionNew)
         self.menuFile.addAction(self.actionOpen)
         
@@ -505,8 +564,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuExtensions.menuAction())
         self.menubar.addAction(self.menuRun.menuAction())
         self.toolBar.addAction(self.actionDebug)
-        self.toolBar.addAction(self.actionChisel_Core)
-        self.toolBar.addAction(self.actionVerilog)
+        self.toolBar.addWidget(self.comboBox)
         self.toolBar.addSeparator()
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.actionRun)
@@ -527,8 +585,11 @@ class Ui_MainWindow(object):
         self.toolBar.addAction(self.merl)
         self.toolBar.addSeparator()
         self.toolBar.addSeparator()
+        
 
         self.actionB_I_C.triggered.connect(self.myfun)
+        self.chisel.triggered.connect(self.addchisel)
+        self.verilog.triggered.connect(self.addverilog)
 
         self.retranslateUi(MainWindow)
         self.tabWidget_2.setCurrentIndex(0)
@@ -538,8 +599,44 @@ class Ui_MainWindow(object):
         self.plainTextEdit_2.isReadOnly()
         self.plainTextEdit_3.isReadOnly()
         self.plainTextEdit23.isReadOnly()
- 		
 
+        
+    def cancel(self):
+        self.comboBox.setCurrentIndex(0)
+        self.dg.clr()
+
+    def coreAdded(self, values):
+        file = open("Core.txt", "a")
+        file.write('\n')
+        file.write(str(values['Name']+','+str(values['Type']+','+str(values['Vcd']+','+str(values['Top']+','+str(values['Input']))))))
+        file.close()
+        self.coretotal+=1
+        if values['Type'] == "Verilog":
+                self.comboBox.insertItem(self.coretotal,QIcon("Verilator_logo.png"),str(values['Name']))
+        elif values['Type'] == "Chisel":
+                self.comboBox.insertItem(self.coretotal,QIcon("icons8-nail-100.png"),str(values['Name']))
+        
+        self.comboBox.setCurrentIndex(self.coretotal)
+ 		
+    def cores(self,option):
+        if option == "Add Core":
+            self.dg.exec_()
+        elif option == "Remove Core":
+            import subprocess
+            from pathlib import Path
+            path=Path().absolute() 
+            use2=str(path)
+        
+            os.chdir(use2+"/newui")
+            b=(["python3", "Remove.py"])
+            process=subprocess.Popen(b)
+            code=process.wait()
+            core=open("Core Name.txt","rt")
+            data=core.readlines()
+            core.close()
+            print(data[0])
+            index = self.comboBox.findText(data[0])  # find the index of text
+            self.comboBox.removeItem(index)
 
 
     def retranslateUi(self, MainWindow):
@@ -601,6 +698,8 @@ class Ui_MainWindow(object):
         self.actionB_I_M_C.setText(_translate("MainWindow", "IMC-Extension"))
         self.uit.setText(_translate("MainWindow", "UIT Website"))
         self.merl.setText(_translate("MainWindow", "MERL Website"))
+        self.chisel.setText(_translate("MainWindow", "Add Chisel-Core"))
+        self.verilog.setText(_translate("MainWindow", "Add Verilog-Core"))
 
     def lightTheme(self):
         toggle_stylesheet(":/Icons/light.qss")
@@ -618,6 +717,60 @@ class Ui_MainWindow(object):
     def verilog(self):
         self.actionChisel_Core.setChecked(False)
         self.core=2
+
+    def addchisel(self):
+        import re
+        filter1 = ("vcd(*.vcd)")
+        filter2 = ("scala(*.scala)")
+        filename = QFileDialog.getOpenFileName(None,"Choose Chisel Core .Vcd file","~",filter1)
+        
+        path = filename[0]
+        #self.filename=path
+        print(path)
+        filename2 = QFileDialog.getOpenFileName(None,"Choose .scala file for the selected core InstructionMemory","~",filter2)
+        path2 = filename2[0]
+        #self.filename2=path2
+        print(path2)
+
+        print(sys.path[0])
+        username=sys.path[0]
+
+        #input instruction_memory.scala
+        username_temp=username.replace("newui","")
+        username_temp1=('"' + username_temp)
+        script1=open(path2,"rt")
+        data1=script1.read()
+        data1=re.sub('".*"', username_temp1+'machinecode.txt"',data1)
+        script1.close()
+        print(data1)
+        script_1=open(path2,"wt")
+        script_1.write(data1)
+        script_1.close()
+
+        
+
+        #temp_script1=open(username_temp+'temp_scrip1.sh',"rt")
+        #data2=temp_script1.read()
+        #data2=re.sub('".*"', path
+        #temp_script1.close()
+        #print(data5)
+        #temp_script_1=open(username_temp+'temp_scrip1.sh',"wt")
+        #temp_script_1.write(data2)
+        #temp_script_1.close()
+        
+        
+
+    def addverilog(self):
+        filter1 = ("vcd(*.vcd)")
+        filter2= ("c(*.c)")
+        filename = QFileDialog.getOpenFileName(None,"Open Verilog Core .Vcd file","~",filter1)
+        path = filename[0]
+        #self.filename=path
+        print(path)
+        filename2 = QFileDialog.getOpenFileName(None,"CHOOSE INSTRUCTION MEMMORY FILE .scala FILE","~",filter2)
+        path2 = filename2[0]
+        #self.filename2=path2
+        print(path2)
         
 
     def myfun(self):
@@ -734,50 +887,100 @@ class Ui_MainWindow(object):
     
 
     def run_Command(self, command = "ls"):
-        program = "tmux"
         options = []
         options.extend([command])
-        options.extend(["\r"])
-        print(options)
-        for data in range(len(options)):
-            self.tab1.sendText(options[data])
+        options.extend(["\n"])
+        self.tab1.commandfield.clear()
+        self.tab1.commandfield.appendPlainText(options[0])
+        self.tab1.run()
         
         
         
 
     def read_MachineCode(self):
-        file = open("/home/monis/learning-journey/machinecode.txt", "r")
+        file = open("/home/monis/Desktop/Burq/machinecode.txt", "r")
         machineCode = file.read()
         file.close()
         self.plainTextEdit_3.setPlainText(machineCode)
         
 
     def read_AssemblyCode(self):
-        file = open("/home/monis/learning-journey/machine.txt", "r")
+        file = open("/home/monis/Desktop/Burq/machine.txt", "r")
         assembly = file.read()
         file.close()
         self.plainTextEdit_2.setPlainText(assembly)
         
 
     def save_Code(self):
-        file = open("/home/monis/learning-journey/test.c", "w")
-        code = self.plainTextEdit.toPlainText()
-        file.write(code)
-        file.close()
-        file1 = open("/home/monis/learning-journey/Buraq_Core_SV32I_5SP/test.c", "w")
-        code1 = self.plainTextEdit.toPlainText()
-        file1.write(code1)
-        file1.close()
+        if self.comboBox.currentText()!="Chisel" and self.comboBox.currentText()!="BuraqSV32i":
+        	p=self.comboBox.currentText()
+        	core=open("/home/monis/Desktop/Burq/newui/Core.txt","rt")
+        	coreread=core.readlines()
+        	for i in coreread:
+        		s=i.split(',')
+        		if p==s[0] and s[1]=="Verilog":
+        			file1=open(s[4],"w")
+        			code1=self.plainTextEdit.toPlainText()
+        			file1.write(code1)
+        			file1.close()
+        	 
+        else:
+        	file = open("/home/monis/Desktop/Burq/test.c", "w")
+        	code = self.plainTextEdit.toPlainText()
+        	file.write(code)
+        	file.close()
+        	file1 = open("/home/monis/Desktop/Burq/Buraq_Core_SV32I_5SP/test.c", "w")
+        	code1 = self.plainTextEdit.toPlainText()
+        	file1.write(code1)
+        	file1.close()
+
 
     def compile_Code(self):
         self.actionRun.setEnabled(False)
         self.save_Code()
         self.plainTextEdit_2.setPlainText("")
         self.plainTextEdit_3.setPlainText("")
-        self.run_Command("cd /home/monis/learning-journey")
-        self.run_Command("./script5.sh")
-        self.run_Command("./script2.sh")
         
+        
+        self.run_Command("cd /home/monis/Desktop/Burq/")
+        self.run_Command("bash script5.sh")
+        self.run_Command("bash script2.sh")
+        if self.comboBox.currentText()=="Chisel":
+            T=Add_core.default_core(self.comboBox.currentText())
+            self.core=1
+            print("hello",1)
+            self.actionRun.setEnabled(True)
+        elif self.comboBox.currentText()=="BuraqSV32i":
+            T=Add_core.default_core(self.comboBox.currentText())
+            self.core=2
+            print("hello",2)
+            self.actionRun.setEnabled(True)
+            
+        elif self.comboBox.currentText()=="Select Core":
+            from pathlib import Path
+            path=Path().absolute() 
+            use2=str(path)
+            os.chdir(use2)
+            self.run_Command("echo Error! Core is not selected")
+            self.actionRun.setEnabled(False)
+        else:
+            T=Add_core.set_core(self.comboBox.currentText())
+            file = open("Core.txt", "r")
+            data = file.read().splitlines()
+            for i in data:
+                s=i.split(',')
+                if i == "":
+                    pass
+                elif s[0] == self.comboBox.currentText():
+                    if s[1] == "Verilog":
+                        self.core=2
+                        self.actionRun.setEnabled(True)
+                    elif s[1] == "Chisel":
+                        self.core=1
+                        self.actionRun.setEnabled(True)
+            file.close()
+        
+            
         thread=threading.Thread(target=self.error_check)
         thread.start()
 
@@ -788,7 +991,7 @@ class Ui_MainWindow(object):
     def output(self):
         import re
         time.sleep(0.5)
-        file=open("/home/monis/learning-journey/output.txt", "r")
+        file=open("/home/monis/Desktop/Burq/output.txt", "r")
         self.out12=file.read()
         file.close()
         self.plainTextEdit23.setPlainText(self.out12)
@@ -797,13 +1000,12 @@ class Ui_MainWindow(object):
     def error_check(self):   ##Error Check by GCC Line Number
         import re
         time.sleep(0.5)
-        file = open("/home/monis/learning-journey/meralog.txt", "r")
+        file = open("/home/monis/Desktop/Burq/meralog.txt", "r")
         assembly = file.read()
         x = re.findall("    [0-9] |   [1-9999][0-9999] ",assembly)
         
         if x==[]:
             print("No errors")
-            self.actionRun.setEnabled(True)
             file.close()
             
             
@@ -816,40 +1018,37 @@ class Ui_MainWindow(object):
             file.close()
 
     def run_Burq(self):
+        print(self.core)
         if self.core==1:
             self.read_AssemblyCode()
             self.read_MachineCode()
-            self.run_Command("cd /home/monis/learning-journey")
-            self.run_Command("./script3.sh")
-            self.run_Command("./script8.sh")
-            self.run_Command("./script6.sh")
+            self.run_Command("cd /home/monis/Desktop/Burq/")
+            self.run_Command("bash script3.sh")
+            self.run_Command("bash script8.sh")
+            self.run_Command("bash script6.sh")
             self.output()
         elif self.core==2:
             self.read_AssemblyCode()
             self.read_MachineCode()
-            self.run_Command("cd /home/monis/learning-journey")
-            self.run_Command("./Verilog-run.sh")
-            self.run_Command("./script9.sh")
-            self.run_Command("./script7.sh")
+            self.getcode()
+            self.run_Command("cd /home/monis/Desktop/Burq/")
+            self.run_Command("bash Verilog-run.sh")
+            self.run_Command("bash script9.sh")
+            self.run_Command("bash script7.sh")
+            print("output")
             self.output()
+            
 
     def getcode(self):
-        self.run_Command("cd /home/monis/learning-journey")
-        self.run_Command("./script4.sh")
+        self.run_Command("cd /home/monis/Desktop/Burq/")
+        self.run_Command("bash script4.sh")
         self.output()
         
     def open_site(self):
-        webbrowser.open('https://www.merledupk.org/')
+        webbrowser.open('https:/www.merledupk.org/')
 
     def open_uit(self):
         webbrowser.open('https://www.uit.edu')
-
-    
-
-    def dark_theme(self):
-        MainWindow.close()
-        from subprocess import call
-        call(["python3", "DarkW.py"])
         
     def about(self):
         from subprocess import call
@@ -924,10 +1123,191 @@ class Ui_MainWindow(object):
                 event.ignore()
     
     
+class Dialog(QDialog):
+    accepted = pyqtSignal(dict)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setWindowTitle("Add Core")
+        self.setObjectName("self")
+        self.resize(700, 208)
+        self.verticalLayout = QtWidgets.QVBoxLayout(self)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.formLayout_4 = QtWidgets.QFormLayout()
+        self.formLayout_4.setObjectName("formLayout_4")
+        self.label = QtWidgets.QLabel(self)
+        self.label.setObjectName("label")
+        self.formLayout_4.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label)
+        self.label_2 = QtWidgets.QLabel(self)
+        self.label_2.setEnabled(False)
+        self.label_2.setObjectName("label_2")
+        self.formLayout_4.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_2)
+        self.label_3 = QtWidgets.QLabel(self)
+        self.label_3.setEnabled(False)
+        self.label_3.setObjectName("label_3")
+        self.formLayout_4.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_3)
+        self.label_4 = QtWidgets.QLabel(self)
+        self.label_4.setEnabled(False)
+        self.label_4.setObjectName("label_4")
+        self.formLayout_4.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_4)
+        self.label_5 = QtWidgets.QLabel(self)
+        self.label_5.setObjectName("label_5")
+        self.formLayout_4.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_5)
+        self.lineEdit = QtWidgets.QLineEdit(self)
+        self.lineEdit.setObjectName("lineEdit")
+        self.formLayout_4.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.lineEdit)
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.radioButton_2 = QtWidgets.QRadioButton(self)
+        self.radioButton_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.radioButton_2.setObjectName("radioButton_2")
+        self.horizontalLayout_3.addWidget(self.radioButton_2)
+        self.radioButton = QtWidgets.QRadioButton(self)
+        self.radioButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.radioButton.setObjectName("radioButton")
+        self.horizontalLayout_3.addWidget(self.radioButton)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem)
+        self.formLayout_4.setLayout(1, QtWidgets.QFormLayout.FieldRole, self.horizontalLayout_3)
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
+        self.lineEdit_2 = QtWidgets.QLineEdit(self)
+        self.lineEdit_2.setEnabled(False)
+        self.lineEdit_2.setObjectName("lineEdit_2")
+        self.horizontalLayout_4.addWidget(self.lineEdit_2)
+        self.pushButton_3 = QtWidgets.QPushButton(self)
+        self.pushButton_3.setEnabled(False)
+        self.pushButton_3.setObjectName("pushButton_3")
+        self.horizontalLayout_4.addWidget(self.pushButton_3)
+        self.formLayout_4.setLayout(2, QtWidgets.QFormLayout.FieldRole, self.horizontalLayout_4)
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        self.lineEdit_3 = QtWidgets.QLineEdit(self)
+        self.lineEdit_3.setEnabled(False)
+        self.lineEdit_3.setObjectName("lineEdit_3")
+        self.horizontalLayout_5.addWidget(self.lineEdit_3)
+        self.pushButton_4 = QtWidgets.QPushButton(self)
+        self.pushButton_4.setEnabled(False)
+        self.pushButton_4.setObjectName("pushButton_4")
+        self.horizontalLayout_5.addWidget(self.pushButton_4)
+        self.formLayout_4.setLayout(3, QtWidgets.QFormLayout.FieldRole, self.horizontalLayout_5)
+        self.horizontalLayout_6 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_6.setObjectName("horizontalLayout_6")
+        self.lineEdit_4 = QtWidgets.QLineEdit(self)
+        self.lineEdit_4.setEnabled(False)
+        self.lineEdit_4.setObjectName("lineEdit_4")
+        self.horizontalLayout_6.addWidget(self.lineEdit_4)
+        self.pushButton_5 = QtWidgets.QPushButton(self)
+        self.pushButton_5.setEnabled(False)
+        self.pushButton_5.setObjectName("pushButton_5")
+        self.horizontalLayout_6.addWidget(self.pushButton_5)
+        self.formLayout_4.setLayout(4, QtWidgets.QFormLayout.FieldRole, self.horizontalLayout_6)
+        self.verticalLayout.addLayout(self.formLayout_4)
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.pushButton_2 = QtWidgets.QPushButton(self)
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.horizontalLayout_2.addWidget(self.pushButton_2)
+        self.pushButton = QtWidgets.QPushButton(self)
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton.setEnabled(True)
+        self.horizontalLayout_2.addWidget(self.pushButton)
+        self.verticalLayout.addLayout(self.horizontalLayout_2)
+
+        self.label.setText("Core Name")
+        self.label_2.setText("File")
+        self.label_3.setText("File")
+        self.label_4.setText("File")
+        self.label_5.setText("Core Type")
+        self.radioButton_2.setText("Chisel")
+        self.radioButton.setText("Verilog")
+        self.pushButton_3.setText("Browse")
+        self.pushButton_4.setText("Browse")
+        self.pushButton_5.setText("Browse")
+        self.pushButton_2.setText("Cancel")
+        self.pushButton.setText("Ok")
+        self.radioButton_2.toggled.connect(self.chisel)
+        self.radioButton.toggled.connect(self.verilog)
+        self.pushButton.setEnabled(False)
+        self.pushButton_3.clicked.connect(self.Vcd)
+        self.pushButton_4.clicked.connect(self.Top)
+        self.pushButton_5.clicked.connect(self.Input)
+        self.lineEdit.textChanged[str].connect(self.unlock)
+        self.lineEdit_2.textChanged[str].connect(self.unlock)
+        self.lineEdit_3.textChanged[str].connect(self.unlock)
+        self.lineEdit_4.textChanged[str].connect(self.unlock)
+        self.pushButton_2.clicked.connect(self.reject)
+        self.pushButton.clicked.connect(self.ok)
+
+    def chisel(self):
+        self.label_2.setText("Vcd file path")
+        self.label_3.setText("Scala file path")
+        self.label_4.setText("Instruction file path")
+        self.label_2.setEnabled(True)
+        self.label_3.setEnabled(True)
+        self.label_4.setEnabled(True)
+        self.pushButton_3.setEnabled(True)
+        self.pushButton_4.setEnabled(True)
+        self.pushButton_5.setEnabled(True)
+        self.lineEdit_2.setEnabled(True)
+        self.lineEdit_3.setEnabled(True)
+        self.lineEdit_4.setEnabled(True)
+        self.lineEdit_2.clear()
+        self.lineEdit_3.clear()
+        self.lineEdit_4.clear()
+    def verilog(self):
+        self.label_2.setText("Vcd file path")
+        self.label_3.setText("Make file path")
+        self.label_4.setText("Input file path")
+        self.label_2.setEnabled(True)
+        self.label_3.setEnabled(True)
+        self.label_4.setEnabled(True)
+        self.pushButton_3.setEnabled(True)
+        self.pushButton_4.setEnabled(True)
+        self.pushButton_5.setEnabled(True)
+        self.lineEdit_2.setEnabled(True)
+        self.lineEdit_3.setEnabled(True)
+        self.lineEdit_4.setEnabled(True)
+        self.lineEdit_2.clear()
+        self.lineEdit_3.clear()
+        self.lineEdit_4.clear()
+    def Vcd(self):
+        filename = QFileDialog.getOpenFileName(None,"Select Core .Vcd file","~",("vcd(*.vcd)"))
+        self.lineEdit_2.setText(filename[0])
+    def Top(self):
+        if self.radioButton_2.isChecked():
+            filename = QFileDialog.getOpenFileName(None,"Select Core .scala file","~",("scala(*.scala)"))
+        elif self.radioButton.isChecked():
+            filename = QFileDialog.getOpenFileName(None,"Select Core make file")
+        self.lineEdit_3.setText(filename[0])
+    def Input(self):
+        if self.radioButton_2.isChecked():
+            filename = QFileDialog.getOpenFileName(None,"Select Core Instruction Input file","~",("scala(*.scala)"))
+        elif self.radioButton.isChecked():
+            filename = QFileDialog.getOpenFileName(None,"Select Core Input file")
+        self.lineEdit_4.setText(filename[0])
+    def unlock(self):
+        if self.lineEdit.text() != '' and self.lineEdit_2.text() != '' and self.lineEdit_3.text() != '' and self.lineEdit_4.text() != '':
+            self.pushButton.setEnabled(True)
+        else:
+            self.pushButton.setDisabled(True)
+
+    def ok(self):
+        if self.radioButton_2.isChecked():
+            type="Chisel"
+        else:
+            type="Verilog"
+        values = {'Name': self.lineEdit.text(),'Type': type ,'Vcd': self.lineEdit_2.text(),'Top': self.lineEdit_3.text(),'Input': self.lineEdit_4.text()}
+        self.accepted.emit(values)
+        self.accept()
     
+    def clr(self):
+        self.lineEdit.clear()
+        self.lineEdit_2.clear()
+        self.lineEdit_3.clear()
+        self.lineEdit_4.clear()
 
 import resource_rc
-
+import Linus
 
 if __name__ == "__main__":
     import sys

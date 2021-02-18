@@ -1,0 +1,4 @@
+
+5SP,Verilog,/home/monis/Desktop/Burq/Buraq_Core_SV32I_5SP/RISCV_SSC.vcd,/home/monis/Desktop/Burq/Buraq_Core_SV32I_5SP/Makefile,/home/monis/Desktop/Burq/Buraq_Core_SV32I_5SP/test.c
+5SP,Verilog,/home/monis/Desktop/Burq/Buraq_Core_SV32I_5SP/RISCV_SSC.vcd,/home/monis/Desktop/Burq/Buraq_Core_SV32I_5SP/Makefile,/home/monis/Desktop/Burq/Buraq_Core_SV32I_5SP/test.c
+single cycle,Chisel,/home/monis/Desktop/Backup-master/Ghaznavi/test_run_dir/examples/Top2/Top2.vcd,/home/monis/Desktop/Backup-master/Ghaznavi/src/main/scala/datapath/Top2.scala,/home/monis/Desktop/Backup-master/Ghaznavi/src/main/scala/datapath/InstructionMemory.scala

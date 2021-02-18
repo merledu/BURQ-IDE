@@ -1,0 +1,7 @@
+Chisel,Chisel
+BuraqSV32i,Verilog,/home/monis/Desktop/Burq/Buraq_Core_SV32I_5SP/RISCV_SSC.vcd,/home/monis/Desktop/Burq/Buraq_Core_SV32I_5SP/Makefile,/home/monis/Desktop/Burq/Buraq_Core_SV32I_5SP/test.c
+
+
+
+
+

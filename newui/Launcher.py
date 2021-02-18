@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import time
-from QTermWidget import QTermWidget
+import term
 import Linus
 from threading import Thread
 from PyQt5.QtWidgets import QMainWindow, QLabel
@@ -75,7 +75,7 @@ class Ui_MainWindow(object):
         a=0
         for i in range(n):
             self.progressBar.setProperty("value", a)
-            time.sleep(0.07)
+            time.sleep(0.0186)
             a+=1
         print('done sleeping!')
         MainWindow.close()

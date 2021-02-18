@@ -1,5 +1,5 @@
 import re
-f = open('/home/monis/learning-journey/machine.txt', 'r')
+f = open('/home//home//home//home//home//home//home//home//home//home//home//home//home//home//home//home//home//home//home//home//home//home//home//home//home//home//home/waleeds1/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/Desktop/Burq/machine.txt', 'r')
 x = f.readlines()
 f.close()
 
