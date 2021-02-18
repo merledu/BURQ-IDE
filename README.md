@@ -1,61 +1,23 @@
+![BURQ](https://github.com/merledu/BURQ-IDE/blob/master/newui/splash_logo.png)
+
 # BURQ-IDE
 This Repository Contains Source Code for the Burq-ide project 
 
-
-# Burq_IDE Cloning 
-    
+# Prerequesties
 ~~~
-   1. To Start First Clone the library to your home directory
-   2. Run the username.py to change all the paths to your local machine directory.
-   3. For the Gnu-toolchain since its required to have an up-to-date version of this run Gnu-toolchain-setup.sh via terminal as ./Gnu-toolchain-setup.sh
-
-To get all the libraries and dependencies installed for the project run this command
+1.Python and C compiler 
+2.GCC shown below in the readme file on how to clone it
+3.Risc-V based core the ide does have base cores for testing but you will need to add your's for full functionality 
+4.A debain based OS (linux mint or ubuntu or some other you know)
 ~~~
-~~~
-To install all dependencies
-./dependencies.sh
-~~~
-~~~
-It can take for both commands any where from 30min to 3hr depending on your machine and internet connection.
-For pictorial view click on the thread wiki
-
-How ever if the above does not work due to some reason then try the below wiki otherwise skip 
-~~~
-
-# Second Method
-
 
 # UPDATE TO THE TERMINAL Widget
-The rxvt-unicode terminal has been removed from the project because of its rescaling issue and is replaced by QTermWidget
+The rxvt-unicode terminal has been removed from the project because of its rescaling issue and is replaced by QTermWidget which is further changed to qterminal
 But in order to use it some libraries and pre-compilation is required.
 1. sudo -H pip3 install -U pyqt5 pyqtwebengine
 2. sudo apt install python3-sip-dev python3-pyqt5
-3. Then Run this,
+3. You would need to compile certain element like Pyqt as its extending libraries like sip won't reconginize it when building
 
-mkdir -p /tmp/EAF && cd /tmp/EAF
-git clone https://github.com/lxqt/qtermwidget  
-cd qtermwidget  
-mkdir build && cd build  
-cmake .. -DQTERMWIDGET_BUILD_PYTHON_BINDING=ON -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr
-make && sudo make install
-
-4. But if for some reason it gives you this error
-~~~
- 87%] Built target qtermwidget5
-Byte-compiling /tmp/EAF/qtermwidget/build/pyqt//__init__.py to /tmp/EAF/qtermwidget/build/pyqt//__pycache__/__init__.cpython-36.pyc
-[ 87%] Built target __tmp_EAF_qtermwidget_build_pyqt____pycache_____init__.cpython-36.pyc
-[ 89%] Generating sip/sipQTermWidgetpart0.cpp, sip/sipQTermWidgetpart1.cpp, sip/sipQTermWidgetpart2.cpp, sip/sipQTermWidgetpart3.cpp, sip/sipQTermWidgetpart4.cpp, sip/sipQTermWidgetpart5.cpp, sip/sipQTermWidgetpart6.cpp, sip/sipQTermWidgetpart7.cpp
-
-sip: Unable to find file "QtGui/QtGuimod.sip"
-pyqt/CMakeFiles/python_module_QTermWidget.dir/build.make:62: recipe for target 'pyqt/sip/sipQTermWidgetpart0.cpp' failed
-make[2]: *** [pyqt/sip/sipQTermWidgetpart0.cpp] Error 1
-make[2]: *** Deleting file 'pyqt/sip/sipQTermWidgetpart0.cpp'
-CMakeFiles/Makefile2:179: recipe for target 'pyqt/CMakeFiles/python_module_QTermWidget.dir/all' failed
-make[1]: *** [pyqt/CMakeFiles/python_module_QTermWidget.dir/all] Error 2
-Makefile:129: recipe for target 'all' failed
-make: *** [all] Error 2
-~~~
-5. Then you would need to compile it in root
 # Root compilation
 1. start by typing sudo -i in the terminal
 2. Then execute these commands (This may take 30 to 90 minutes depending on your machine and internet connection)
@@ -83,37 +45,25 @@ cd /tmp/EAF && \
     && make && sudo make install
 
 cd /tmp/EAF && \
-    wget https://www.riverbankcomputing.com/static/Downloads/sip/4.19.24/sip-4.19.24.tar.gz&& \
-    tar xvzf sip-4.19.24.tar.gz&& \
-    cd sip-4.19.24&& \
+    wget https://www.riverbankcomputing.com/static/Downloads/sip/sip-6.0.2.dev2102091232.tar.gz && \
+    tar xvzf sip-6.0.2.dev2102091232.tar.gz&& \
+    cd sip-6.0.2.dev2102091232 && \
     python3 configure.py --sip-module PyQt5.sip && \
     make && \
     sudo make install
 
 cd /tmp/EAF && \
-    wget https://www.riverbankcomputing.com/static/Downloads/PyQt5/PyQt5-5.15.3.dev2101031745.tar.gz && \
-    tar xvzf PyQt5-5.15.3.dev2101031745.tar.gz && \
-    cd PyQt5-5.15.3.dev2101031745 && \
+    wget https://www.riverbankcomputing.com/static/Downloads/PyQt5/PyQt5-5.15.3.dev2102091740.tar.gz && \
+    tar xvzf PyQt5-5.15.3.dev2102091740.tar.gz && \
+    cd PyQt5-5.15.3.dev2102091740 && \
     python3 configure.py --confirm-license && \
     make && \
     sudo make install
 
-cd /tmp/EAF && \
-    git clone https://github.com/lxqt/qtermwidget \
-    && cd qtermwidget \
-    && mkdir build && cd build \
-    && cmake .. -DQTERMWIDGET_BUILD_PYTHON_BINDING=ON -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/lib \
-    && make && sudo make install
     
+
 ~~~
-3. Then after that exit root by typing exit or ctrl-z then type these commands,
-~~~
-cd /tmp/EAF && cd qtermwidget      
-&& cd build     
-&& cmake .. -DQTERMWIDGET_BUILD_PYTHON_BINDING=ON -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/lib     
-&& make && sudo make install
-~~~
-4. Then you are good to go 
+3. Then you are good to go 
 
 First some prerequesties
 1. sudo apt-get install gtkwave
