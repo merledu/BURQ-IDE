@@ -22,6 +22,9 @@ But in order to use it some libraries and pre-compilation is required.
 1. start by typing sudo -i in the terminal
 2. Then execute these commands (This may take 30 to 90 minutes depending on your machine and internet connection)
 ~~~
+Before doing anything in the root set your python dependencies to python3 
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
+
 sudo apt-get update && apt-get install \
     -y --no-install-recommends \
     build-essential \
