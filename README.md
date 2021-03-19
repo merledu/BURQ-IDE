@@ -10,8 +10,13 @@ This Repository Contains Source Code for the Burq-ide project
 3.Risc-V based core the ide does have base cores for testing but you will need to add your's for full functionality 
 4.A debain based OS (linux mint or ubuntu or some other you know)
 ~~~
+# Start the IDE
+~~~
+1.Run the ./install.sh file to install all dependencies the python LightW.py needs including the QtermWidget.
+2.Run the Launcher.py to run  the IDE and you are good to go 
+~~~
 
-# UPDATE TO THE TERMINAL Widget
+# Mannual Compilation
 The rxvt-unicode terminal has been removed from the project because of its rescaling issue and is replaced by QTermWidget which is further changed to qterminal
 But in order to use it some libraries and pre-compilation is required.
 1. sudo -H pip3 install -U pyqt5 pyqtwebengine
