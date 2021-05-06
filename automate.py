@@ -1,5 +1,5 @@
 import re
-a=open("/home/monis/Desktop/Burq/5-stage-Pipelined-CPU/RV32i/test_run_dir/examples/Top2/check.txt","r")
+a=open("/home/monis/Desktop/BURQ-IDE/5-stage-Pipelined-CPU/RV32i/test_run_dir/examples/Top2/check.txt","r")
 b=[]
 
 for x in a:

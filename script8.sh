@@ -5,7 +5,7 @@ clear
 clear
 cd ~
 
-cd /home/monis/Desktop/Burq/5-stage-Pipelined-CPU/RV32i/test_run_dir/examples/Top2
+cd /home/monis/Desktop/BURQ-IDE/5-stage-Pipelined-CPU/RV32i/test_run_dir/examples/Top2
 
 
 echo "Run Test Complete Checking Output !!"

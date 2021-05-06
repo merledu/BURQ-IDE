@@ -6,6 +6,7 @@ import LineNumber
 import webbrowser
 import hightest
 import time
+from QTermWidget import QTermWidget
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 import os
@@ -17,7 +18,6 @@ import find
 import Linus
 import getpass
 import Add_core
-import QTerminal2
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -137,7 +137,10 @@ class Ui_MainWindow(object):
         self.tabWidget.setObjectName("tabWidget")
 
         #Terminal
-        self.tab1 = QTerminal2.MainWindow12()
+        self.tab1 = QTermWidget()
+        self.tab1.setScrollBarPosition(self.tab1.ScrollBarRight)
+        
+        self.tab1.setColorScheme("BlackOnWhite")
         self.tabWidget.addTab(self.tab1, "Terminal")
         
         self.tab_3 = QtWidgets.QWidget()
@@ -641,7 +644,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "BURQ IDE"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "BURQ-IDE"))
         MainWindow.setWindowIcon(QIcon("About_logo.png"))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab), _translate("MainWindow", "Untitled"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab1), _translate("MainWindow", "Terminal"))
@@ -890,22 +893,22 @@ class Ui_MainWindow(object):
         options = []
         options.extend([command])
         options.extend(["\n"])
-        self.tab1.commandfield.clear()
-        self.tab1.commandfield.appendPlainText(options[0])
-        self.tab1.run()
+        print(options)
+        for data in range(len(options)):
+            self.tab1.sendText(options[data])
         
         
         
 
     def read_MachineCode(self):
-        file = open("/home/monis/Desktop/Burq/machinecode.txt", "r")
+        file = open("/home/monis/Desktop/BURQ-IDE/machinecode.txt", "r")
         machineCode = file.read()
         file.close()
         self.plainTextEdit_3.setPlainText(machineCode)
         
 
     def read_AssemblyCode(self):
-        file = open("/home/monis/Desktop/Burq/machine.txt", "r")
+        file = open("/home/monis/Desktop/BURQ-IDE/machine.txt", "r")
         assembly = file.read()
         file.close()
         self.plainTextEdit_2.setPlainText(assembly)
@@ -914,7 +917,7 @@ class Ui_MainWindow(object):
     def save_Code(self):
         if self.comboBox.currentText()!="Chisel" and self.comboBox.currentText()!="BuraqSV32i":
         	p=self.comboBox.currentText()
-        	core=open("/home/monis/Desktop/Burq/newui/Core.txt","rt")
+        	core=open("/home/monis/Desktop/BURQ-IDE/newui/Core.txt","rt")
         	coreread=core.readlines()
         	for i in coreread:
         		s=i.split(',')
@@ -925,11 +928,11 @@ class Ui_MainWindow(object):
         			file1.close()
         	 
         else:
-        	file = open("/home/monis/Desktop/Burq/test.c", "w")
+        	file = open("/home/monis/Desktop/BURQ-IDE/test.c", "w")
         	code = self.plainTextEdit.toPlainText()
         	file.write(code)
         	file.close()
-        	file1 = open("/home/monis/Desktop/Burq/Buraq_Core_SV32I_5SP/test.c", "w")
+        	file1 = open("/home/monis/Desktop/BURQ-IDE/Buraq_Core_SV32I_5SP/test.c", "w")
         	code1 = self.plainTextEdit.toPlainText()
         	file1.write(code1)
         	file1.close()
@@ -942,7 +945,7 @@ class Ui_MainWindow(object):
         self.plainTextEdit_3.setPlainText("")
         
         
-        self.run_Command("cd /home/monis/Desktop/Burq/")
+        self.run_Command("cd /home/monis/Desktop//")
         self.run_Command("bash script5.sh")
         self.run_Command("bash script2.sh")
         if self.comboBox.currentText()=="Chisel":
@@ -991,7 +994,7 @@ class Ui_MainWindow(object):
     def output(self):
         import re
         time.sleep(0.5)
-        file=open("/home/monis/Desktop/Burq/output.txt", "r")
+        file=open("/home/monis/Desktop/BURQ-IDE/output.txt", "r")
         self.out12=file.read()
         file.close()
         self.plainTextEdit23.setPlainText(self.out12)
@@ -1000,7 +1003,7 @@ class Ui_MainWindow(object):
     def error_check(self):   ##Error Check by GCC Line Number
         import re
         time.sleep(0.5)
-        file = open("/home/monis/Desktop/Burq/meralog.txt", "r")
+        file = open("/home/monis/Desktop/BURQ-IDE/meralog.txt", "r")
         assembly = file.read()
         x = re.findall("    [0-9] |   [1-9999][0-9999] ",assembly)
         
@@ -1022,7 +1025,7 @@ class Ui_MainWindow(object):
         if self.core==1:
             self.read_AssemblyCode()
             self.read_MachineCode()
-            self.run_Command("cd /home/monis/Desktop/Burq/")
+            self.run_Command("cd /home/monis/Desktop/BURQ-IDE/")
             self.run_Command("bash script3.sh")
             self.run_Command("bash script8.sh")
             self.run_Command("bash script6.sh")
@@ -1031,7 +1034,7 @@ class Ui_MainWindow(object):
             self.read_AssemblyCode()
             self.read_MachineCode()
             self.getcode()
-            self.run_Command("cd /home/monis/Desktop/Burq/")
+            self.run_Command("cd /home/monis/Desktop/BURQ-IDE/")
             self.run_Command("bash Verilog-run.sh")
             self.run_Command("bash script9.sh")
             self.run_Command("bash script7.sh")
@@ -1040,7 +1043,7 @@ class Ui_MainWindow(object):
             
 
     def getcode(self):
-        self.run_Command("cd /home/monis/Desktop/Burq/")
+        self.run_Command("cd /home/monis/Desktop/BURQ-IDE/")
         self.run_Command("bash script4.sh")
         self.output()
         
