@@ -106,8 +106,8 @@ First some prerequesties
 4 .Now write another command on terminal git clone --recursive https://github.com/riscv/riscv-gnu-toolchain it will take half an hour approx or maybe more depending on your machine and internet connection.
 5. after cloning riscv-gnu-toolchain a folder name as riscv-gnu-toolchain created in your root director no go to in that folder by using this command cd /build/riscv-gnu-toolchain/
 6. Now create another folder or directory inside riscv-gnu-toolchain folder by using this command mkdir build now go inside this folder by writing cd build.
-7. Now write this command on your command line ../configure --prefix=/opt/riscv32 --with-arch=rv32im --with-abi=ilp32 it will take few minutes.
-8. Now type make on your command line it will take more than half an hour or more depending on your machine.
+7. Now write this command on your command line ../configure --prefix=/opt/riscv32 --with-arch=rv32gc --with-abi=ilp32 it will take few minutes.
+8. Now type make on your command line it will take more than half an hour or more depending on your machine and internet.
 9. after running the make command you have to make sure that the files or directory i am providing you below must be in your PC you can check it by writing ls $ ls build-binutils-newlib build-gcc-newlib-stage2 build-newlib config.log install-newlib-nano scripts build-gcc-newlib-stage1 build-gdb-newlib build-newlib-nano config.status Makefile stamps make sure these 12 directory must be in your pc.
 10. Now finally write this command on your command line tree -L 3 -d
 
